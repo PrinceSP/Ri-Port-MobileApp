@@ -9,6 +9,7 @@ import {
 
 import slides from './onBoardList'
 import OnBoardingItem from './onBoardingItem'
+import Paginator from '../paginator'
 
 const OnBoarding = () => {
   const [currentIIndex,setCurrentIndex]=useState(0)
@@ -41,6 +42,7 @@ const OnBoarding = () => {
           ref={sideRef}
           />
       </View>
+      <Paginator data={slides} scrollX={scrollX}/>
     </View>
   );
 };
@@ -48,9 +50,9 @@ const OnBoarding = () => {
 const style = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"linear-gradient(180deg, #BBFF64 -25.56%, rgba(192, 206, 173, 0) 100%), #FFFFFF;",
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'#fff'
   }
 })
 
