@@ -10,11 +10,13 @@ import {
 import slides from './onBoardList'
 import OnBoardingItem from './onBoardingItem'
 import Paginator from '../paginator'
+import {Button} from '../../atoms'
 
-const OnBoarding = () => {
-  const [currentIIndex,setCurrentIndex]=useState(0)
+const OnBoarding = ({navigation}) => {
+  const [currentIndex,setCurrentIndex]=useState(0)
   const scrollX = useRef(new Animated.Value(0)).current;
 
+  //set the current index of each item
   const viewableItemsChanged = useRef(({viewableItems}) =>{
     setCurrentIndex(viewableItems[0].index)
   }).current
@@ -42,6 +44,11 @@ const OnBoarding = () => {
           ref={sideRef}
           />
       </View>
+      <Button name="Get Started"
+        size={20}
+        weight={600} style={style.button}
+        color="#fff"
+        onPress={() => navigation.navigate('WelcomeScreen')}/>
       <Paginator data={slides} scrollX={scrollX}/>
     </View>
   );
@@ -53,6 +60,15 @@ const style = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     backgroundColor:'#fff'
+  },
+  button:{
+    marginBottom:75,
+    backgroundColor:'#1da43b',
+    height:56,
+    width:227,
+    borderRadius:50,
+    alignItems:'center',
+    justifyContent:'center'
   }
 })
 

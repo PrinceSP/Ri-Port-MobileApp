@@ -31,6 +31,7 @@ const Paginator = ({data,scrollX}) => {
         })
         return <Animated.View style={[style.dot,{width: dotWidth,opacity}]} key={i.toString()}/>
       })}
+
     </View>
   );
 };
@@ -41,7 +42,16 @@ const style = StyleSheet.create({
     borderRadius:6,
     backgroundColor:'#493d8a',
     marginHorizontal:8
-  }
+  },
+  // button:{
+  //   marginBottom:75,
+  //   backgroundColor:'#1da43b',
+  //   height:56,
+  //   width:227,
+  //   borderRadius:50,
+  //   alignItems:'center',
+  //   justifyContent:'center'
+  // }
 })
 
 export default Paginator;

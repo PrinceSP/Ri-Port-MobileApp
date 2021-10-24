@@ -5,23 +5,16 @@ import {
   Text,
   View,
 } from 'react-native';
-
-import {OnBoarding} from './components'
+import { NavigationContainer } from '@react-navigation/native';
+import Routes from './routes'
 
 const App = () => {
 
   return (
-    <OnBoarding/>
+    <NavigationContainer>
+      <Routes/>
+    </NavigationContainer>
   );
-};
 
-const style = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"#fff",
-    alignItems:'center',
-    justifyContent:'center'
-  }
-})
-
+}
 export default App;

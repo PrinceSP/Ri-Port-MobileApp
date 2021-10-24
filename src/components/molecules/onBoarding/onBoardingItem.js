@@ -31,11 +31,11 @@ const style = StyleSheet.create({
     justifyContent:'center'
   },
   image:{
-    height:97,
-    width:104,
+    height:185,
+    // width:200,
     justifyContent:'center',
-    position:'absolute',
-    top:97
+    // position:'absolute',
+    // top:97
   },
   title:{
     marginTop:65,
