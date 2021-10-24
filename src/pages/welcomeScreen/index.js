@@ -9,7 +9,7 @@ import {OnBoarding} from '../../components'
 import {Button} from '../../components'
 import {Img4} from '../../assets'
 
-const WelcomeScreen = ()=>{
+const WelcomeScreen = ({navigation})=>{
   return(
     <View style={style.container}>
       <Image style={style.image} source={Img4}/>
@@ -21,11 +21,12 @@ const WelcomeScreen = ()=>{
           style={[style.button,{backgroundColor:'#fff',borderWidth:1}]}
           size={23}
           weight={600}
-          color="#000"/>
+          color="#000"
+          onPress={()=>navigation.replace('Login')}/>
         <Button name="Sign Up"
-          style={style.button} 
-          size={23} 
-          weight={600} 
+          style={style.button}
+          size={23}
+          weight={600}
           color="#fff"/>
       </View>
     </View>

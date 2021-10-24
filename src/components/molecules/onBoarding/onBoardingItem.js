@@ -39,11 +39,11 @@ const style = StyleSheet.create({
   },
   title:{
     marginTop:65,
-    fontWeight:'800',
     fontSize:30,
     marginBottom:25,
     color:'#493d7a',
     textAlign:'center',
+    fontFamily:'Lato-Black'
   },
   desc:{
     fontWeight:'300',
