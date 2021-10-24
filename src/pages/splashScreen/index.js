@@ -9,7 +9,7 @@ const SplashScreen = ({navigation})=>{
   useEffect(()=>{
     setTimeout(()=>{
       navigation.replace('OnBoardingPage');
-    },1200)
+    },2000)
   },[])
   return(
     <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
