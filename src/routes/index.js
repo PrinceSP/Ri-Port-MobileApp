@@ -1,9 +1,17 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register} from '../pages'
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home} from '../pages'
 
 const {Navigator, Screen} = createNativeStackNavigator()
+
+// const Drawer = createDrawerNavigator()
+//
+// const RouteDrawer = ()=>{
+//   <Drawer.Navigator initialRouteName="Home">
+//     <Drawer.Screen/>
+//   </Drawer.Navigator>
+// }
 
 const Routes = ()=>{
   return(
