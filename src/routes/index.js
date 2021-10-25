@@ -2,14 +2,24 @@ import React from 'react'
 import { Button, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,MainApp} from '../pages'
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile} from '../pages'
+import {DrawerContent} from '../components'
 
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 const Root=()=>{
   return(
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="Home"
+      drawerContent={props=><DrawerContent {...props}/>}
+
+      options={{
+        drawerActiveTintColor: 'blue',
+        drawerActiveBackgroundColor: 'lightblue',
+        drawerInactiveTintColor: 'blue',
+        drawerInactiveBackgroundColor: 'white',
+      }}
+      >
       <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
       <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
     </Drawer.Navigator>

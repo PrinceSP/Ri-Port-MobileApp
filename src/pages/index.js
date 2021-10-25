@@ -5,6 +5,5 @@ import Login from './login'
 import Register from './register'
 import Home from './home'
 import Profile from './profile'
-import MainApp from './mainApp'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,Register,Home,Profile,MainApp}
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,Register,Home,Profile}
