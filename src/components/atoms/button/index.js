@@ -1,12 +1,13 @@
 import React from 'react'
 import {TouchableOpacity,Text,StyleSheet} from 'react-native'
 
-const Button = ({name,size,weight,color,...rest})=>{
+const Button = ({name,size,weight,color,fam,...rest})=>{
   const style = StyleSheet.create({
     text:{
       color,
       fontSize:size,
-      fontWeight:`${weight}`
+      fontWeight:`${weight}`,
+      fontFamily:fam
     }
   })
 
