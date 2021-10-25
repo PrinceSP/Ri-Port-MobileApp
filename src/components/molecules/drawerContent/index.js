@@ -65,7 +65,7 @@ function DrawerContent(props){
               label="Sign Out"
               onPress={()=>{}}/>
           </View>
-          <View style={[{paddingTop:23}]}>
+          <View style={[{paddingTop:19}]}>
             <DrawerItem labelStyle={menu}
               icon={()=><Share height={28} width={28}/>}
               label="Tell a friend"
@@ -75,9 +75,13 @@ function DrawerContent(props){
               label="Help and Feedback"
               onPress={()=>{}}/>
           </View>
+          <View style={{paddingLeft:20,marginTop:20}}>
+            <Text>v.1.0</Text>
+          </View>
         </View>
       </DrawerContentScrollView>
-      <View style={{marginBottom:15}}>
+      <View style={{marginBottom:15,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
+        <Text style={{marginRight:10}}>Made By</Text>
         <Image source={PD}/>
       </View>
     </View>
