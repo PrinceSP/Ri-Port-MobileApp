@@ -2,7 +2,7 @@ import React from 'react'
 import {Text,View,StyleSheet,ScrollView} from 'react-native'
 import {Input,Gap,Button,Header} from '../../components'
 
-const Register =()=>{
+const Register =({navigation})=>{
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={20}/>
@@ -35,7 +35,8 @@ const Register =()=>{
         <Gap height={30}/>
         <Input placeholder="Password" />
         <Gap height={78}/>
-        <Button style={style.button} name="SIGN UP" color="#FFF" weight={500} size={24}/>
+        <Button style={style.button} name="SIGN UP" color="#FFF" weight={500} size={24}
+          onPress={()=>navigation.navigate('Root',{screen:'Home'})}/>
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>
           <Text style={style.poppinsMed}>Have an account?</Text>

@@ -1,17 +1,20 @@
 import React from 'react'
+import { Button, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home} from '../pages'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,MainApp} from '../pages'
 
 const {Navigator, Screen} = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
 
-// const Drawer = createDrawerNavigator()
-//
-// const RouteDrawer = ()=>{
-//   <Drawer.Navigator initialRouteName="Home">
-//     <Drawer.Screen/>
-//   </Drawer.Navigator>
-// }
+const Root=()=>{
+  return(
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
+      <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
+    </Drawer.Navigator>
+  )
+}
 
 const Routes = ()=>{
   return(
@@ -21,8 +24,8 @@ const Routes = ()=>{
       <Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown:false}}/>
       <Screen name="Login" component={Login} options={{headerShown:false}}/>
       <Screen name="Register" component={Register} options={{headerShown:false}}/>
+      <Screen name="Root" component={Root} options={{headerShown:false}}/>
     </Navigator>
   )
 }
-
 export default Routes
