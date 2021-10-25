@@ -1,8 +1,34 @@
-import React from 'react'
-import {Text,View,StyleSheet,ScrollView} from 'react-native'
+import React,{useState} from 'react'
+import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
 import {Input,Gap,Button,Header} from '../../components'
+import {PD} from '../../assets'
+import {launchImageLibrary} from 'react-native-image-picker'
 
 const Register =({navigation})=>{
+  const [photo,setPhoto] = useState('')
+  const [hasPhoto, setHasPhoto] = useState(false)
+  const [photoBase64,setPhotoBase64] = useState('')
+
+  let isTrue;
+
+  const getImage=()=>{
+    const options={
+      maxHeight:160,
+      maxWidth:160,
+      // includeBase64:true,
+    }
+    launchImageLibrary(options,res=>{
+      console.log(res.assets[0].uri);
+      if(res.didCancel){
+        setHasPhoto(false)
+      }else{
+        setPhoto(res.assets[0].uri);
+        setPhotoBase64(res.base64);
+        setHasPhoto(true);
+      }
+    })
+  }
+
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={20}/>
@@ -11,14 +37,15 @@ const Register =({navigation})=>{
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}}>
         <View style={{alignItems:'center'}}>
           <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:150,width:150,alignItems:'center',justifyContent:'center'}}>
-            <View style={{height:130,width:130,backgroundColor:'#eee',borderRadius:65}}/>
+            {isTrue = hasPhoto===true?<Image style={{height:130,width:130,borderRadius:65}} source={{uri:photo}}/>:<View style={{height:130,width:130,backgroundColor:'#eee',borderRadius:65}}/>}
           </View>
           <Gap height={21}/>
           <Button name="Upload a profile image"
             color="#6DCDF5"
             fam="Poppins-Medium"
             size={19}
-            style={{miWidth:200,alignItems:'center'}}/>
+            style={{miWidth:200,alignItems:'center'}}
+            onPress={getImage}/>
         </View>
         <Gap height={59}/>
         <Input placeholder="Fullname" />
