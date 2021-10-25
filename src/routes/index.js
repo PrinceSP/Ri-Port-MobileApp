@@ -12,13 +12,6 @@ const Root=()=>{
   return(
     <Drawer.Navigator initialRouteName="Home"
       drawerContent={props=><DrawerContent {...props}/>}
-
-      options={{
-        drawerActiveTintColor: 'blue',
-        drawerActiveBackgroundColor: 'lightblue',
-        drawerInactiveTintColor: 'blue',
-        drawerInactiveBackgroundColor: 'white',
-      }}
       >
       <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
       <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
