@@ -44,12 +44,12 @@ const OnBoarding = ({navigation}) => {
           ref={sideRef}
           />
       </View>
+      <Paginator data={slides} scrollX={scrollX}/>
       <Button name="Get Started"
         size={20}
         weight={600} style={style.button}
         color="#fff"
         onPress={() => navigation.navigate('WelcomeScreen')}/>
-      <Paginator data={slides} scrollX={scrollX}/>
     </View>
   );
 };
@@ -62,13 +62,17 @@ const style = StyleSheet.create({
     backgroundColor:'#fff'
   },
   button:{
-    marginBottom:75,
-    backgroundColor:'#1da43b',
+    marginBottom:45,
+    backgroundColor:'#2940D3',
+    // backgroundColor:'#1da43b',
     height:56,
-    width:227,
-    borderRadius:50,
+    width:327,
+    borderRadius:10,
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    shadowColor: '#3D087B',
+    shadowOpacity: 1,
+    elevation: 9
   }
 })
 

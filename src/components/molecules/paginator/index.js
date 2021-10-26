@@ -43,15 +43,6 @@ const style = StyleSheet.create({
     backgroundColor:'#493d8a',
     marginHorizontal:8
   },
-  // button:{
-  //   marginBottom:75,
-  //   backgroundColor:'#1da43b',
-  //   height:56,
-  //   width:227,
-  //   borderRadius:50,
-  //   alignItems:'center',
-  //   justifyContent:'center'
-  // }
 })
 
 export default Paginator;

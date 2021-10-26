@@ -5,7 +5,7 @@ import {MainLogo} from '../../assets'
 const SplashScreen = ({navigation})=>{
   useEffect(()=>{
     setTimeout(()=>{
-      navigation.replace('OnBoardingPage');
+      navigation.replace('Register');
     },2000)
   },[])
   return(

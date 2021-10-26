@@ -12,7 +12,16 @@ const Root=()=>{
   return(
     <Drawer.Navigator initialRouteName="Home"
       drawerContent={props=><DrawerContent {...props}/>}
-      >
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#FFFFFF',
+          width: 300,
+          borderTopRightRadius:20,
+          borderBottomRightRadius:20,
+        },
+        focused:Boolean,
+        drawerActiveBackgroundColor:'#abcdef'
+      }}>
       <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
       <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
     </Drawer.Navigator>

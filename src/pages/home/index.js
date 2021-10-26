@@ -1,9 +1,9 @@
 import React from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
-import {Header,Gap} from '../../components'
+import {Header,Gap,WeatherAPI} from '../../components'
 import {Atomic} from '../../assets'
 
-const Home = ({navigation})=>{
+function getCurrentDate(){
   const months = [
     'January','February','March','April',
     'Mei','June','July','August',
@@ -13,6 +13,11 @@ const Home = ({navigation})=>{
   let dd = String(today.getDate()).padStart(2, '0');
   let mm = String(today.getMonth()+1).padStart(2,'0');
   let year = today.getFullYear()
+
+  return today=`${dd} ${months[mm-1]} ${year}`
+}
+
+const Home = ({navigation})=>{
 
   return(
     <View style={container}>
@@ -25,7 +30,8 @@ const Home = ({navigation})=>{
           <Text style={headingTitle1}> Prince!</Text>
           <Image style={{right:6,bottom:2}} source={Atomic}/>
         </View>
-        <Text style={{fontSize:20,fontFamily:'Poppins-Light'}}>{today=`${dd} ${months[mm-1]} ${year}`}</Text>
+        <Text style={{fontSize:20,fontFamily:'Poppins-Light'}}>{getCurrentDate()}</Text>
+        <WeatherAPI/>
       </ScrollView>
     </View>
   )

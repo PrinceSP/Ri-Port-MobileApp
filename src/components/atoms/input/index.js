@@ -12,10 +12,15 @@ const style=StyleSheet.create({
     height:50,
     width:329,
     borderWidth:1.5,
-    borderColor:'#A0A0A0',
+    borderColor:'#B5DCFF',
     borderRadius:50,
     paddingHorizontal:28.77,
-    fontSize:19
+    fontSize:19,
+    backgroundColor:'#fff',
+    // shadowColor: '#666',
+    // shadowOffset: { width: 10, height: 10 },
+    // shadowOpacity: 1,
+    // elevation:40
   }
 })
 

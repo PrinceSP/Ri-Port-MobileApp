@@ -3,7 +3,7 @@ import {View,Text, Platform} from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Button} from '../../components'
 
-const Profile = ()=>{
+const DatePicker = ()=>{
   const [date,setDate] = useState(new Date())
   const [mode,setMode] = useState('date')
   const [show,setShow] = useState(false)
@@ -19,10 +19,16 @@ const Profile = ()=>{
   }
 
   return(
-    <View>
-      <Text>Profile</Text>
-    </View>
+      {
+        show && <DateTimePicker testID='dateTimePicker'
+        value={date}
+        mode={mode}
+        display='default'
+        onChange={onChange}
+        is24Hour={true}
+        />
+      }
   )
 }
 
-export default Profile
+export default DatePicker
