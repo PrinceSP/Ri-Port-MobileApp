@@ -8,5 +8,8 @@ import Single from './single_logo.png'
 import PD from './pdLogo.png'
 import Burger from './burger.svg'
 import Atomic from './atomic.png'
+import HomeIcon from './home.svg'
+import ReportIcon from './report.svg'
+import NotifIcon from './notif.svg'
 
-export {MainLogo,AvatarProfile,Help,Report,Share,SignOut,Single,PD,Burger,Atomic}
+export {MainLogo,AvatarProfile,Help,Report,Share,SignOut,Single,PD,Burger,Atomic,HomeIcon,ReportIcon,NotifIcon}

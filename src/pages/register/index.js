@@ -96,7 +96,7 @@ const Register =({navigation})=>{
         <Input placeholder="Password" />
         <Gap height={78}/>
         <Button style={style.button} name="SIGN UP" color="#FFF" weight={500} size={24}
-          onPress={()=>navigation.navigate('Root',{screen:'Home'})}/>
+          onPress={()=>navigation.navigate('Root',{screen:'BottomTabs'})}/>
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>
           <Text style={style.poppinsMed}>Have an account?</Text>

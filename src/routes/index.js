@@ -1,13 +1,23 @@
 import React from 'react'
-import { Button, View } from 'react-native';
+import { Button, View,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile} from '../pages'
-import {DrawerContent} from '../components'
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,ReportPage} from '../pages'
+import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
+const Tab = createBottomTabNavigator()
 
+ const BottomTabs = ()=>{
+  return(
+    <Tab.Navigator tabBar={(props)=><TabsContent {...props}/>} screenOptions={{headerShown:false}}>
+      <Tab.Screen name="Home" component={Home}/>
+      <Tab.Screen name="Report" component={ReportPage}/>
+      <Tab.Screen name="Profile" component={Profile}/>
+    </Tab.Navigator>
+  )
+}
 const Root=()=>{
   return(
     <Drawer.Navigator initialRouteName="Home"
@@ -22,7 +32,7 @@ const Root=()=>{
         focused:Boolean,
         drawerActiveBackgroundColor:'#abcdef'
       }}>
-      <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
+      <Drawer.Screen name="BottomTabs" component={BottomTabs} options={{headerShown:false}}/>
       <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
     </Drawer.Navigator>
   )
