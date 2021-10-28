@@ -8,7 +8,7 @@ const {width} = Dimensions.get('screen')
 const TabsContent = ({state,navigation})=>{
   const [selected,setSelected] = useState('Home')
   const {routes} = state
-  const current = (currentTab) => {return (currentTab===selected ? '#F24E1E':'#fff')}
+  const current = (currentTab) => {return (currentTab===selected ? '#fff':'none')}
 
   const handleChange = (active)=>{
     setSelected(active)
@@ -33,15 +33,20 @@ const TabsContent = ({state,navigation})=>{
 
 const style = StyleSheet.create({
   container:{
-    minHeight:90,
+    height:60,
     position:'absolute',
-    width,
+    // width,
     elevation:0,
-    bottom:25,
-    borderRadius:15,
+    bottom:15,
+    // borderTopRightRadius:15,
+    // borderTopLeftRadius:15,
+    left:10,
+    right:10,
+    borderRadius:50,
     alignItems:'center',
     justifyContent:'space-around',
-    flexDirection:'row'
+    flexDirection:'row',
+    backgroundColor:'#0C4274',
   }
 })
 
