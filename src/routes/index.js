@@ -3,7 +3,7 @@ import { Button, View,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,ReportPage} from '../pages'
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,ReportPage,NotificationsPage} from '../pages'
 import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator()
     <Tab.Navigator tabBar={(props)=><TabsContent {...props}/>} screenOptions={{headerShown:false}}>
       <Tab.Screen name="Home" component={Home}/>
       <Tab.Screen name="Report" component={ReportPage}/>
-      <Tab.Screen name="Profile" component={Profile}/>
+      <Tab.Screen name="Notif" component={NotificationsPage}/>
     </Tab.Navigator>
   )
 }

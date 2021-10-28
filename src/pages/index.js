@@ -6,5 +6,7 @@ import Register from './register'
 import Home from './home'
 import Profile from './profile'
 import ReportPage from './reportPage'
+import NotificationsPage from './notificationPage'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,Register,Home,Profile,ReportPage}
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,
+  Register,Home,Profile,ReportPage,NotificationsPage}
