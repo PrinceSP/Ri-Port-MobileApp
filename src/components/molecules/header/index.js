@@ -20,7 +20,7 @@ const Header = ({name,button,navigation,action,edit,nav})=>{
         :<BackCancel/>
       }
       <Text style={{fontFamily:'Poppins-Regular',color:'#000',fontSize:22}}>{name}</Text>
-      {edit===true?<TouchableOpacity style={{flexDirection:'row'}}><Edit/><Text>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
+      {edit===true?<TouchableOpacity onPress={()=>nav.navigate('EditProfile')} style={{flexDirection:'row'}}><Edit/><Text>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
 
     </View>
   )

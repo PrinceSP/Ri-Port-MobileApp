@@ -3,7 +3,8 @@ import { Button, View,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Register,Home,Profile,ReportPage,NotificationsPage} from '../pages'
+import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,
+  Register,Home,Profile,ReportPage,NotificationsPage,EditProfilePage} from '../pages'
 import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -46,6 +47,7 @@ const Routes = ()=>{
       <Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown:false}}/>
       <Screen name="Login" component={Login} options={{headerShown:false}}/>
       <Screen name="Register" component={Register} options={{headerShown:false}}/>
+      <Screen name="EditProfile" component={EditProfilePage} options={{headerShown:false}}/>
       <Screen name="Root" component={Root} options={{headerShown:false}}/>
     </Navigator>
   )
