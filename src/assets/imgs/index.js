@@ -1,3 +1,3 @@
 import Img4 from './4.png'
-
-export {Img4}
+import FeedbackIllustration from './feedback.svg'
+export {Img4,FeedbackIllustration}

@@ -73,7 +73,7 @@ function DrawerContent(props){
             <DrawerItem labelStyle={menu}
               icon={()=><Help height={28} width={28}/>}
               label="Help and Feedback"
-              onPress={()=>{}}/>
+              onPress={()=>{props.navigation.navigate('Feedback')}}/>
           </View>
           <View style={{paddingLeft:20,marginTop:20}}>
             <Text>v.1.0</Text>
