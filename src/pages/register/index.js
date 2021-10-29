@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {Text,View,StyleSheet,TouchableOpacity,ScrollView,Image,Platform} from 'react-native'
-import {Input,Gap,Button,Header} from '../../components'
+import {Input,Gap,Button,Header,ImagePicker} from '../../components'
 import {PD} from '../../assets'
 import {launchImageLibrary} from 'react-native-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -53,21 +53,14 @@ const Register =({navigation})=>{
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={20}/>
-      <Header name="Sign Up"/>
+      <Header name="Sign Up" action='Cancel'/>
       <Gap height={45}/>
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
-        <View style={{alignItems:'center'}}>
-          <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:150,width:150,alignItems:'center',justifyContent:'center'}}>
-            {isTrue = hasPhoto===true?<Image style={{height:130,width:130,borderRadius:65}} source={{uri:photo}}/>:<View style={{height:130,width:130,backgroundColor:'#eee',borderRadius:65}}/>}
-          </View>
-          <Gap height={21}/>
-          <Button name="Upload a profile image"
-            color="#6DCDF5"
-            fam="Poppins-Medium"
-            size={19}
-            style={{minWidth:200,alignItems:'center'}}
-            onPress={getImage}/>
-        </View>
+        <ImagePicker
+          isTrue={isTrue}
+          photo={photo}
+          hasPhoto={hasPhoto}
+          onPress={getImage}/>
         <Gap height={59}/>
         <Input placeholder="Fullname" />
         <Gap height={30}/>

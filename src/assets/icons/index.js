@@ -11,5 +11,12 @@ import Atomic from './atomic.png'
 import HomeIcon from './home.svg'
 import ReportIcon from './report.svg'
 import NotifIcon from './notif.svg'
+import DateIcon from './date.svg'
+import Email from './email.svg'
+import Address from './address.svg'
+import Phone from './phone.svg'
+import ID from './id.svg'
+import Edit from './edit.svg'
 
-export {MainLogo,AvatarProfile,Help,Report,Share,SignOut,Single,PD,Burger,Atomic,HomeIcon,ReportIcon,NotifIcon}
+export {MainLogo,AvatarProfile,Help,Report,Share,SignOut,Single,PD,Edit,
+  Burger,Atomic,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID}

@@ -7,7 +7,7 @@ const Login =({navigation})=>{
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={20}/>
-      <Header name="Sign Up"/>
+      <Header name="Sign Up" action='Cancel'/>
       <Gap height={45}/>
       <ScrollView>
         <View style={{alignItems:'center',justifyContent:'center'}}>
