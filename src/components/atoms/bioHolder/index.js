@@ -1,8 +1,6 @@
 //this bioHolder atom is used for the holder of informations for the user profile page
 import React from 'react'
 import {View,StyleSheet,Text} from 'react-native'
-import {HomeIcon,ReportIcon,NotifIcon} from '../../../assets'
-import {Header} from '../../molecules'
 
 const BioHolder = ({icon,userInfo,labelInfo})=>{
 

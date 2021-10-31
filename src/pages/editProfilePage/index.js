@@ -57,7 +57,6 @@ const EditProfilePage =({navigation})=>{
       <Gap height={45}/>
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
         <ImagePicker
-          isTrue={isTrue}
           photo={photo}
           hasPhoto={hasPhoto}
           onPress={getImage}/>

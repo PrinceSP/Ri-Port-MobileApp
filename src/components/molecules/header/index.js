@@ -25,7 +25,6 @@ const Header = ({name,button,navigation,action,edit,nav,page})=>{
     backgroundColor:'#fff'}}>
       {
         button===true?<Burger onPress={()=>navigation.openDrawer()}/>
-        :action==='< back'?<BackCancel onPress={() => nav.goBack()}/>
         :<BackCancel onPress={()=>nav.goBack()}/>
 
       }
