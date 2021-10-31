@@ -27,13 +27,13 @@ const WeatherAPI=()=>{
 
   function apiHolder(){
     const apiKey = `8f5a73fd3b0e7a36a6127887c4ee73be`
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=madrid&appid=${apiKey}`
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${apiKey}`
 
     apiCall(apiUrl,results=>{
       const datas = JSON.parse(results)
       const icon = `http://openweathermap.org/img/wn/${datas.weather[0].icon}.png`
       setData(datas)
-      setDesc(datas.weather[0].main)
+      setDesc(datas)
       console.log(desc);
     },()=>{
       console.log('error');

@@ -9,6 +9,7 @@ import ReportPage from './reportPage'
 import NotificationsPage from './notificationPage'
 import EditProfilePage from './editProfilePage'
 import Feedback from './feedbackPage'
+import ReportListPage from './reportListPage'
 
 export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditProfilePage,Feedback,
-    Register,Home,Profile,ReportPage,NotificationsPage}
+    Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}

@@ -59,7 +59,7 @@ function DrawerContent(props){
             <DrawerItem labelStyle={menu}
               icon={()=><Report height={28} width={28}/>}
               label="Your Reports"
-              onPress={()=>{}}/>
+              onPress={()=>{props.navigation.navigate('ReportListPage')}}/>
             <DrawerItem labelStyle={menu}
               icon={()=><SignOut height={28} width={28}/>}
               label="Sign Out"

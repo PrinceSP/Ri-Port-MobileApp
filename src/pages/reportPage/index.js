@@ -7,9 +7,9 @@ const ReportPage = ({navigation})=>{
   return(
     <View style={container}>
       <Gap height={20}/>
-      <Header name="Report" button={true} navigation={navigation}/>
+      <Header name="Your reports" button={true} navigation={navigation}/>
       <Gap height={45}/>
-      <Text>Report Page</Text>
+      
     </View>
   )
 }
