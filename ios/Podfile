@@ -16,6 +16,8 @@ target 'RiPort' do
 
   pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'RiPortTests' do
     inherit! :complete
     # Pods for testing

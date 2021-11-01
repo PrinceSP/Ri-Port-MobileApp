@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,Text,StyleSheet,TextInput,ScrollView} from 'react-native'
+import {View,Text,StyleSheet,Image,TextInput,ScrollView} from 'react-native'
 import {FeedbackIllustration} from '../../assets'
 import {Header,Gap,Button} from '../../components'
 

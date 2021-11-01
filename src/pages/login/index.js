@@ -1,9 +1,10 @@
 import React from 'react'
-import {Text,View,StyleSheet,ScrollView} from 'react-native'
+import {Text,View,Image,StyleSheet,ScrollView} from 'react-native'
 import {MainLogo} from '../../assets'
 import {Input,Gap,Button,Header} from '../../components'
 
 const Login =({navigation})=>{
+
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={20}/>

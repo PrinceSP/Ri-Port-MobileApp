@@ -1,7 +1,8 @@
 import React from 'react'
-import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
+import {Text,View,StyleSheet,ScrollView,Image,Platform} from 'react-native'
 import {DrawerContentScrollView,DrawerItem} from '@react-navigation/drawer'
-import {AvatarProfile,Help,Report,Share,SignOut,PD} from '../../../assets'
+import Share from 'react-native-share'
+import {AvatarProfile,Help,Report,ShareIcon,SignOut,PD} from '../../../assets'
 
 const style = StyleSheet.create({
   container:{
@@ -39,7 +40,21 @@ const style = StyleSheet.create({
 
 const {container,section,image,title,desc,menu} = style
 
-function DrawerContent(props){
+const DrawerContent = (props)=>{
+  const shareBtn = async ()=>{
+    const shareOptions = {
+       message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
+       url: 'https://google.com',
+       // urls: [files.image1, files.image2]
+     }
+
+     try {
+       const ShareResponse = await Share.open(shareOptions);
+       console.log(JSON.stringify(ShareResponse));
+     } catch(error) {
+       console.log('Error => ', error);
+     }
+   };
   return(
     <View style={container}>
       <DrawerContentScrollView {...props}>
@@ -67,9 +82,9 @@ function DrawerContent(props){
           </View>
           <View style={[{paddingTop:19}]}>
             <DrawerItem labelStyle={menu}
-              icon={()=><Share height={28} width={28}/>}
+              icon={()=><ShareIcon height={28} width={28}/>}
               label="Tell a friend"
-              onPress={()=>{}}/>
+              onPress={shareBtn}/>
             <DrawerItem labelStyle={menu}
               icon={()=><Help height={28} width={28}/>}
               label="Help and Feedback"
