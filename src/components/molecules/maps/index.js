@@ -4,10 +4,6 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Callout, Circle, Marker } from "react-native-maps"
 
 const MapFinder = ()=>{
-	const [ pin, setPin ] = useState({
-		latitude: 1.4730796311491023,
-		longitude: 124.85402639232787
-	})
 
 	const [ region, setRegion ] = useState({
 		latitude: 1.4730796311491023,
@@ -19,38 +15,49 @@ const MapFinder = ()=>{
 	return (
 		<View>
 			<Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Location*</Text>
-			<GooglePlacesAutocomplete
-				placeholder="Search your location here...."
-				autoFillOnNotFound={true}
-				autoFocus={false}
-				returnKeyType={'default'}
-				fetchDetails={true}
-				GooglePlacesSearchQuery={{
-					rankby: "distance"
-				}}
-				onPress={(data, details = null) => {
-					// 'details' is provided when fetchDetails = true
-					console.log(data, details)
-					setRegion({
-						latitude: details.geometry.location.lat,
-						longitude: details.geometry.location.lng,
-						latitudeDelta: 0.0922,
-						longitudeDelta: 0.0421
-					})
-				}}
-				query={{
-					key: "AIzaSyDt7xuHsiC7oXDe5yRvfdJahz4FG4K1Ma4",
-					language: "en",
-					components: "country:id",
-					types: "establishment",
-					radius: 30000,
-					location: `${region.latitude}, ${region.longitude}`
-				}}
-				styles={{
-					container: { flex: 0,borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
-					listView: { backgroundColor: "#fff" }
-				}}
-			/>
+			<View style={style.placesContainer}>
+				<GooglePlacesAutocomplete
+					placeholder="Search your location here...."
+					fetchDetails={true}
+					returnKeyType={'search'}
+					autoFocus={false}
+					listViewDisplayed='auto'
+					renderDescription={row=>row.description}
+					GooglePlacesSearchQuery={{
+						rankby: "distance"
+					}}
+					GooglePlacesDetailsQuery={{
+						fields:'formatted_address'
+					}}
+					onPress={(data, details = null) => {
+						// 'details' is provided when fetchDetails = true
+						console.log(details)
+						setRegion({
+							latitude: details.geometry.location.lat,
+							longitude: details.geometry.location.lng,
+							latitudeDelta: 0.0922,
+							longitudeDelta: 0.0421
+						})
+					}}
+					query={{
+						key: "AIzaSyAOXvxQFgESGlr5V7RecOU7FkFXYinVWZk",
+						language: "en",
+						components: "country:id",
+						types: "establishment",
+						radius: 30000,
+						location: `${region.latitude}, ${region.longitude}`
+					}}
+					styles={{
+						listView:style.textInput,
+						TextInputContainer:{
+							width:'100%'
+						},
+						description:{
+							fontWeight:'bold'
+						}
+					}}
+				/>
+			</View>
 			<View style={style.mapContainer}>
 				<MapView
 					style={style.map}
@@ -64,7 +71,7 @@ const MapFinder = ()=>{
 				>
 					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
 					<Marker
-						coordinate={pin}
+						coordinate={region}
 						pinColor="black"
 						draggable={true}
 						onDragEnd={(e) => {
@@ -96,6 +103,8 @@ const style = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFill
   },
+	placesContainer: { flex: 0,borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
+	textInput:{backgroundColor: "#eee",height:50,marginVertical:5,color:'#000'}
 })
 
 export default MapFinder

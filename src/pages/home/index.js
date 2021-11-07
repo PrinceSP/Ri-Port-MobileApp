@@ -29,7 +29,7 @@ const Home = ({navigation})=>{
     <View style={container}>
       <Gap height={20}/>
       <Header name="Home" button={true} navigation={navigation}/>
-        <Gap height={45}/>
+      <Gap height={45}/>
       <ScrollView contentContainerStyle={scrollViewCont}>
         <View style={{flexDirection:'row'}}>
           <Text style={headingTitle2}>Hello,</Text>
