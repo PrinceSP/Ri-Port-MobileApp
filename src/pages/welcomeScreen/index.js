@@ -27,7 +27,8 @@ const WelcomeScreen = ({navigation})=>{
           style={style.button}
           size={23}
           weight={600}
-          color="#fff"/>
+          color="#fff"
+          onPress = {()=>navigation.replace('Register')}/>
       </View>
     </View>
   )

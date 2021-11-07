@@ -1,14 +1,11 @@
 import React from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
-import {Header,Gap,ReportInput} from '../../components'
+import {Gap,ReportInput} from '../../atoms'
 
-const ReportPage = ({navigation})=>{
+const ReportForm = ({navigation})=>{
 
   return(
     <View style={container}>
-      <Gap height={20}/>
-      <Header name="report" button={true} navigation={navigation}/>
-      <Gap height={45}/>
       <ScrollView contentContainerStyle={style.formContainer}>
         <Text style={style.text1}>Make Your Report</Text>
         <Gap height={63}/>
@@ -34,4 +31,4 @@ const style=StyleSheet.create({
 const {container} = style
 
 
-export default ReportPage
+export default ReportForm
