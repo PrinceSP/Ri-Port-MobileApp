@@ -1,8 +1,37 @@
 import React, {useState} from 'react'
 import {Text,View,StyleSheet,ScrollView,Dimensions} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button} from '../../components'
+import {launchImageLibrary} from 'react-native-image-picker'
 
 const ReportPage = ({navigation})=>{
+  const [photo,setPhoto] = useState('')
+  const [hasPhoto, setHasPhoto] = useState(false)
+  const [photoBase64,setPhotoBase64] = useState('')
+  const [photoName,setPhotoName] = useState('no photo uploaded')
+
+  const getImage=()=>{
+    const options={
+      maxHeight:160,
+      maxWidth:160,
+      includeBase64:true,
+      path:'images'
+    }
+    launchImageLibrary(options,res=>{
+      if(res.didCancel){
+        setHasPhoto(false)
+        setPhoto('');
+        setPhotoBase64('');
+        setPhotoName('no photo uploaded')
+      }else{
+        setPhoto(res.assets[0].uri);
+        setPhotoBase64(res.assets[0].base64);
+        setHasPhoto(true);
+        setPhotoName(res.assets[0].fileName)
+        console.log(res.assets[0].fileName);
+      }
+    })
+  }
+
   return(
     <View style={container}>
       <Gap height={20}/>
@@ -14,17 +43,15 @@ const ReportPage = ({navigation})=>{
         <ReportForm/>
         <MapFinder/>
         <Gap height={47}/>
-        <View>
-          <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Your ID Card Photo Here*</Text>
-          <Button name="Upload" color='#fff' fam='Poppins-Medium' style={style.button}/>
-        </View>
-        <Gap height={47}/>
-        <View>
+        <View style={{width:270}}>
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
-          <Button name="Upload" color='#fff' fam='Poppins-Medium' style={style.button}/>
+          <View style={{alignItems:'center',flexDirection:'row'}}>
+            <Button name="Upload" color='#fff' fam='Poppins-Medium' style={button} onPress={()=>getImage()}/>
+            <Text style={{marginLeft:18}}>{photoName}</Text>
+          </View>
         </View>
         <View style={{alignItems:'center'}}>
-          <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={style.buttonSubmit}/>
+          <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={buttonSubmit}/>
         </View>
       </ScrollView>
     </View>
@@ -55,7 +82,7 @@ const style=StyleSheet.create({
   },
 })
 
-const {container,map,text1,mapContainer,formContainer} = style
+const {container,text1,mapContainer,formContainer,button,buttonSubmit} = style
 
 
 export default ReportPage
