@@ -72,7 +72,7 @@ const MapFinder = ()=>{
 					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
 					<Marker
 						coordinate={region}
-						pinColor="black"
+						pinColor="#fff"
 						draggable={true}
 						onDragEnd={(e) => {
 							setRegion({
@@ -99,7 +99,7 @@ const style = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center"
 	},
-	mapContainer:{height:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center'},
+	mapContainer:{height:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'},
   map: {
     ...StyleSheet.absoluteFill
   },
