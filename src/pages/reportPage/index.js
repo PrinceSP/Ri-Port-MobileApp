@@ -1,25 +1,18 @@
-import React from 'react'
-import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
-import {Header,Gap,ReportInput} from '../../components'
+import React, {useState} from 'react'
+import {Text,View,StyleSheet,ScrollView,Dimensions} from 'react-native'
+import {Header,Gap,ReportForm,MapFinder} from '../../components'
 
 const ReportPage = ({navigation})=>{
-
   return(
     <View style={container}>
       <Gap height={20}/>
       <Header name="report" button={true} navigation={navigation}/>
       <Gap height={45}/>
       <ScrollView contentContainerStyle={style.formContainer}>
-        <Text style={style.text1}>Make Your Report</Text>
+        <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
-        <ReportInput label="Fullname *"/>
-        <Gap height={28}/>
-        <ReportInput label="Phone Number *"/>
-        <Gap height={28}/>
-        <ReportInput label="ID Card Number(KTP) *"/>
-        <Gap height={28}/>
-        <ReportInput label="Your Address *"/>
-        <Gap height={28}/>
+        <ReportForm/>
+        <MapFinder/>
       </ScrollView>
     </View>
   )
@@ -27,11 +20,11 @@ const ReportPage = ({navigation})=>{
 
 const style=StyleSheet.create({
   container:{ flex: 1,backgroundColor:'#fff'},
-  formContainer:{paddingHorizontal:20,paddingBottom:150},
-  text1:{fontSize:20,FontFamily:'Lato-Bold'}
+  text1:{fontSize:20,fontFamily:'Lato-Bold'},
+  formContainer:{paddingHorizontal:20,paddingBottom:150}
 })
 
-const {container} = style
+const {container,map,text1,mapContainer,formContainer} = style
 
 
 export default ReportPage

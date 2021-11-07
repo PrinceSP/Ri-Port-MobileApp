@@ -6,5 +6,8 @@ import WeatherAPI from './weather'
 import ImagePicker from './imagePicker'
 import ModalSuccess from './modalFeedback'
 import FeedbackForm from './feedbackForm'
+import ReportForm from './reportForm'
+import MapFinder from './maps'
 
-export {OnBoarding,Header,DrawerContent,WeatherAPI,TabsContent,ImagePicker,ModalSuccess,FeedbackForm}
+export {OnBoarding,Header,DrawerContent,WeatherAPI,TabsContent,
+  MapFinder,ImagePicker,ModalSuccess,FeedbackForm,ReportForm}
