@@ -32,7 +32,7 @@ const Feedback=({navigation})=>{
           <Gap height={26}/>
           <Button style={button} name="Send Feedback"
             color="#fff"
-            weight={500} size={24}
+            fam='Poppins-Medium' size={24}
             onPress={()=>setVisible(true)}/>
         </View>
       </ScrollView>

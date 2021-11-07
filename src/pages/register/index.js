@@ -87,7 +87,7 @@ const Register =({navigation})=>{
         <Gap height={30}/>
         <Input placeholder="Password" />
         <Gap height={78}/>
-        <Button style={style.button} name="SIGN UP" color="#FFF" weight={500} size={24}
+        <Button name="SIGN UP" color="#FFF" fam='Poppins-Medium' size={24} style={style.button}
           onPress={()=>navigation.navigate('Root',{screen:'BottomTabs'})}/>
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>

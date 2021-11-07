@@ -47,7 +47,7 @@ const OnBoarding = ({navigation}) => {
       <Paginator data={slides} scrollX={scrollX}/>
       <Button name="Get Started"
         size={20}
-        weight={600} style={style.button}
+        fam='Poppins-SemiBold' style={style.button}
         color="#fff"
         onPress={() => navigation.navigate('WelcomeScreen')}/>
     </View>

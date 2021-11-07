@@ -26,7 +26,7 @@ const WelcomeScreen = ({navigation})=>{
         <Button name="Sign Up"
           style={style.button}
           size={23}
-          weight={600}
+          fam='Poppins-Medium'
           color="#fff"
           onPress = {()=>navigation.replace('Register')}/>
       </View>

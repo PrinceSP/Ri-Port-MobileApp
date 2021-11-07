@@ -6,7 +6,6 @@ const Button = ({name,size,weight,color,fam,...rest})=>{
     text:{
       color,
       fontSize:size,
-      fontWeight:`${weight}`,
       fontFamily:fam
     }
   })
