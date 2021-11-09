@@ -92,7 +92,7 @@ const Register =({navigation})=>{
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>
           <Text style={style.poppinsMed}>Have an account?</Text>
-          <Text style={[style.poppinsMed,{color:'#FF1D1D'}]}> Login</Text>
+          <Button name='Login' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Login')}/>
         </View>
       </ScrollView>
     </View>

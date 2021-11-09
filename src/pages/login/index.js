@@ -20,11 +20,11 @@ const Login =({navigation})=>{
           <Gap height={26}/>
           <Text style={style.poppinsMed}>forgot password?</Text>
           <Gap height={29}/>
-          <Button style={style.button} name="SIGN IN" color="#FFF" weight={500} size={24} onPress={()=>navigation.navigate('Register')}/>
+          <Button style={style.button} name="SIGN IN" color="#FFF" weight={500} size={24} onPress={()=>navigation.navigate('Root',{screen:'BottomTabs'})}/>
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
             <Text style={style.poppinsMed}>Not a user yet?</Text>
-            <Text style={[style.poppinsMed,{color:'#FF1D1D'}]}> Sign Up</Text>
+            <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Register')}/>
           </View>
         </View>
       </ScrollView>
