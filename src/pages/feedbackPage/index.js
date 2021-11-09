@@ -7,7 +7,7 @@ const Feedback=({navigation})=>{
   const [visible,setVisible] = useState(false)
   return(
     <View style={mainWrapper}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name='App Feedback' action='< back' nav={navigation}/>
       <Gap height={45}/>
       <ScrollView showsVerticalScrollIndicator={false}>

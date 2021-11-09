@@ -52,9 +52,9 @@ const EditProfilePage =({navigation})=>{
 
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name="Edit Profile" action='Cancel' nav={navigation}/>
-      <Gap height={45}/>
+      <Gap height={40}/>
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
         <ImagePicker
           photo={photo}

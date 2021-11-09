@@ -22,7 +22,6 @@ const ReportPage = ({navigation})=>{
         name :localTime +'.jpg',
       }
 
-
       if(res.didCancel){
         setHasPhoto(false)
         setPhoto('');
@@ -40,7 +39,7 @@ const ReportPage = ({navigation})=>{
 
   return(
     <View style={container}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name="report" button={true} navigation={navigation}/>
       <Gap height={45}/>
       <ScrollView contentContainerStyle={style.formContainer}>

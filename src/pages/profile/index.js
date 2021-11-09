@@ -7,7 +7,7 @@ const Profile = ({navigation})=>{
 
   return(
     <View style={{flex:1,backgroundColor:'#fff'}}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name='Profile' action='< back' edit={true} nav={navigation}/>
       <Gap height={450}/>
       <View style={{flex:0.9,alignItems:'center',justifyContent:'flex-end'}}>

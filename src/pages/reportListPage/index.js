@@ -5,7 +5,7 @@ import {Header,Gap,ReportList} from '../../components'
 const ReportListPage=({navigation})=>{
   return(
     <View style={container}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name="Your reports" button={true} navigation={navigation}/>
       <Gap height={45}/>
       <ScrollView style={{paddingHorizontal:14}}>

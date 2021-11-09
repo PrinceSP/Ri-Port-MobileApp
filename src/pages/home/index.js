@@ -27,7 +27,7 @@ const Home = ({navigation})=>{
 
   return(
     <View style={container}>
-      <Gap height={20}/>
+      <Gap height={15}/>
       <Header name="Home" button={true} navigation={navigation}/>
       <Gap height={45}/>
       <ScrollView contentContainerStyle={scrollViewCont}>
