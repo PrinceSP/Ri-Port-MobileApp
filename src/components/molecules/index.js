@@ -8,6 +8,7 @@ import ModalSuccess from './modalFeedback'
 import FeedbackForm from './feedbackForm'
 import ReportForm from './reportForm'
 import MapFinder from './maps'
+import ReportPost from './reportsPosts'
 
 export {OnBoarding,Header,DrawerContent,WeatherAPI,TabsContent,
-  MapFinder,ImagePicker,ModalSuccess,FeedbackForm,ReportForm}
+  MapFinder,ImagePicker,ModalSuccess,FeedbackForm,ReportForm,ReportPost}

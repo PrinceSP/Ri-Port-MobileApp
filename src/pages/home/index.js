@@ -1,15 +1,15 @@
 import React,{useEffect} from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
-import {Header,Gap,WeatherAPI} from '../../components'
+import {Header,Gap,WeatherAPI,ReportPost} from '../../components'
 import {Atomic} from '../../assets'
 import {apiCall,getCurrentDate} from '../../config'
 
 const Home = ({navigation})=>{
 
   useEffect(()=>{
-    apiCall('http://192.168.1.3:4000/v1/blog/posts',res=>{
-      const datas = JSON.parse(res)
-      console.log(datas);
+    apiCall('https://riport-app.herokuapp.com/',res=>{
+      // const datas = JSON.parse(res)
+      console.log(res);
     })
   },[])
 
@@ -26,6 +26,7 @@ const Home = ({navigation})=>{
         </View>
         <Text style={{fontSize:20,fontFamily:'Poppins-Light'}}>{getCurrentDate()}</Text>
         <WeatherAPI/>
+        <ReportPost/>
       </ScrollView>
     </View>
   )
