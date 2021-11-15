@@ -1,18 +1,27 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
 import {Header,Gap,WeatherAPI,ReportPost} from '../../components'
 import {Atomic} from '../../assets'
 import {apiCall,getCurrentDate} from '../../config'
 
 const Home = ({navigation})=>{
-  const [image,setImage] = React.useState('')
+  const [userPost,setUserPost] = useState({
+    author:'',
+    title:''
+  })
 
   useEffect(()=>{
     apiCall('http://192.168.1.3:4000/v1/blog/posts',res=>{
       const datas = JSON.parse(res)
-      datas.data.map(data=>console.log(data.title))
+      datas.data.map(data=>{
+        return setUserPost(data)
+      })
     })
   },[])
+
+  const {author,title} = userPost
+
+  console.log(title);
 
   return(
     <View style={container}>

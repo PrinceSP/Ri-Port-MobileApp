@@ -4,11 +4,12 @@ export default function apiCall(url,res,rej){
     if (datas.readyState === 4) {
       if (datas.status === 200) {
         res(datas.response)
-      }else{
+      } else {
         rej()
       }
     }
   }
   datas.open('get',url)
   datas.send()
+  // fetch(url)
 }
