@@ -27,7 +27,7 @@ const Home = ({navigation})=>{
     <View style={container}>
       <Gap height={15}/>
       <Header name="Home" button={true} navigation={navigation}/>
-      <Gap height={25}/>
+      <Gap height={15}/>
       <ScrollView contentContainerStyle={scrollViewCont}>
         <View style={{flexDirection:'row'}}>
           <Text style={headingTitle2}>Hello,</Text>
@@ -37,6 +37,8 @@ const Home = ({navigation})=>{
         <Text style={{fontSize:20,fontFamily:'Poppins-Light'}}>{getCurrentDate()}</Text>
         <WeatherAPI/>
         <ReportPost/>
+        <ReportPost/>
+        <ReportPost/>
       </ScrollView>
     </View>
   )
@@ -44,7 +46,7 @@ const Home = ({navigation})=>{
 
 const style=StyleSheet.create({
   container:{ flex: 1,backgroundColor:'#fff'},
-  scrollViewCont:{paddingHorizontal:20,paddingBottom:35},
+  scrollViewCont:{paddingHorizontal:20,paddingBottom:125},
   headingTitle1:{fontSize:35,fontFamily:'PlayfairDisplay-Bold',color:'#000'},
   headingTitle2:{fontSize:35,fontFamily:'PlayfairDisplay-Regular',color:'#000'},
 })

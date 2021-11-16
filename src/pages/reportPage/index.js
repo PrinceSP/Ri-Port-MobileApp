@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Text,View,StyleSheet,ScrollView,Dimensions,Platform} from 'react-native'
+import {Text,View,StyleSheet,ScrollView} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 
@@ -11,8 +11,7 @@ const ReportPage = ({navigation})=>{
 
   const getImage=()=>{
     const options={
-      maxHeight:160,
-      maxWidth:160,
+      maxHeight:160,maxWidth:160,
       includeBase64:true,saveToPhotos: true
     }
     launchImageLibrary(options,res=>{
