@@ -18,21 +18,21 @@ const MapFinder = ()=>{
 			<View style={style.placesContainer}>
 				<GooglePlacesAutocomplete
 					placeholder="Search your location here...."
-					fetchDetails={true}
 					returnKeyType={'search'}
 					autoFocus={false}
 					listViewDisplayed='auto'
+					fetchDetails={true}
 					renderDescription={row=>row.description}
 					GooglePlacesSearchQuery={{
 						rankby: "distance"
 					}}
 					GooglePlacesDetailsQuery={{
-						fields:'formatted_address'
+						fields:['formatted_address','geometry']
 					}}
 					enablePoweredByContainer={false}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
-						console.log(details)
+						console.log(data,details)
 						setRegion({
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,

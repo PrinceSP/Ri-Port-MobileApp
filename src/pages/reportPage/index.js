@@ -42,7 +42,7 @@ const ReportPage = ({navigation})=>{
       <Gap height={15}/>
       <Header name="report" button={true} navigation={navigation}/>
       <Gap height={45}/>
-      <ScrollView contentContainerStyle={style.formContainer}>
+      <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
         <ReportForm/>
