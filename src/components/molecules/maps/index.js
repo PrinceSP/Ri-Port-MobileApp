@@ -29,6 +29,7 @@ const MapFinder = ()=>{
 					GooglePlacesDetailsQuery={{
 						fields:'formatted_address'
 					}}
+					enablePoweredByContainer={false}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
 						console.log(details)
@@ -40,7 +41,7 @@ const MapFinder = ()=>{
 						})
 					}}
 					query={{
-						key: "AIzaSyAOXvxQFgESGlr5V7RecOU7FkFXYinVWZk",
+						key: "AIzaSyB-lpOPCdsdF7SluzBjETaOIfT-ZDgX2ZA",
 						language: "en",
 						components: "country:id",
 						types: "establishment",
@@ -50,10 +51,11 @@ const MapFinder = ()=>{
 					styles={{
 						listView:style.textInput,
 						TextInputContainer:{
-							width:'100%'
+							width:'100%',
 						},
 						description:{
-							fontWeight:'bold'
+							fontWeight:'bold',
+							zIndex:1
 						}
 					}}
 				/>
@@ -93,18 +95,12 @@ const MapFinder = ()=>{
 }
 
 const style = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	mapContainer:{height:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'},
+	mapContainer:{minHeight:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'},
   map: {
     ...StyleSheet.absoluteFill
   },
 	placesContainer: { flex: 0,borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
-	textInput:{backgroundColor: "#eee",height:50,marginVertical:5,color:'#000'}
+	textInput:{backgroundColor: "#eee",minHeight:50,marginVertical:5,color:'#000'}
 })
 
 export default MapFinder
