@@ -13,6 +13,15 @@ const Register =({navigation})=>{
   const [date,setDate] = useState(new Date())
   const [show,setShow] = useState(false)
   const [theDate,setTheDate]= useState('')
+  const [userInfo,setUserInfo] = useState({
+    fname:'',
+    email:'',
+    address:'',
+    phone:'',
+    idCardNumber:'',
+    password:''
+  })
+
 
   let isTrue;
 
@@ -49,6 +58,18 @@ const Register =({navigation})=>{
     }
   }
 
+  //handle submit form button
+  const submit = ()=>{
+    // navigate into home page
+    navigation.navigate('Root',{screen:'BottomTabs'})
+    // show in console the key names and key values of each data stored in userInfo
+    // using looping for...in to loop through object
+    for(const datas in userInfo) console.log(`${datas} : ${userInfo[datas]}`);
+    // reset the values of each keys after submit button has been pressed
+    setUserInfo({fname:'',email:'',address:'',phone:'',idCardNumber:'',password:''})
+  }
+
+  const {fname,email,address,phone,idCardNumber,password} = userInfo
 
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
@@ -61,11 +82,14 @@ const Register =({navigation})=>{
           hasPhoto={hasPhoto}
           onPress={getImage}/>
         <Gap height={59}/>
-        <Input placeholder="Fullname" />
+        <Input placeholder="Fullname" value={fname} onChangeText={(event)=>{
+            setUserInfo({...userInfo,fname:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Email address" />
+        <Input placeholder="Email address" value={email}  onChangeText={(event)=>{
+            setUserInfo({...userInfo,email:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Address" />
+        <Input placeholder="Address" value={address} onChangeText={(event)=>{
+            setUserInfo({...userInfo,address:event})}}/>
         <Gap height={30}/>
         <View>
           <TouchableOpacity style={{width:327,height:48,borderRadius:50,position:'absolute',zIndex:2}} onPress={()=>setShow(true)}/>
@@ -81,14 +105,17 @@ const Register =({navigation})=>{
           />
         }
         <Gap height={30}/>
-        <Input placeholder="Phone number" />
+        <Input placeholder="Phone number" value={phone} onChangeText={(event)=>{
+            setUserInfo({...userInfo,phone:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="ID Card" />
+        <Input placeholder="ID Card" value={idCardNumber} onChangeText={(event)=>{
+            setUserInfo({...userInfo,idCardNumber:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Password" />
+        <Input placeholder="Password" value={password} onChangeText={(event)=>{
+            setUserInfo({...userInfo,password:event})}}/>
         <Gap height={78}/>
         <Button name="SIGN UP" color="#FFF" fam='Poppins-Medium' size={24} style={style.button}
-          onPress={()=>navigation.navigate('Root',{screen:'BottomTabs'})}/>
+          onPress={()=>submit()}/>
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>
           <Text style={style.poppinsMed}>Have an account?</Text>

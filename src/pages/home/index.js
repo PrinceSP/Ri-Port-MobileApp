@@ -10,14 +10,14 @@ const Home = ({navigation})=>{
     title:''
   })
 
-  useEffect(()=>{
-    apiCall('http://192.168.1.3:4000/v1/blog/posts',res=>{
-      const datas = JSON.parse(res)
-      datas.data.map(data=>{
-        return setUserPost(data)
-      })
-    })
-  },[])
+  // useEffect(()=>{
+  //   apiCall('http://192.168.1.3:4000/v1/blog/posts',res=>{
+  //     const datas = JSON.parse(res)
+  //     datas.data.map(data=>{
+  //       return setUserPost(data)
+  //     })
+  //   })
+  // },[])
 
   const {author,title} = userPost
 

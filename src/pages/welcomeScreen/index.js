@@ -15,7 +15,7 @@ const WelcomeScreen = ({navigation})=>{
       <Image style={style.image} source={Img4}/>
       <Text style={style.title}>Welcome User</Text>
       <Text style={style.desc}>{`You're only a few steps away
-        from joining RiPort`}</Text>
+  from joining RiPort`}</Text>
       <View style={{marginTop:65}}>
         <Button name="Log In"
           style={[style.button,{backgroundColor:'#fff',borderWidth:1}]}

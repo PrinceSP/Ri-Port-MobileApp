@@ -21,7 +21,9 @@ const ReportPage = ({navigation})=>{
         name :localTime +'.jpg',
       }
 
+      //handling when user cancel upload the image
       if(res.didCancel){
+        //reset the value to its default value
         setHasPhoto(false)
         setPhoto('');
         setPhotoBase64('');
@@ -35,6 +37,7 @@ const ReportPage = ({navigation})=>{
       }
     })
   }
+
 
   return(
     <View style={container}>

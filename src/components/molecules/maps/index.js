@@ -32,7 +32,8 @@ const MapFinder = ()=>{
 					enablePoweredByContainer={false}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
-						console.log(data.description)
+						console.log(data.description,details.geometry.location)
+						// update the region by its latitude and longitude
 						setRegion({
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
