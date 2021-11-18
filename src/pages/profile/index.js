@@ -9,7 +9,7 @@ const Profile = ({navigation})=>{
     <View style={{flex:1,backgroundColor:'#fff'}}>
       <Gap height={15}/>
       <Header name='Profile' action='< back' edit={true} nav={navigation}/>
-      <Gap height={450}/>
+      <Gap height={350}/>
       <View style={{flex:0.9,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:130,width:130,alignItems:'center',justifyContent:'center'}}>
           <View style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>

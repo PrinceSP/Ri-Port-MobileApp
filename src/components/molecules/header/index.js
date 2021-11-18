@@ -3,19 +3,11 @@ import {Text,View,TouchableOpacity} from 'react-native'
 import {Burger,Edit} from '../../../assets'
 
 const Header = ({name,button,navigation,action,edit,nav,page})=>{
-  // const cancelNav = (pageName)=>{
-  //   return(
-  //     page==='edit'?nav.navigate('Profiles')
-  //     :page==='sign up'?nav.navigate('Login')
-  //     :page==='login'?nav.navigate('WelcomeScreen')
-  //     :nav.navigate('Root',{screen:'BottomTabs'})
-  //   )
-  // }
 
   const BackCancel = ({onPress})=>{
     return(
-      <TouchableOpacity onPress={onPress} style={{fontFamily:'Poppins-Regular',color:'#7a7a7a',fontSize:15}}>
-        <Text>{action}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={{fontFamily:'Poppins-Regular',color:'#7a7a7a',fontSize:15}}>{action}</Text>
       </TouchableOpacity>
     )
   }
@@ -29,7 +21,7 @@ const Header = ({name,button,navigation,action,edit,nav,page})=>{
 
       }
       <Text style={{fontFamily:'Poppins-Medium',color:'#000',fontSize:22}}>{name}</Text>
-      {edit===true?<TouchableOpacity onPress={()=>nav.navigate('EditProfile')} style={{flexDirection:'row'}}><Edit/><Text>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
+      {edit===true?<TouchableOpacity onPress={()=>nav.navigate('EditProfile')} style={{flexDirection:'row'}}><Edit/><Text style={{color:'#7a7a7a'}}>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
 
     </View>
   )

@@ -9,15 +9,11 @@ const Input = ({...rest})=>{
       borderWidth:1.5,borderColor:'#B5DCFF',
       borderRadius:50,
       paddingHorizontal:28.77,fontSize:19,backgroundColor:'#fff',
-      // shadowColor: '#666',
-      // shadowOffset: { width: 10, height: 10 },
-      // shadowOpacity: 1,
-      // elevation:40
     }
   })
 
   return(
-    <TextInput style={style.container} {...rest}/>
+    <TextInput placeholderTextColor="#999" style={style.container} {...rest}/>
   )
 }
 
