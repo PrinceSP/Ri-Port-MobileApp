@@ -38,12 +38,13 @@ const style = StyleSheet.create({
   },
   headingWrapper:{flexDirection:'row'},
   headingText:{fontSize:16,fontFamily:'Poppins-SemiBold'},
-  comment:{textAlign:'center',width:230,marginTop:5},
+  comment:{textAlign:'center',width:230,marginTop:5,color:'#999'},
   feedbackTextContainer:{height:140,marginBottom:20,width:300,borderRadius:6,backgroundColor:'#FBEFEF'},
   textArea: {
     textAlignVertical: 'top',
     fontSize:18,
-    paddingHorizontal:15
+    paddingHorizontal:15,
+    color:'#000'
   }
 })
 

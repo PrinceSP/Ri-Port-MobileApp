@@ -143,7 +143,8 @@ const style = StyleSheet.create({
     justifyContent:'center'
   },
   poppinsMed:{
-    fontFamily:'Poppins-Medium'
+    fontFamily:'Poppins-Medium',
+    color:'#777'
   }
 })
 
