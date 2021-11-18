@@ -13,7 +13,7 @@ const Feedback=({navigation})=>{
       <ScrollView showsVerticalScrollIndicator={false}>
         <ModalSuccess visible={visible}>
           <View style={modalContainer}>
-            <Text onPress={()=>setVisible(false)} style={{fontSize:28,position:'absolute',right:30,top:24}}>X</Text>
+            <Text onPress={()=>setVisible(false)} style={{fontSize:28,position:'absolute',right:30,top:24,color:'#000'}}>X</Text>
             <ModalSuccessIcon height={120} width={120}/>
             <View style={[headingWrapper,{marginTop:21}]}>
               <Text style={[{color:'#823589'},headingText]}>Thank you so much,</Text>
@@ -54,7 +54,7 @@ const style = StyleSheet.create({
   innerWrapper:{alignItems:'center'},
   headingWrapper:{flexDirection:'row'},
   headingText:{fontSize:16,fontFamily:'Poppins-SemiBold'},
-  comment:{textAlign:'center',width:230,marginTop:5},
+  comment:{textAlign:'center',width:230,marginTop:5,color:'#999'},
   modalBg:{
     flex:1,
     backgroundColor:'rgba(0, 0, 0, 0.43)',

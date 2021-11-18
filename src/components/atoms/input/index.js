@@ -7,7 +7,7 @@ const Input = ({...rest})=>{
       height:50,
       width:329,
       borderWidth:1.5,borderColor:'#B5DCFF',
-      borderRadius:50,
+      borderRadius:50,color:'#000',
       paddingHorizontal:28.77,fontSize:19,backgroundColor:'#fff',
     }
   })
