@@ -12,18 +12,15 @@ const Register =({navigation})=>{
   const [photoBase64,setPhotoBase64] = useState('')
   const [date,setDate] = useState(new Date())
   const [show,setShow] = useState(false)
-  const [theDate,setTheDate]= useState('')
   const [userInfo,setUserInfo] = useState({
     fname:'',
     email:'',
     address:'',
+    theDate:'',
     phone:'',
     idCardNumber:'',
     password:''
   })
-
-
-  let isTrue;
 
   const getImage=()=>{
     const options={
@@ -32,9 +29,10 @@ const Register =({navigation})=>{
       includeBase64:true,
     }
     launchImageLibrary(options,res=>{
-      console.log(res.assets[0].uri);
       if(res.didCancel){
         setHasPhoto(false)
+        setPhoto('');
+        setPhotoBase64('');
       }else{
         setPhoto(res.assets[0].uri);
         setPhotoBase64(res.assets[0].base64);
@@ -43,18 +41,25 @@ const Register =({navigation})=>{
     })
   }
 
+  //handle on change event when user change the date
   const onChange = (e, selectedDate)=>{
     const currentDate = selectedDate || date
 
     setShow(Platform=='ios')
     if (e.type === 'set') {
+      // set the inputed date into the current date
       setDate(currentDate)
+      // put the current date inputed by user into the built-in date function to return the actual Date
       let tempDate = new Date(currentDate)
-      let fDate = `${tempDate.getDate()} ${(tempDate.getMonth()+1)} ${tempDate.getFullYear()}`
-      setTheDate(fDate)
+      // from the actual date in 'tempDate', get the date day-month-year
+      let fDate = `${tempDate.getDate()}-${(tempDate.getMonth()+1)}-${tempDate.getFullYear()}`
+      // setTheDate(fDate)
+      setUserInfo({...userInfo,theDate:fDate})
     } else {
+      // reseting the dates
       setDate(new Date())
-      setTheDate('')
+      // setTheDate('') when user cancel input the date
+      setUserInfo({theDate:''})
     }
   }
 
@@ -66,10 +71,10 @@ const Register =({navigation})=>{
     // using looping for...in to loop through object
     for(const datas in userInfo) console.log(`${datas} : ${userInfo[datas]}`);
     // reset the values of each keys after submit button has been pressed
-    setUserInfo({fname:'',email:'',address:'',phone:'',idCardNumber:'',password:''})
+    setUserInfo({fname:'',email:'',address:'',theDate:'',phone:'',idCardNumber:'',password:''})
   }
-
-  const {fname,email,address,phone,idCardNumber,password} = userInfo
+  // destructuring objects in userInfo state
+  const {fname,email,address,theDate,phone,idCardNumber,password} = userInfo
 
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
