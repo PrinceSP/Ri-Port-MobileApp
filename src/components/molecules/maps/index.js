@@ -51,12 +51,14 @@ const MapFinder = ()=>{
 					}}
 					styles={{
 						listView:style.textInput,
+						textInput:{color:'#000'},
 						TextInputContainer:{
 							width:'100%',
 						},
 						description:{
 							fontWeight:'bold',
-							zIndex:1
+							zIndex:1,
+							color:'#000'
 						}
 					}}
 				/>
