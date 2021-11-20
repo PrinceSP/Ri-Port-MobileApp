@@ -4,10 +4,22 @@ import {Header,Gap,ReportForm,MapFinder,Button} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 
 const ReportPage = ({navigation})=>{
-  const [photo,setPhoto] = useState('')
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoBase64,setPhotoBase64] = useState('')
   const [photoName,setPhotoName] = useState('no photo uploaded')
+  const [reportInfo,setReportInfo] = useState({
+    fname:'',
+    address:'',
+    theDate:'',
+    phone:'',
+    photo:'',
+    idCardNumber:'',
+    location:{
+      addressName:'',
+      lat:'',
+      lon:''
+    }
+  })
 
   const getImage=()=>{
     const options={
@@ -25,11 +37,11 @@ const ReportPage = ({navigation})=>{
       if(res.didCancel){
         //reset the value to its default value
         setHasPhoto(false)
-        setPhoto('');
+        setReportInfo({photo:''});
         setPhotoBase64('');
         setPhotoName('no photo uploaded')
       }else{
-        setPhoto(res.assets[0].uri);
+        setReportInfo({...reportInfo,photo:res.assets[0].uri});
         setPhotoBase64(res.assets[0].base64);
         setHasPhoto(true);
         setPhotoName(file.name)
@@ -37,7 +49,6 @@ const ReportPage = ({navigation})=>{
       }
     })
   }
-
 
   return(
     <View style={container}>
@@ -54,7 +65,7 @@ const ReportPage = ({navigation})=>{
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
           <View style={{alignItems:'center',flexDirection:'row'}}>
             <Button name="Upload" color='#fff' fam='Poppins-Medium' style={button} onPress={()=>getImage()}/>
-            <Text style={{marginLeft:18}}>{photoName}</Text>
+            <Text style={{marginLeft:18,color:'#000'}}>{photoName}</Text>
           </View>
         </View>
         <View style={{alignItems:'center'}}>
