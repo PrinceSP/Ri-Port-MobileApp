@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {StyleSheet, Text, View } from "react-native"
+import {StyleSheet, Text, View, Alert } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, { Callout, Circle, Marker } from "react-native-maps"
 
@@ -52,9 +52,7 @@ const MapFinder = ()=>{
 					styles={{
 						listView:style.textInput,
 						textInput:{color:'#000'},
-						TextInputContainer:{
-							width:'100%',
-						},
+						TextInputContainer:{width:'100%'},
 						description:{
 							fontWeight:'bold',
 							zIndex:1,
@@ -77,13 +75,14 @@ const MapFinder = ()=>{
 					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
 					<Marker
 						coordinate={region}
-						pinColor="#fff"
+						pinColor={'#fff'}
 						draggable={true}
 						onDragEnd={(e) => {
 							setRegion({
 								latitude: e.nativeEvent.coordinate.latitude,
 								longitude: e.nativeEvent.coordinate.longitude
 							})
+							console.log(region);
 						}}
 					>
 						<Callout>

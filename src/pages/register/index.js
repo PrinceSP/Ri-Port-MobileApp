@@ -80,7 +80,7 @@ const Register =({navigation})=>{
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
       <Header name="Sign Up" action='Cancel' nav={navigation}/>
-      <Gap height={45}/>
+      <Gap height={25}/>
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
         <ImagePicker
           photo={photo}
