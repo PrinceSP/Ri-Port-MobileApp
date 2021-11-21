@@ -50,6 +50,7 @@ const MapFinder = ({getGeometrics})=>{
 						radius: 30000,
 						location: `${region.latitude}, ${region.longitude}`
 					}}
+					textInputProps={{ placeholderTextColor: '#899' }}
 					styles={{
 						listView:style.textInput,
 						textInput:{color:'#000'},

@@ -10,7 +10,12 @@ const ReportPage = ({navigation})=>{
     photo:''
   })
   const [photoName,setPhotoName] = useState('no photo uploaded')
-  const [data,setData] = useState({})
+  const [data,setData] = useState({
+    fname:'',
+    address:'',
+    phone:'',
+    idCard:'',
+  })
   const [reportInfo,setReportInfo] = useState({})
 
   const getImage=()=>{
@@ -21,10 +26,7 @@ const ReportPage = ({navigation})=>{
 
     launchImageLibrary(options,res=>{
       const localTime = new Date().getTime();
-      const file ={
-        uri : res.assets[0].uri,
-        name :localTime +'.jpg',
-      }
+      const fileName = localTime +'.jpg';
       //handling when user cancel upload the image
       if(res.didCancel){
         //reset the value to its default value
@@ -36,7 +38,7 @@ const ReportPage = ({navigation})=>{
         setPhotoInfos({...photoInfos,photo:res.assets[0].uri});
         setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
         setHasPhoto(true);
-        setPhotoName(file.name)
+        setPhotoName(fileName)
       }
     })
   }

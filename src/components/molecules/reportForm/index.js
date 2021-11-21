@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
 import {Gap,ReportInput} from '../../atoms'
 
