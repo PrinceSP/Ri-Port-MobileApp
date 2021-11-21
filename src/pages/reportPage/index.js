@@ -5,17 +5,13 @@ import {launchImageLibrary} from 'react-native-image-picker'
 
 const ReportPage = ({navigation})=>{
   const [hasPhoto, setHasPhoto] = useState(false)
-  const [photoBase64,setPhotoBase64] = useState('')
-  const [photoName,setPhotoName] = useState('no photo uploaded')
-  const [data,setData] = useState()
-  const [reportInfo,setReportInfo] = useState({
-    photo:'',
-    location:{
-      addressDesc:'',
-      lang:'',
-      lons:''
-    }
+  const [photoInfos,setPhotoInfos] = useState({
+    photoBase64:'',
+    photo:''
   })
+  const [photoName,setPhotoName] = useState('no photo uploaded')
+  const [data,setData] = useState({})
+  const [reportInfo,setReportInfo] = useState({})
 
   const getImage=()=>{
     const options={
@@ -29,20 +25,18 @@ const ReportPage = ({navigation})=>{
         uri : res.assets[0].uri,
         name :localTime +'.jpg',
       }
-
       //handling when user cancel upload the image
       if(res.didCancel){
         //reset the value to its default value
         setHasPhoto(false)
-        setReportInfo({photo:''});
-        setPhotoBase64('');
+        setPhotoInfos({photo:''});
+        setPhotoInfos({photoBase64:''});
         setPhotoName('no photo uploaded')
       }else{
-        setReportInfo({...reportInfo,photo:res.assets[0].uri});
-        setPhotoBase64(res.assets[0].base64);
+        setPhotoInfos({...photoInfos,photo:res.assets[0].uri});
+        setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
         setHasPhoto(true);
         setPhotoName(file.name)
-        console.log(res.assets[0].fileName);
       }
     })
   }
@@ -51,8 +45,14 @@ const ReportPage = ({navigation})=>{
     setData(datas)
   }
 
+  const getGeometrics = (datas)=>{
+    setReportInfo(datas)
+  }
+
   const submit = ()=>{
-    console.log(data,reportInfo);
+    //merge all the datas from these states
+    const allDatas = {...data,...reportInfo,...photoInfos};
+    console.log(allDatas);
   }
 
   return(
@@ -64,7 +64,7 @@ const ReportPage = ({navigation})=>{
         <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
         <ReportForm formData={toReportForm}/>
-        <MapFinder/>
+        <MapFinder getGeometrics={getGeometrics}/>
         <Gap height={47}/>
         <View style={{width:270}}>
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
