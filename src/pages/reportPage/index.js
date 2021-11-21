@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Text,View,StyleSheet,ScrollView} from 'react-native'
+import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 
@@ -7,17 +7,13 @@ const ReportPage = ({navigation})=>{
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoBase64,setPhotoBase64] = useState('')
   const [photoName,setPhotoName] = useState('no photo uploaded')
+  const [data,setData] = useState()
   const [reportInfo,setReportInfo] = useState({
-    fname:'',
-    address:'',
-    theDate:'',
-    phone:'',
     photo:'',
-    idCardNumber:'',
     location:{
-      addressName:'',
-      lat:'',
-      lon:''
+      addressDesc:'',
+      lang:'',
+      lons:''
     }
   })
 
@@ -26,6 +22,7 @@ const ReportPage = ({navigation})=>{
       maxHeight:160,maxWidth:160,
       includeBase64:true,saveToPhotos: true
     }
+
     launchImageLibrary(options,res=>{
       const localTime = new Date().getTime();
       const file ={
@@ -50,6 +47,14 @@ const ReportPage = ({navigation})=>{
     })
   }
 
+  const toReportForm = (datas)=>{
+    setData(datas)
+  }
+
+  const submit = ()=>{
+    console.log(data,reportInfo);
+  }
+
   return(
     <View style={container}>
       <Gap height={15}/>
@@ -58,7 +63,7 @@ const ReportPage = ({navigation})=>{
       <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
-        <ReportForm/>
+        <ReportForm formData={toReportForm}/>
         <MapFinder/>
         <Gap height={47}/>
         <View style={{width:270}}>
@@ -69,7 +74,7 @@ const ReportPage = ({navigation})=>{
           </View>
         </View>
         <View style={{alignItems:'center'}}>
-          <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={buttonSubmit}/>
+          <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={buttonSubmit} onPress={()=>submit()}/>
         </View>
       </ScrollView>
     </View>

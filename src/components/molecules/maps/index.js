@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Alert } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, { Callout, Circle, Marker } from "react-native-maps"
 
-const MapFinder = ()=>{
+const MapFinder = ({getGeometrics})=>{
 
 	const [ region, setRegion ] = useState({
 		latitude: 1.4730796311491023,
@@ -40,6 +40,7 @@ const MapFinder = ()=>{
 							latitudeDelta: 0.0922,
 							longitudeDelta: 0.0421
 						})
+						getGeometrics(region)
 					}}
 					query={{
 						key: "AIzaSyB-lpOPCdsdF7SluzBjETaOIfT-ZDgX2ZA",
