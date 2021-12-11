@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
-import {Header,Gap,ReportForm,MapFinder,Button} from '../../components'
+import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 
 const ReportPage = ({navigation})=>{
@@ -43,9 +43,10 @@ const ReportPage = ({navigation})=>{
     })
   }
 
-  const toReportForm = (datas)=>{
-    setData(datas)
-  }
+  const {fname,address,idCard,phone} = data
+  // const toReportForm = (datas)=>{
+  //   setData({...data,fname,address,idCard,phone})
+  // }
 
   const getGeometrics = (datas)=>{
     setReportInfo(datas)
@@ -53,8 +54,13 @@ const ReportPage = ({navigation})=>{
 
   const submit = ()=>{
     //merge all the datas from these states
+    //submit all the datas from form
     const allDatas = {...data,...reportInfo,...photoInfos};
     console.log(allDatas);
+    setData({...data,fname:'',address:'',phone:'',idCard:''})
+    setPhotoInfos({...photoInfos,photoBase64:'',photo:''})
+
+    return allDatas
   }
 
   return(
@@ -65,7 +71,25 @@ const ReportPage = ({navigation})=>{
       <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
-        <ReportForm formData={toReportForm}/>
+        {/*<ReportForm formData={toReportForm}/>*/}
+        <View>
+          <ReportInput label="Fullname *" value={fname} onChangeText={e=>{
+              setData({...data,fname:e})
+            }}/>
+          <Gap height={28}/>
+          <ReportInput label="Phone Number *" value={phone} onChangeText={e=>{
+              setData({...data,phone:e})
+            }}/>
+          <Gap height={28}/>
+          <ReportInput label="ID Card *" value={idCard} onChangeText={e=>{
+              setData({...data,idCard:e})
+            }}/>
+          <Gap height={28}/>
+          <ReportInput label="Your Address *" value={address} onChangeText={e=>{
+              setData({...data,address:e})
+            }}/>
+          <Gap height={28}/>
+        </View>
         <MapFinder getGeometrics={getGeometrics}/>
         <Gap height={47}/>
         <View style={{width:270}}>
