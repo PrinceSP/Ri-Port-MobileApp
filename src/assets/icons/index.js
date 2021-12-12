@@ -18,6 +18,9 @@ import Phone from './phone.svg'
 import ID from './id.svg'
 import Edit from './edit.svg'
 import ModalSuccessIcon from './modalSuccess.svg'
+import SuccessIcon from './success_icon.svg'
+import FailedIcon from './failed_icon.svg'
 
 export {MainLogo,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,PD,Edit,ModalSuccessIcon,
-  Burger,Atomic,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID}
+  Burger,Atomic,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID,SuccessIcon,
+  FailedIcon}

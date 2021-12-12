@@ -44,9 +44,6 @@ const ReportPage = ({navigation})=>{
   }
 
   const {fname,address,idCard,phone} = data
-  // const toReportForm = (datas)=>{
-  //   setData({...data,fname,address,idCard,phone})
-  // }
 
   const getGeometrics = (datas)=>{
     setReportInfo(datas)
@@ -56,9 +53,15 @@ const ReportPage = ({navigation})=>{
     //merge all the datas from these states
     //submit all the datas from form
     const allDatas = {...data,...reportInfo,...photoInfos};
+    for (let data in allDatas) {
+      if (data.values(data) != '') {
+        console.log(data.values(data));
+      }
+    }
     console.log(allDatas);
     setData({...data,fname:'',address:'',phone:'',idCard:''})
     setPhotoInfos({...photoInfos,photoBase64:'',photo:''})
+    setReportInfo({})
 
     return allDatas
   }
