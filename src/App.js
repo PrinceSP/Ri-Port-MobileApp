@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Routes/>
+        <Routes/>
     </NavigationContainer>
   );
 

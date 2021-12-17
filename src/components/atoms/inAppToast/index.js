@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {} from 'react'
+import {DeviceEventEmitter} from 'react-native'
 import {View,Text,StyleSheet} from 'react-native'
 
 const  NotificationToast= () => {
+  useEffect(()=>{
+    DeviceEventEmitter.addListener()
+  },[])
+
   return (
     <View>
-      <Text></Text>
-      <View>
-        <Text>Close</Text>
-      </View>
     </View>
   )
 }
