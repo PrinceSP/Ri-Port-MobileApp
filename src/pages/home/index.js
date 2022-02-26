@@ -1,27 +1,10 @@
 import React,{useEffect,useState} from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
-import {Header,Gap,WeatherAPI,ReportPost} from '../../components'
+import {Header,Gap,ReportPost} from '../../components'
 import {Atomic} from '../../assets'
 import {apiCall,getCurrentDate} from '../../config'
 
 const Home = ({navigation})=>{
-  // const [userPost,setUserPost] = useState({
-  //   author:'',
-  //   title:''
-  // })
-
-  // useEffect(()=>{
-  //   apiCall('http://192.168.1.3:4000/v1/blog/posts',res=>{
-  //     const datas = JSON.parse(res)
-  //     datas.data.map(data=>{
-  //       return setUserPost(data)
-  //     })
-  //   })
-  // },[])
-
-  // const {author,title} = userPost
-
-  // console.log(title);
 
   return(
     <View style={container}>
@@ -35,7 +18,6 @@ const Home = ({navigation})=>{
           <Image style={{right:6,bottom:2}} source={Atomic}/>
         </View>
         <Text style={{fontSize:20,fontFamily:'Poppins-Light',color:'#999'}}>{getCurrentDate()}</Text>
-        <WeatherAPI/>
         <ReportPost/>
         <ReportPost/>
         <ReportPost/>
