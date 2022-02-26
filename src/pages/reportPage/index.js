@@ -53,12 +53,6 @@ const ReportPage = ({navigation})=>{
     //merge all the datas from these states
     //submit all the datas from form
     const allDatas = {...data,...reportInfo,...photoInfos};
-    for (let data in allDatas) {
-      if (data.values(data) != '') {
-        console.log(data.values(data));
-      }
-    }
-    console.log(allDatas);
     setData({...data,fname:'',address:'',phone:'',idCard:''})
     setPhotoInfos({...photoInfos,photoBase64:'',photo:''})
     setReportInfo({})
@@ -74,7 +68,6 @@ const ReportPage = ({navigation})=>{
       <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
         <Gap height={63}/>
-        {/*<ReportForm formData={toReportForm}/>*/}
         <View>
           <ReportInput label="Fullname *" value={fname} onChangeText={e=>{
               setData({...data,fname:e})
