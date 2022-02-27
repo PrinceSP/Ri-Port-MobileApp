@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import {Text,View,Image,StyleSheet,ScrollView} from 'react-native'
+import {Text,View,Image,StyleSheet,SafeAreaView} from 'react-native'
 import {MainLogo} from '../../assets'
 import {Input,Gap,Button,Header} from '../../components'
 import {AuthContext} from '../../context/authContext'
@@ -8,8 +8,9 @@ const Login =({navigation})=>{
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
   const {isFetching,dispatch} = useContext(AuthContext)
+  const url = 'https://riport-app.herokuapp.com/api/auth/login'
 
-  const fetchData = async()=>{
+  const handleLogin = async()=>{
     dispatch({type:"LOGIN_START"})
     try {
       const options = {
@@ -18,17 +19,22 @@ const Login =({navigation})=>{
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username:'dindadgm',password:'123123123'})
+        body: JSON.stringify({username,password})
       }
-      const response = await fetch('https://riport-app.herokuapp.com/api/auth/login',options)
+      const response = await fetch(url,options)
       const results = await response.json()
-      dispatch({type:"LOGIN_SUCCESS",payload:results.datas})
-      setUsername('')
-      setPassword('')
-      navigation.navigate('Root',{screen:'BottomTabs'})
+      if (response.status === 200) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: results.datas });
+        setPassword('')
+        setUsername('')
+        navigation.navigate('Root',{screen:'BottomTabs'})
+      }else {
+        console.log(results);
+      }
     } catch (e) {
-      isFetching=false
-      return e
+      dispatch({ type: "LOGIN_FAILURE", payload: e });
+      setPassword('')
+      setUsername('')
     }
   }
   return(
@@ -36,7 +42,7 @@ const Login =({navigation})=>{
       <Gap height={15}/>
       <Header name="Sign Up" action='Cancel' nav={navigation}/>
       <Gap height={45}/>
-      <ScrollView>
+      <SafeAreaView>
         <View style={{alignItems:'center',justifyContent:'center'}}>
           <MainLogo height={130}/>
           <Gap height={65}/>
@@ -46,14 +52,14 @@ const Login =({navigation})=>{
           <Gap height={26}/>
           <Text style={style.poppinsMed}>forgot password?</Text>
           <Gap height={29}/>
-          <Button style={style.button} name="SIGN IN" color="#FFF" weight={500} size={24} onPress={()=>fetchData()}/>
+          <Button style={style.button} name="SIGN IN" color="#FFF" weight={500} size={24} onPress={()=>handleLogin()}/>
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
             <Text style={style.poppinsMed}>Not a user yet?</Text>
             <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Register')}/>
           </View>
         </View>
-      </ScrollView>
+      </SafeAreaView>
     </View>
   )
 }
