@@ -1,7 +1,6 @@
 import React,{useEffect,useState,useContext} from 'react'
 import {Text,View,StyleSheet,ScrollView,Image} from 'react-native'
 import {Header,Gap,ReportPost} from '../../components'
-import {Atomic} from '../../assets'
 import {apiCall,getCurrentDate} from '../../config'
 import {AuthContext} from '../../context/authContext'
 
@@ -15,8 +14,7 @@ const Home = ({navigation})=>{
       <ScrollView contentContainerStyle={scrollViewCont}>
         <View style={{flexDirection:'row'}}>
           <Text style={headingTitle2}>Hello,</Text>
-          <Text style={headingTitle1}> {currentUser.username}!</Text>
-          <Image style={{right:6,bottom:2}} source={Atomic}/>
+          <Text style={headingTitle1}> {currentUser?.username}!</Text>
         </View>
         <Text style={{fontSize:20,fontFamily:'Poppins-Light',color:'#999'}}>{getCurrentDate()}</Text>
         <ReportPost/>
