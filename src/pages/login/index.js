@@ -40,7 +40,7 @@ const Login =({navigation})=>{
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
-      <Header name="Sign Up" action='Cancel' nav={navigation}/>
+      <Header name="Sign In" action='Cancel' nav={navigation}/>
       <Gap height={45}/>
       <SafeAreaView>
         <View style={{alignItems:'center',justifyContent:'center'}}>
