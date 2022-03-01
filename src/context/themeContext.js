@@ -14,7 +14,7 @@ export const ThemeContextProvider = ({children}) => {
       setColor('#000')
     } else{
       setTheme(true)
-      setBgColor('#444')
+      setBgColor('#21325E')
       setColor('#fff')
     }
   }
