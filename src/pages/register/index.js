@@ -21,6 +21,7 @@ const Register =({navigation})=>{
     idCardNumber:'',
     password:''
   })
+  const {fname,email,theDate,address,phone,idCardNumber,password} = userInfo
 
   const getImage=()=>{
     const options={
@@ -64,17 +65,31 @@ const Register =({navigation})=>{
   }
 
   //handle submit form button
-  const submit = ()=>{
-    // navigate into home page
-    navigation.navigate('Root',{screen:'BottomTabs'})
-    // show in console the key names and key values of each data stored in userInfo
-    // using looping for...in to loop through object
-    for(const datas in userInfo) console.log(`${datas} : ${userInfo[datas]}`);
-    // reset the values of each keys after submit button has been pressed
-    setUserInfo({fname:'',email:'',address:'',theDate:'',phone:'',idCardNumber:'',password:''})
+  const submit = async ()=>{
+    try {
+      const options = {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username:fname,email,dateOfBirth:theDate,phoneNumber:phone,ktpId:idCardNumber,password,profilePicture:photoBase64})
+      }
+      const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
+      const results = await req.json()
+      if (req.status === 200) {
+        setTimeout(()=>{
+          navigation.navigate('Login')
+        },1000)
+      } else{
+        console.log(results);
+      }
+      // reset the values of each keys after submit button has been pressed
+      setUserInfo({...userInfo,fname:'',email:'',address:'',theDate:'',phone:'',idCardNumber:'',password:''})
+    } catch (e) {
+      return e
+    }
   }
-  // destructuring objects in userInfo state
-  const {fname,email,address,theDate,phone,idCardNumber,password} = userInfo
 
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
@@ -87,18 +102,18 @@ const Register =({navigation})=>{
           hasPhoto={hasPhoto}
           onPress={getImage}/>
         <Gap height={59}/>
-        <Input placeholder="Fullname" value={fname} onChangeText={(event)=>{
+        <Input placeholder="Fullname" defaultValue={fname} onChangeText={(event)=>{
             setUserInfo({...userInfo,fname:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Email address" value={email}  onChangeText={(event)=>{
+        <Input placeholder="Email address" defaultValue={email}  onChangeText={(event)=>{
             setUserInfo({...userInfo,email:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Address" value={address} onChangeText={(event)=>{
+        <Input placeholder="Address" defaultValue={address} onChangeText={(event)=>{
             setUserInfo({...userInfo,address:event})}}/>
         <Gap height={30}/>
         <View>
           <TouchableOpacity style={{width:327,height:48,borderRadius:50,position:'absolute',zIndex:2}} onPress={()=>setShow(true)}/>
-          <Input placeholder="Birth of date" value={theDate}/>
+          <Input placeholder="Birth of date" defaultValue={theDate}/>
         </View>
         {
           show && <DateTimePicker testID='dateTimePicker'
@@ -110,13 +125,13 @@ const Register =({navigation})=>{
           />
         }
         <Gap height={30}/>
-        <Input placeholder="Phone number" value={phone} onChangeText={(event)=>{
+        <Input placeholder="Phone number" defaultValue={phone} onChangeText={(event)=>{
             setUserInfo({...userInfo,phone:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="ID Card" value={idCardNumber} onChangeText={(event)=>{
+        <Input placeholder="ID Card" defaultValue={idCardNumber} onChangeText={(event)=>{
             setUserInfo({...userInfo,idCardNumber:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Password" value={password} onChangeText={(event)=>{
+        <Input placeholder="Password" defaultValue={password} onChangeText={(event)=>{
             setUserInfo({...userInfo,password:event})}}/>
         <Gap height={78}/>
         <Button name="SIGN UP" color="#FFF" fam='Poppins-Medium' size={24} style={style.button}
