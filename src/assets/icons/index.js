@@ -19,7 +19,8 @@ import Edit from './edit.svg'
 import ModalSuccessIcon from './modalSuccess.svg'
 import SuccessIcon from './success_icon.svg'
 import FailedIcon from './failed_icon.svg'
+import EyeTrue from './eyeTrue.svg'
+import EyeFalse from './eyeFalse.svg'
 
-export {MainLogo,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,PD,Edit,ModalSuccessIcon,
-  Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID,SuccessIcon,
-  FailedIcon}
+export {MainLogo,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,PD,Edit,ModalSuccessIcon,
+  Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID,SuccessIcon,FailedIcon}
