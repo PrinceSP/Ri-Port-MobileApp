@@ -3,7 +3,7 @@ import {Text,View,StyleSheet,Image} from 'react-native'
 import {PD} from '../../../assets'
 import {Button} from '../../atoms'
 
-const ReportPost = ({key})=>{
+const ReportPost = ({location})=>{
 
   return(
     <View style={container}>
@@ -12,7 +12,7 @@ const ReportPost = ({key})=>{
           <Image source={PD} style={profpic}/>
           <View style={{marginLeft:10}}>
             <Text style={{fontFamily:'Poppins-SemiBold',color:'#000',fontSize:17}}>Testing</Text>
-            <Text>Jakarta, Indonesia</Text>
+            <Text>{location?location:'Jakarta, Indonesia'}</Text>
           </View>
         </View>
         <Button name='details' color='#00f'/>
