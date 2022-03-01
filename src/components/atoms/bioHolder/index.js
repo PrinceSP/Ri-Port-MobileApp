@@ -2,7 +2,7 @@
 import React from 'react'
 import {View,StyleSheet,Text} from 'react-native'
 
-const BioHolder = ({icon,userInfo,labelInfo})=>{
+const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor})=>{
 
   const style=StyleSheet.create({
     container:{
@@ -24,11 +24,11 @@ const BioHolder = ({icon,userInfo,labelInfo})=>{
     },
     label:{
       position:'absolute',color:'#898898',
-      top:-13, backgroundColor:'#fff', left:5.77,
+      top:-13, backgroundColor, left:5.77,
       fontFamily:'Poppins-Medium', fontSize:14,
     },
     info:{
-      fontSize:17, fontFamily:'Poppins-Medium', color:'#000'
+      fontSize:17, fontFamily:'Poppins-Medium', color
     }
   })
 

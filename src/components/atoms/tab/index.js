@@ -15,7 +15,7 @@ const Tab = ({tab,color,onPress})=>{
   const colors = color==='#000';
   const style = StyleSheet.create({
     report:{
-      position:'absolute',bottom:0,
+      position:'absolute',bottom:-10,
       height:70,
       width:70,
       borderWidth:5,
