@@ -73,7 +73,7 @@ const Register =({navigation})=>{
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username:fname,email,dateOfBirth:theDate,phoneNumber:phone,ktpId:idCardNumber,password,profilePicture:photoBase64})
+        body: JSON.stringify({username:fname,email,dateOfBirth:theDate,address,phoneNumber:phone,ktpId:idCardNumber,password,profilePicture:photoBase64})
       }
       const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
       const results = await req.json()
