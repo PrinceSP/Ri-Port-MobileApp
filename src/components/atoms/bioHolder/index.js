@@ -23,7 +23,8 @@ const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor})=>{
       paddingHorizontal:5.77, borderColor:'#a0a0a0'
     },
     label:{
-      position:'absolute',color:'#898898',
+
+      position:'absolute',color:`${color==='#fff'?'#aaa':'#898898'}`,
       top:-13, backgroundColor, left:5.77,
       fontFamily:'Poppins-Medium', fontSize:14,
     },
