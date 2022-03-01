@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
-import {View,Text} from 'react-native'
+import React, {useState,useContext} from 'react'
+import {View,Text,Image} from 'react-native'
 import {Button,BioHolder,Gap,Header} from '../../components'
 import {DateIcon,Email,Address,Phone,AvatarProfile,ID,MainLogo} from '../../assets'
+import {AuthContext} from '../../context/authContext'
 
 const Profile = ({navigation})=>{
+  const {user} = useContext(AuthContext)
 
   return(
     <View style={{flex:1,backgroundColor:'#fff'}}>
@@ -12,7 +14,7 @@ const Profile = ({navigation})=>{
       <Gap height={350}/>
       <View style={{flex:0.9,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:130,width:130,alignItems:'center',justifyContent:'center'}}>
-          <View style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>
+          {user.profilePicture ? <Image source={{uri:`data:image/png;base64,${user.profilePicture}`}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/> : <View style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>}
         </View>
         <Gap height={20}/>
         <BioHolder icon={<AvatarProfile fill="#a0a0a0"/>} userInfo='Prince Siachin' labelInfo='Fullname'/>
