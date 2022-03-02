@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
