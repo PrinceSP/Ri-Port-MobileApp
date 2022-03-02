@@ -31,7 +31,7 @@ const OnBoarding = ({navigation}) => {
       await AsyncStorage.setItem("@viewed","true")
       navigation.navigate('WelcomeScreen')
     } catch (e) {
-      console.log(e);
+      return e
     }
   }
 
