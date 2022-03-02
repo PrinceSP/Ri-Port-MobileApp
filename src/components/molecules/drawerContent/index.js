@@ -5,6 +5,7 @@ import Share from 'react-native-share'
 import {AvatarProfile,Help,Report,ShareIcon,SignOut} from '../../../assets'
 import {AuthContext} from '../../../context/authContext'
 import {ThemeContext} from '../../../context/themeContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DrawerContent = (props)=>{
   const {user} = useContext(AuthContext)
@@ -64,6 +65,15 @@ const DrawerContent = (props)=>{
        console.log('Error => ', error);
      }
    };
+
+   const signOut=async()=> {
+     try {
+       props.navigation.navigate('Login')
+       await AsyncStorage.removeItem("@viewed")
+     } catch (e) {
+       console.log(e);
+     }
+   }
   return(
     <View style={container}>
       <DrawerContentScrollView {...props}>
@@ -105,7 +115,7 @@ const DrawerContent = (props)=>{
             <DrawerItem labelStyle={menu}
               icon={()=><SignOut height={28} width={28}/>}
               label="Sign Out"
-              onPress={()=>{}}/>
+              onPress={signOut}/>
           </View>
           <View style={{paddingLeft:20,marginTop:20}}>
             <Text style={{color}}>v.1.0</Text>
