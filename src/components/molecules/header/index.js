@@ -2,7 +2,7 @@ import React from 'react'
 import {Text,View,TouchableOpacity} from 'react-native'
 import {Burger,Edit} from '../../../assets'
 
-const Header = ({name,button,navigation,action,edit,nav,color,bgColor})=>{
+const Header = ({name,button,navigation,action,edit,nav,color="#000",bgColor="#fff"})=>{
 
   const BackCancel = ({onPress})=>{
     return(
@@ -16,7 +16,7 @@ const Header = ({name,button,navigation,action,edit,nav,color,bgColor})=>{
     <View style={{minHeight:43,alignItems:'center',justifyContent:'space-between',flexDirection:'row',paddingHorizontal:17,
     backgroundColor:bgColor}}>
       {
-        button===true?<Burger onPress={()=>navigation.openDrawer()}/>
+        button===true?<Burger stroke={color} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>
       :(name=="Sign In" || name=="Sign Up")?<BackCancel onPress={()=>nav.navigate('WelcomeScreen')}/>
       :<BackCancel onPress={()=>nav.goBack()}/>
 
