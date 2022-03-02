@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, View,Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,8 +8,9 @@ import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 const Tab = createBottomTabNavigator()
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
- const BottomTabs = ()=>{
+const BottomTabs = ()=>{
   return(
     <Tab.Navigator screenOptions={() => ({
         headerShown: false,
@@ -46,11 +46,30 @@ const Root=()=>{
   )
 }
 
+
 const Routes = ()=>{
+  const[viewedOnBoarding,setViewedOnBoarding] = React.useState(false)
+  const checkOnBoarding = async()=>{
+    try {
+      const value = await AsyncStorage.getItem("@viewed")
+      if (value!==null) {
+        return setViewedOnBoarding(true)
+      }else{
+        return setViewedOnBoarding(false)
+      }
+    } catch (e) {
+      return e
+    }
+  }
+  React.useEffect(()=>{
+    checkOnBoarding()
+  },[])
+  // <Screen name="OnBoardingPage" component={viewedOnBoarding==false?OnBoardingPage:WelcomeScreen} options={{headerShown:false}}/>
+
   return(
     <Navigator>
       <Screen name="SplashScreen" component={SplashScreen} options={{headerShown:false}}/>
-      <Screen name="OnBoardingPage" component={OnBoardingPage} options={{headerShown:false}}/>
+      <Screen name="OnBoardingPage" component={viewedOnBoarding==false?OnBoardingPage:WelcomeScreen} options={{headerShown:false}}/>
       <Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown:false}}/>
       <Screen name="Login" component={Login} options={{headerShown:false}}/>
       <Screen name="Register" component={Register} options={{headerShown:false}}/>
