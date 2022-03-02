@@ -1,7 +1,8 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
+import {ThemeContext} from '../../context/themeContext'
 
 const ReportPage = ({navigation})=>{
   const [hasPhoto, setHasPhoto] = useState(false)
@@ -17,11 +18,12 @@ const ReportPage = ({navigation})=>{
     idCard:'',
   })
   const [reportInfo,setReportInfo] = useState({})
+  const {color,bgColor} = useContext(ThemeContext)
 
   const getImage=()=>{
     const options={
       maxHeight:160,maxWidth:160,
-      includeBase64:true,saveToPhotos: true
+      saveToPhotos: true
     }
 
     launchImageLibrary(options,res=>{
@@ -32,11 +34,11 @@ const ReportPage = ({navigation})=>{
         //reset the value to its default value
         setHasPhoto(false)
         setPhotoInfos({photo:''});
-        setPhotoInfos({photoBase64:''});
+        // setPhotoInfos({photoBase64:''});
         setPhotoName('no photo uploaded')
       }else{
-        setPhotoInfos({...photoInfos,photo:res.assets[0].uri});
-        setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
+        setPhotoInfos({...photoInfos,photo:res.assets[0].fileName});
+        // setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
         setHasPhoto(true);
         setPhotoName(fileName)
       }
@@ -56,42 +58,41 @@ const ReportPage = ({navigation})=>{
     setData({...data,fname:'',address:'',phone:'',idCard:''})
     setPhotoInfos({...photoInfos,photoBase64:'',photo:''})
     setReportInfo({})
+    setPhotoName('no photo uploaded')
+    console.log(allDatas);
 
     return allDatas
   }
 
   return(
-    <View style={container}>
+    <View style={[container,{backgroundColor:bgColor}]}>
       <Gap height={15}/>
-      <Header name="report" button={true} navigation={navigation}/>
-      <Gap height={45}/>
+      <Header name="report" button={true} navigation={navigation} color={color} bgColor={bgColor}/>
+      <Gap height={20}/>
       <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
-        <Gap height={63}/>
+        <Gap height={33}/>
+        <MapFinder getGeometrics={getGeometrics}/>
+        <Gap height={28}/>
         <View>
-          <ReportInput label="Fullname *" value={fname} onChangeText={e=>{
+          <ReportInput label="Fullname *" defaultValue={fname} onChangeText={e=>{
               setData({...data,fname:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput label="Phone Number *" value={phone} onChangeText={e=>{
+          <ReportInput label="Phone Number *" defaultValue={phone} onChangeText={e=>{
               setData({...data,phone:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput label="ID Card *" value={idCard} onChangeText={e=>{
+          <ReportInput label="ID Card *" defaultValue={idCard} onChangeText={e=>{
               setData({...data,idCard:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput label="Your Address *" value={address} onChangeText={e=>{
-              setData({...data,address:e})
-            }}/>
-          <Gap height={28}/>
         </View>
-        <MapFinder getGeometrics={getGeometrics}/>
-        <Gap height={47}/>
+        <Gap height={27}/>
         <View style={{width:270}}>
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
           <View style={{alignItems:'center',flexDirection:'row'}}>
-            <Button name="Upload" color='#fff' fam='Poppins-Medium' style={button} onPress={()=>getImage()}/>
+            <Button name="Upload" color='#fff' fam='Poppins-Medium' style={[button,{backgroundColor:bgColor}]} onPress={()=>getImage()}/>
             <Text style={{marginLeft:18,color:'#000'}}>{photoName}</Text>
           </View>
         </View>
@@ -104,12 +105,11 @@ const ReportPage = ({navigation})=>{
 }
 
 const style=StyleSheet.create({
-  container:{ flex: 1,backgroundColor:'#fff'},
+  container:{ flex: 1},
   text1:{fontSize:20,fontFamily:'Lato-Bold',color:'#565665'},
   formContainer:{paddingHorizontal:20,paddingBottom:150},
   button:{
     marginTop:12,
-    backgroundColor:'#000',
     height:37,
     width:88,
     borderRadius:50,
