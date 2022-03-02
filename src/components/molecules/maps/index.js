@@ -9,7 +9,8 @@ const MapFinder = ({getGeometrics})=>{
 		latitude: 1.4730796311491023,
 		longitude: 124.85402639232787,
 		latitudeDelta: 0.0922,
-		longitudeDelta: 0.0421
+		longitudeDelta: 0.0421,
+		detail:null
 	})
 
 	return (
@@ -32,13 +33,14 @@ const MapFinder = ({getGeometrics})=>{
 					enablePoweredByContainer={false}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
-						// console.log(data.description,details.geometry.location)
+						console.log(data.description,details.geometry.location)
 						// update the region by its latitude and longitude
 						setRegion({
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
 							latitudeDelta: 0.0922,
-							longitudeDelta: 0.0421
+							longitudeDelta: 0.0421,
+							detail:data.description
 						})
 						getGeometrics(region)
 					}}
@@ -85,7 +87,6 @@ const MapFinder = ({getGeometrics})=>{
 								longitude: e.nativeEvent.coordinate.longitude
 							})
 							getGeometrics(region)
-							// console.log(region);
 						}}
 					>
 						<Callout>
@@ -104,7 +105,7 @@ const style = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFill
   },
-	placesContainer: { flex: 0,borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
+	placesContainer: {borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
 	textInput:{backgroundColor: "#eee",minHeight:50,marginVertical:5,color:'#000'}
 })
 
