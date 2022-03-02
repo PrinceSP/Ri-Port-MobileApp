@@ -11,6 +11,7 @@ import slides from './onBoardList'
 import OnBoardingItem from './onBoardingItem'
 import Paginator from '../paginator'
 import {Button} from '../../atoms'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OnBoarding = ({navigation}) => {
   const [currentIndex,setCurrentIndex]=useState(0)
@@ -24,6 +25,15 @@ const OnBoarding = ({navigation}) => {
   const viewConfig = useRef({viewAreaCoveragePercentThreshold:50}).current
 
   const sideRef = useRef(null)
+
+  const moveTo= async ()=>{
+    try {
+      await AsyncStorage.setItem("@viewed","true")
+      navigation.navigate('WelcomeScreen')
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <View style={style.container}>
@@ -49,7 +59,7 @@ const OnBoarding = ({navigation}) => {
         size={20}
         fam='Poppins-SemiBold' style={style.button}
         color="#fff"
-        onPress={() => navigation.navigate('WelcomeScreen')}/>
+        onPress={moveTo}/>
     </View>
   );
 };
