@@ -18,12 +18,5 @@ add some info to get valid.`,
     title:'Hello again!',
     desc:"Login with your account or sign up to create your account right now!",
     image:require('../../../assets/imgs/3.png'),
-  },
-  // {
-  //   id:'4',
-  //   title:'Welcome User',
-  //   desc:`You're only a few steps away
-  //   from joining RiPort`,
-  //   image:require('../../../assets/imgs/4.png'),
-  // }
+  }
 ]
