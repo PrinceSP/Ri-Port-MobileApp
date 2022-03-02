@@ -4,11 +4,18 @@ import {HomeIcon,ReportIcon,NotifIcon} from '../../../assets'
 
 const Tab = ({tab,color,onPress})=>{
   const otherStyles= {
-    shadowOffset: { width: 10, height: 10 },
-    shadowColor: "#B6E203",
-    shadowOpacity: 1,
-    shadowRadius:20,
-    elevation: 10,
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: "#B6E203",
+        shadowOpacity: 1,
+        shadowRadius:20,
+      },
+      android:{
+        shadowColor: "#B6E203",
+        elevation: 10,
+      },
+    }),
     borderRadius:50,
   }
 
@@ -19,7 +26,6 @@ const Tab = ({tab,color,onPress})=>{
       height:70,
       width:70,
       borderWidth:5,
-      // borderColor:'#B5CEFF',
       borderColor:'#eee',
       borderRadius:50,
       justifyContent:'center',
@@ -45,9 +51,9 @@ const Tab = ({tab,color,onPress})=>{
   return(
     <TouchableHighlight underlayColor="#fff" activeOpacity={0.6} onPress={onPress} style={{alignItems:'center'}}>
       {
-        tab.name === 'Home'?<View style={{alignItems:'center'}}><HomeIcon height={27} fill={color} style={other}/></View>
+        tab.name === 'Home'?<View style={{alignItems:'center'}}><HomeIcon stroke={color=="none"?"#888":"#000"} strokeWidth="3" height={27} fill={color} style={other}/></View>
       :tab.name=== 'Report'?<View style={report}><ReportIcon height={60}/></View>
-    :<View style={{alignItems:'center'}}><NotifIcon height={28} width={38} fill={color} style={other}/></View>
+    :<View style={{alignItems:'center'}}><NotifIcon height={28} width={38} stroke={color==="#000"?"#000":"#888"} strokeWidth="3" fill={color} style={other}/></View>
       }
     </TouchableHighlight>
   )
