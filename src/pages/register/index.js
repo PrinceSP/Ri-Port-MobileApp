@@ -1,68 +1,16 @@
 import React,{useState} from 'react'
-import {Text,View,StyleSheet,TouchableOpacity,ScrollView,Image,Platform} from 'react-native'
+import {Text,View,StyleSheet,TouchableOpacity,ScrollView} from 'react-native'
 import {Input,Gap,Button,Header,ImagePicker} from '../../components'
-import {PD} from '../../assets'
-import {launchImageLibrary} from 'react-native-image-picker'
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const Register =({navigation})=>{
-  const [photo,setPhoto] = useState('')
-  const [hasPhoto, setHasPhoto] = useState(false)
-  const [photoBase64,setPhotoBase64] = useState('')
-  const [date,setDate] = useState(new Date())
   const [show,setShow] = useState(false)
   const [userInfo,setUserInfo] = useState({
-    fname:'',
-    email:'',
-    address:'',
-    theDate:'',
-    phone:'',
-    idCardNumber:'',
+    username:'',
+    phoneNumber:'',
     password:''
   })
-  const {fname,email,theDate,address,phone,idCardNumber,password} = userInfo
-
-  const getImage=()=>{
-    const options={
-      maxHeight:160,
-      maxWidth:160,
-      includeBase64:true,
-    }
-    launchImageLibrary(options,res=>{
-      if(res.didCancel){
-        setHasPhoto(false)
-        setPhoto('');
-        setPhotoBase64('');
-      }else{
-        setPhoto(res.assets[0].uri);
-        setPhotoBase64(res.assets[0].base64);
-        setHasPhoto(true);
-      }
-    })
-  }
-
-  //handle on change event when user change the date
-  const onChange = (e, selectedDate)=>{
-    const currentDate = selectedDate || date
-
-    setShow(Platform=='ios')
-    if (e.type === 'set') {
-      // set the inputed date into the current date
-      setDate(currentDate)
-      // put the current date inputed by user into the built-in date function to return the actual Date
-      let tempDate = new Date(currentDate)
-      // from the actual date in 'tempDate', get the date day-month-year
-      let fDate = `${tempDate.getDate()}-${(tempDate.getMonth()+1)}-${tempDate.getFullYear()}`
-      // setTheDate(fDate)
-      setUserInfo({...userInfo,theDate:fDate})
-    } else {
-      // reseting the dates
-      setDate(new Date())
-      // setTheDate('') when user cancel input the date
-      setUserInfo({theDate:''})
-    }
-  }
+  const {username,phoneNumber,password} = userInfo
 
   //handle submit form button
   const submit = async ()=>{
@@ -73,7 +21,7 @@ const Register =({navigation})=>{
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username:fname,email,dateOfBirth:theDate,address,phoneNumber:phone,ktpId:idCardNumber,password,profilePicture:photoBase64})
+        body: JSON.stringify({username,phoneNumber,password})
       }
       const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
       const results = await req.json()
@@ -85,7 +33,7 @@ const Register =({navigation})=>{
         console.log(results);
       }
       // reset the values of each keys after submit button has been pressed
-      setUserInfo({...userInfo,fname:'',email:'',address:'',theDate:'',phone:'',idCardNumber:'',password:''})
+      setUserInfo({...userInfo,username:'',phoneNumber:'',password:''})
     } catch (e) {
       return e
     }
@@ -95,41 +43,15 @@ const Register =({navigation})=>{
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
       <Header name="Sign Up" action='Cancel' nav={navigation}/>
-      <Gap height={25}/>
+      <Gap height={70}/>
       <ScrollView contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
-        <ImagePicker
-          photo={photo}
-          hasPhoto={hasPhoto}
-          onPress={getImage}/>
+        <Text style={style.headingText}>Create an account</Text>
         <Gap height={59}/>
-        <Input placeholder="Fullname" defaultValue={fname} onChangeText={(event)=>{
-            setUserInfo({...userInfo,fname:event})}}/>
+        <Input placeholder="Username" defaultValue={username} onChangeText={(event)=>{
+            setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
-        <Input placeholder="Email address" defaultValue={email}  onChangeText={(event)=>{
-            setUserInfo({...userInfo,email:event})}}/>
-        <Gap height={30}/>
-        <Input placeholder="Address" defaultValue={address} onChangeText={(event)=>{
-            setUserInfo({...userInfo,address:event})}}/>
-        <Gap height={30}/>
-        <View>
-          <TouchableOpacity style={{width:327,height:48,borderRadius:50,position:'absolute',zIndex:2}} onPress={()=>setShow(true)}/>
-          <Input placeholder="Birth of date" defaultValue={theDate}/>
-        </View>
-        {
-          show && <DateTimePicker testID='dateTimePicker'
-          value={date}
-          mode='date'
-          display='default'
-          onChange={onChange}
-          is24Hour={true}
-          />
-        }
-        <Gap height={30}/>
-        <Input placeholder="Phone number" defaultValue={phone} onChangeText={(event)=>{
-            setUserInfo({...userInfo,phone:event})}}/>
-        <Gap height={30}/>
-        <Input placeholder="ID Card" defaultValue={idCardNumber} onChangeText={(event)=>{
-            setUserInfo({...userInfo,idCardNumber:event})}}/>
+        <Input placeholder="Phone number" defaultValue={phoneNumber} onChangeText={(event)=>{
+            setUserInfo({...userInfo,phoneNumber:event})}}/>
         <Gap height={30}/>
         <Input placeholder="Password" defaultValue={password} onChangeText={(event)=>{
             setUserInfo({...userInfo,password:event})}}/>
@@ -160,7 +82,8 @@ const style = StyleSheet.create({
   poppinsMed:{
     fontFamily:'Poppins-Medium',
     color:'#777'
-  }
+  },
+  headingText:{fontSize:28,fontFamily:'Poppins-Bold',color:'#000'}
 })
 
 export default Register
