@@ -2,9 +2,11 @@ import React, {useState,useEffect,useContext} from 'react'
 import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
+import {AuthContext} from '../../context/authContext'
 import {ThemeContext} from '../../context/themeContext'
 
 const ReportPage = ({navigation})=>{
+  const {user:currentUser} = useContext(AuthContext)
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoInfos,setPhotoInfos] = useState({
     photoBase64:'',
@@ -12,10 +14,10 @@ const ReportPage = ({navigation})=>{
   })
   const [photoName,setPhotoName] = useState('no photo uploaded')
   const [data,setData] = useState({
-    fname:'',
-    address:'',
-    phone:'',
-    idCard:'',
+    fname:currentUser.username,
+    address:currentUser.address,
+    phone:currentUser.phoneNumber,
+    idCard:currentUser.ktpId,
   })
   const [reportInfo,setReportInfo] = useState({})
   const {color,bgColor} = useContext(ThemeContext)
@@ -75,15 +77,15 @@ const ReportPage = ({navigation})=>{
         <MapFinder getGeometrics={getGeometrics}/>
         <Gap height={28}/>
         <View>
-          <ReportInput label="Fullname *" defaultValue={fname} onChangeText={e=>{
+          <ReportInput color={color} label="Fullname *" defaultValue={fname} onChangeText={e=>{
               setData({...data,fname:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput label="Phone Number *" defaultValue={phone} onChangeText={e=>{
+          <ReportInput color={color} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
               setData({...data,phone:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput label="ID Card *" defaultValue={idCard} onChangeText={e=>{
+          <ReportInput color={color} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
               setData({...data,idCard:e})
             }}/>
           <Gap height={28}/>
@@ -92,8 +94,8 @@ const ReportPage = ({navigation})=>{
         <View style={{width:270}}>
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
           <View style={{alignItems:'center',flexDirection:'row'}}>
-            <Button name="Upload" color='#fff' fam='Poppins-Medium' style={[button,{backgroundColor:bgColor}]} onPress={()=>getImage()}/>
-            <Text style={{marginLeft:18,color:'#000'}}>{photoName}</Text>
+            <Button name="Upload" color={bgColor} fam='Poppins-Medium' style={[button,{backgroundColor:color}]} onPress={()=>getImage()}/>
+            <Text style={{marginLeft:18,color}}>{photoName}</Text>
           </View>
         </View>
         <View style={{alignItems:'center'}}>
