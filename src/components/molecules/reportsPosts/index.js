@@ -1,6 +1,5 @@
 import React from 'react'
 import {Text,View,StyleSheet,Image} from 'react-native'
-import {PD} from '../../../assets'
 import {Button} from '../../atoms'
 
 const ReportPost = ({location,color,backgroundColor})=>{
@@ -9,7 +8,7 @@ const ReportPost = ({location,color,backgroundColor})=>{
     <View style={[container,{backgroundColor}]}>
       <View style={profileContainer}>
         <View style={{flexDirection:'row',alignItems:'center'}}>
-          <Image source={PD} style={profpic}/>
+          {/*<Image source={} style={profpic}/>*/}
           <View style={{marginLeft:10}}>
             <Text style={{fontFamily:'Poppins-SemiBold',color,fontSize:17}}>Testing</Text>
             <Text style={{color}}>{location?location:'Jakarta, Indonesia'}</Text>
