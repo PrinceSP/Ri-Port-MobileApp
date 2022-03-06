@@ -1,8 +1,10 @@
 //this bioHolder atom is used for the holder of informations for the user profile page
 import React from 'react'
 import {View,StyleSheet,Text} from 'react-native'
+import Button from '../button'
+import {ArrowR} from '../../../assets'
 
-const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor})=>{
+const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor,onPress})=>{
 
   const style=StyleSheet.create({
     container:{
@@ -10,30 +12,27 @@ const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor})=>{
       width:329,
       flexDirection:'row',
       alignItems:'flex-end',
-      marginBottom:10
+      marginBottom:14
     },
     iconHolder:{
-      height:41, width:53, borderWidth:1, borderBottomLeftRadius:10,
-      borderTopLeftRadius:10, alignItems:'center', justifyContent:'center',borderColor:'#a0a0a0'
+      backgroundColor,borderRadius:50,
+      height:50,width:50,padding:6,
+      alignItems:'center',justifyContent:'center',
     },
     infoHolder:{
-      height:41, width:265, flexDirection:'row', borderRightWidth:1, borderTopWidth:1,
-      borderBottomWidth:1, borderBottomRightRadius:10,
-      borderTopRightRadius:10, alignItems:'center',
-      paddingHorizontal:5.77, borderColor:'#a0a0a0'
+      height:50, width:285,flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingLeft:20
     },
-    label:{
-
-      position:'absolute',color:`${color==='#fff'?'#aaa':'#898898'}`,
-      top:-13, backgroundColor, left:5.77,
-      fontFamily:'Poppins-Medium', fontSize:14,
+    button:{
+      backgroundColor:"rgba(210,210,240,0.5)",paddingHorizontal:15,paddingVertical:12,borderRadius:10
     },
     info:{
-      fontSize:17, fontFamily:'Poppins-Medium', color
-    }
+      fontSize:16, fontFamily:'Poppins-Medium', color
+    },
+    label:{color:"#777",fontFamily:'Lato-Regular'},
+    infoContainer:{height:45,flexDirection:'column',justifyContent:'space-between'}
   })
 
-  const {container,iconHolder,infoHolder,label,info} = style
+  const {container,iconHolder,infoHolder,label,info,infoContainer} = style
 
   return(
     <View style={container}>
@@ -41,8 +40,11 @@ const BioHolder = ({icon,userInfo,labelInfo,color,backgroundColor})=>{
         {icon}
       </View>
       <View style={infoHolder}>
-        <Text style={label}>{labelInfo}</Text>
-        <Text style={info}>{userInfo}</Text>
+        <View style={infoContainer}>
+          <Text style={label}>{labelInfo}</Text>
+          <Text style={info}>{userInfo}</Text>
+        </View>
+        <Button style={style.button} onPress={onPress} name={<ArrowR stroke={color} strokeWidth={4} height={10} width={10}/>}/>
       </View>
     </View>
   )
