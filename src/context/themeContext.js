@@ -1,26 +1,40 @@
-import React, {createContext,useContext,useState} from 'react'
-
+import React, {createContext,useContext,useState,useEffect} from 'react'
+import {defaultTheme,darkTheme} from '../config/theme'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const ThemeContext = createContext()
 
 export const ThemeContextProvider = ({children}) => {
 
-  const [theme,setTheme] = useState(false)
-  const [color,setColor] = useState('#000')
-  const [bgColor,setBgColor] = useState('#fff')
+  const [theme,setTheme] = useState(defaultTheme)
+  const [isLoading,setIsLoading] = useState(true)
+  const [mode,setMode] = useState(false)
 
-  const toggleScheme = ()=>{
-    if(theme){
-      setTheme(false)
-      setBgColor('#fff')
-      setColor('#000')
-    }else{
-      setTheme(true)
-      setBgColor('#121212')
-      setColor('#fff')
+  const getTheme = async()=>{
+    const themeMode = await AsyncStorage.getItem("themeMode")
+    if (themeMode!==null) {
+      themeMode === 'default' ? setTheme(defaultTheme) : setTheme(darkTheme)
+      setIsLoading(false)
     }
+    setIsLoading(false)
   }
+
+  useEffect(()=>{
+    getTheme()
+  },[])
+
+  const updateTheme= currentThemeMode=>{
+    const newTheme = currentThemeMode === "default" ? darkTheme : defaultTheme
+    if (newTheme.themeMode==="default") {
+      setMode(false)
+    } else{
+      setMode(true)
+    }
+    setTheme(newTheme)
+    AsyncStorage.setItem("themeMode",newTheme.themeMode)
+  }
+
   return (
-    <ThemeContext.Provider value={{theme, toggleScheme, color, bgColor}}>
+    <ThemeContext.Provider value={{theme,isLoading,mode,updateTheme}}>
       {children}
     </ThemeContext.Provider>
   )
