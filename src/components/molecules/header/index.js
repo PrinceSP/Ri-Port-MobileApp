@@ -17,13 +17,12 @@ const Header = ({name,button,navigation,action,edit,nav,color="#000",bgColor="#f
     backgroundColor:bgColor}}>
       {
         button===true?<Burger stroke={color} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>
-      :(name=="Sign In" || name=="Sign Up")?<BackCancel onPress={()=>nav.navigate('WelcomeScreen')}/>
-      :<BackCancel onPress={()=>nav.goBack()}/>
+        :(name=="Sign In" || name=="Sign Up")?<BackCancel onPress={()=>nav.navigate('WelcomeScreen')}/>
+        :<BackCancel onPress={()=>nav.goBack()}/>
 
       }
       <Text style={{fontFamily:'Poppins-Medium',color,fontSize:22}}>{name}</Text>
-      {edit===true?<TouchableOpacity onPress={()=>nav.navigate('EditProfile')} style={{flexDirection:'row'}}><Edit stroke={color}/><Text style={{color}}>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
-
+      {edit===true?<TouchableOpacity onPress={()=>nav.navigate('EditProfile')} style={{flexDirection:'row'}}><Edit/><Text style={{color:'#7a7a7a'}}>Edit</Text></TouchableOpacity>:<View style={{width:42}}/>}
     </View>
   )
 }
