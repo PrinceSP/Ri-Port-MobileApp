@@ -4,17 +4,16 @@ import {DrawerContentScrollView,DrawerItem} from '@react-navigation/drawer'
 import Share from 'react-native-share'
 import {AvatarProfile,Help,Report,ShareIcon,SignOut} from '../../../assets'
 import {AuthContext} from '../../../context/authContext'
-import {ThemeContext} from '../../../context/themeContext'
+import {useTheme} from '../../../context/themeContext'
 
 const DrawerContent = (props)=>{
   const {user} = useContext(AuthContext)
-  const [darkMode,setDarkMode] = useState(false)
-  const {toggleScheme,theme, color, bgColor} = useContext(ThemeContext)
+  const {theme,updateTheme,mode} = useTheme()
 
   const style = StyleSheet.create({
     container:{
       flex:1,
-      backgroundColor:bgColor
+      backgroundColor:theme.backgroundColor
     },
     section:{
       paddingTop:33,
@@ -30,18 +29,18 @@ const DrawerContent = (props)=>{
     },
     title:{
       fontFamily:'Lato-Bold',
-      color,
+      color:theme.color,
       fontSize:20,
       marginTop:14
     },
     desc:{
       fontFamily:'Lato-Regular',
-      color,
+      color:theme.color,
       fontSize:16
     },
     menu:{
       fontSize:16,
-      color
+      color:theme.color
     },
     darkModeStyle:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:20,marginTop:10},
     drawerItemsContainer:{paddingVertical:18,borderBottomWidth:1,borderBottomColor:'#F1DADA'},
@@ -74,6 +73,8 @@ const DrawerContent = (props)=>{
      }
    }
 
+   const changeTheme = ()=>updateTheme(theme.themeMode)
+
   return(
     <View style={container}>
       <DrawerContentScrollView {...props}>
@@ -97,7 +98,7 @@ const DrawerContent = (props)=>{
               onPress={()=>{props.navigation.navigate('ReportListPage')}}/>
             <View style={darkModeStyle}>
               <Text style={[menu,{fontFamily:'Lato-Bold'}]}>Dark Mode</Text>
-              <Switch thumbColor={color=="#fff"?color:"#aaa"} trackColor={{false:'lightblue',true:'grey'}} value={theme} onValueChange={toggleScheme}/>
+              <Switch thumbColor={theme.color=="#fff"?theme.color:"#aaa"} trackColor={{false:'lightblue',true:'grey'}} value={mode} onValueChange={changeTheme}/>
             </View>
           </View>
           <View style={[{paddingTop:19}]}>
@@ -115,12 +116,12 @@ const DrawerContent = (props)=>{
               onPress={signOut}/>
           </View>
           <View style={{paddingLeft:20,marginTop:20}}>
-            <Text style={{color}}>v.1.0</Text>
+            <Text style={{color:theme.color}}>v.1.0</Text>
           </View>
         </View>
       </DrawerContentScrollView>
       <View style={{marginBottom:15,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
-        <Text style={{color,fontFamily:'Poppins-Bold',fontSize:16}}>RiPort</Text>
+        <Text style={{color:theme.color,fontFamily:'Poppins-Bold',fontSize:16}}>RiPort</Text>
       </View>
     </View>
   )
