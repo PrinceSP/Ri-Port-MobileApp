@@ -5,13 +5,11 @@ import Report from './reports.svg'
 import ShareIcon from './share.svg'
 import SignOut from './signOut.svg'
 import Single from './single_logo.png'
-import PD from './pdLogo.png'
 import Burger from './burger.svg'
 import HomeIcon from './home.svg'
 import ReportIcon from './report.svg'
 import NotifIcon from './notif.svg'
 import DateIcon from './date.svg'
-import Email from './email.svg'
 import Address from './address.svg'
 import Phone from './phone.svg'
 import ID from './id.svg'
@@ -21,6 +19,7 @@ import SuccessIcon from './success_icon.svg'
 import FailedIcon from './failed_icon.svg'
 import EyeTrue from './eyeTrue.svg'
 import EyeFalse from './eyeFalse.svg'
+import ArrowR from './arrow_right'
 
-export {MainLogo,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,PD,Edit,ModalSuccessIcon,
-  Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Email,Address,Phone,ID,SuccessIcon,FailedIcon}
+export {MainLogo,ArrowR,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
+  Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Address,Phone,ID,SuccessIcon,FailedIcon}
