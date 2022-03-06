@@ -8,6 +8,7 @@ import FeedbackForm from './feedbackForm'
 import ReportForm from './reportForm'
 import MapFinder from './maps'
 import ReportPost from './reportsPosts'
+import ThemeWrapper from './themeWrapper'
 
-export {OnBoarding,Header,DrawerContent,TabsContent,
+export {OnBoarding,Header,DrawerContent,TabsContent,ThemeWrapper,
   MapFinder,ImagePicker,ModalSuccess,FeedbackForm,ReportForm,ReportPost}
