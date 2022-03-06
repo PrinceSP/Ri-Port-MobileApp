@@ -1,5 +1,6 @@
-import React, {createContext,useState} from 'react'
-export const ThemeContext = createContext()
+import React, {createContext,useContext,useState} from 'react'
+
+const ThemeContext = createContext()
 
 export const ThemeContextProvider = ({children}) => {
 
@@ -12,14 +13,10 @@ export const ThemeContextProvider = ({children}) => {
       setTheme(false)
       setBgColor('#fff')
       setColor('#000')
-      // console.log(toggle._j);
-    } else if(toggle=="false"){
+    }else{
       setTheme(true)
       setBgColor('#121212')
       setColor('#fff')
-      // console.log(toggle._j);
-    } else{
-      return theme
     }
   }
   return (
@@ -28,3 +25,5 @@ export const ThemeContextProvider = ({children}) => {
     </ThemeContext.Provider>
   )
 }
+
+export const useTheme = ()=> useContext(ThemeContext)
