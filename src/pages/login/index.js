@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import {Text,View,Image,StyleSheet,SafeAreaView,ActivityIndicator} from 'react-native'
+import {Text,View,Image,StyleSheet,KeyboardAvoidingView,ActivityIndicator,Platform} from 'react-native'
 import {MainLogo,EyeTrue,EyeFalse} from '../../assets'
 import {Input,Gap,Button,Header} from '../../components'
 import {AuthContext} from '../../context/authContext'
@@ -42,7 +42,7 @@ const Login =({navigation})=>{
       <Gap height={15}/>
       <Header name="Sign In" action='Cancel' nav={navigation}/>
       <Gap height={45}/>
-      <SafeAreaView>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={style.container}>
         <View style={{alignItems:'center',justifyContent:'center'}}>
           <MainLogo height={130}/>
           <Gap height={65}/>
@@ -56,19 +56,22 @@ const Login =({navigation})=>{
           <Gap height={26}/>
           <Text style={style.poppinsMed}>forgot password?</Text>
           <Gap height={29}/>
-          <Button style={style.button} name="SIGN IN" color="#FFF" weight={500} size={24} onPress={()=>handleLogin()}/>
+          <Button style={style.button} name={isFetching?"LOADING...":"SIGN IN"} color="#FFF" weight={500} size={24} onPress={()=>handleLogin()}/>
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
             <Text style={style.poppinsMed}>Not a user yet?</Text>
             <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Register')}/>
           </View>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </View>
   )
 }
 
 const style = StyleSheet.create({
+  container:{
+    flex:1
+  },
   button:{
     marginBottom:15,
     backgroundColor:'#ED6262',
@@ -76,7 +79,18 @@ const style = StyleSheet.create({
     width:329,
     borderRadius:50,
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: "#88aaff",
+        shadowOpacity: 1,
+        shadowRadius:20,
+      },
+      android:{
+        elevation: 14,
+      },
+    })
   },
   poppinsMed:{
     fontFamily:'Poppins-Medium',
