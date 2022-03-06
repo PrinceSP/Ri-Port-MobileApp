@@ -1,20 +1,18 @@
 import React,{useState} from 'react'
 import {Text,View,StyleSheet,TouchableOpacity,ScrollView,Image,Platform} from 'react-native'
 import {Input,Gap,Button,Header,ImagePicker} from '../../components'
-import {PD} from '../../assets'
 import {launchImageLibrary} from 'react-native-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {AuthContext} from '../../context/authContext'
 
-
-const EditProfilePage =({navigation})=>{
+ const EditProfilePage =({navigation})=>{
   const [photo,setPhoto] = useState('')
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoBase64,setPhotoBase64] = useState('')
   const [date,setDate] = useState(new Date())
   const [show,setShow] = useState(false)
   const [theDate,setTheDate]= useState('')
-
-  let isTrue;
+  const {user:currentUser} = React.useContext(AuthContext)
 
   const getImage=()=>{
     const options={
@@ -23,7 +21,6 @@ const EditProfilePage =({navigation})=>{
       includeBase64:true,
     }
     launchImageLibrary(options,res=>{
-      console.log(res.assets[0].uri);
       if(res.didCancel){
         setHasPhoto(false)
       }else{
@@ -41,7 +38,7 @@ const EditProfilePage =({navigation})=>{
     if (e.type === 'set') {
       setDate(currentDate)
       let tempDate = new Date(currentDate)
-      let fDate = `${tempDate.getDate()} ${(tempDate.getMonth()+1)} ${tempDate.getFullYear()}`
+      let fDate = `${tempDate.getDate()}-${(tempDate.getMonth()+1)}-${tempDate.getFullYear()}`
       setTheDate(fDate)
     } else {
       setDate(new Date())
@@ -49,6 +46,27 @@ const EditProfilePage =({navigation})=>{
     }
   }
 
+  const submit = async()=>{
+    try {
+      const options = {
+        method: 'put',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({userId:currentUser._id,profilePicture:photoBase64})
+      }
+      const req = await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser._id}`,options)
+      const results = await req.json()
+      console.log(results);
+    } catch (e) {
+      console.log(e._message);
+    }
+    // setHasPhoto(false)
+    // setPhoto('');
+    setPhotoBase64('');
+    // setUserInfo({fname:'',email:'',username:'',theDate:'',phone:'',password:''})
+  }
 
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
@@ -68,7 +86,7 @@ const EditProfilePage =({navigation})=>{
         <Input placeholder="Address" />
         <Gap height={30}/>
         <View>
-          <TouchableOpacity style={{width:327,height:48,borderRadius:50,position:'absolute',zIndex:2}} onPress={()=>setShow(true)}/>
+          <TouchableOpacity style={{width:330,height:50,borderRadius:50,position:'absolute',zIndex:2}} onPress={()=>setShow(true)}/>
           <Input placeholder="Birth of date" value={theDate}/>
         </View>
         {
@@ -85,7 +103,7 @@ const EditProfilePage =({navigation})=>{
         <Gap height={30}/>
         <Input placeholder="ID Card" />
         <Gap height={78}/>
-        <Button style={style.button} name="SAVE" color="#FFF" weight={500} size={24}/>
+        <Button style={style.button} name="SAVE" color="#FFF" weight={500} size={24} onPress={submit}/>
         <Gap height={28}/>
       </ScrollView>
     </View>
