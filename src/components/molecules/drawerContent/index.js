@@ -5,7 +5,6 @@ import Share from 'react-native-share'
 import {AvatarProfile,Help,Report,ShareIcon,SignOut} from '../../../assets'
 import {AuthContext} from '../../../context/authContext'
 import {ThemeContext} from '../../../context/themeContext'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DrawerContent = (props)=>{
   const {user} = useContext(AuthContext)
@@ -74,6 +73,7 @@ const DrawerContent = (props)=>{
        console.log(e);
      }
    }
+
   return(
     <View style={container}>
       <DrawerContentScrollView {...props}>
@@ -97,10 +97,7 @@ const DrawerContent = (props)=>{
               onPress={()=>{props.navigation.navigate('ReportListPage')}}/>
             <View style={darkModeStyle}>
               <Text style={[menu,{fontFamily:'Lato-Bold'}]}>Dark Mode</Text>
-              <View style={{width:80,flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                <Text style={{color}}>{theme?'On':'Off'}</Text>
-                <Switch thumbColor={color=="#fff"?color:"#aaa"} trackColor={{false:'lightblue',true:'grey'}} value={theme} onValueChange={()=>toggleScheme()}/>
-              </View>
+              <Switch thumbColor={color=="#fff"?color:"#aaa"} trackColor={{false:'lightblue',true:'grey'}} value={theme} onValueChange={toggleScheme}/>
             </View>
           </View>
           <View style={[{paddingTop:19}]}>
