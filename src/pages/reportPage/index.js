@@ -3,7 +3,7 @@ import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
-import {ThemeContext} from '../../context/themeContext'
+import {useTheme} from '../../context/themeContext'
 
 const ReportPage = ({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
@@ -20,7 +20,7 @@ const ReportPage = ({navigation})=>{
     idCard:currentUser.ktpId,
   })
   const [reportInfo,setReportInfo] = useState({})
-  const {color,bgColor} = useContext(ThemeContext)
+  const {theme} = useTheme()
 
   const getImage=()=>{
     const options={
@@ -67,9 +67,9 @@ const ReportPage = ({navigation})=>{
   }
 
   return(
-    <View style={[container,{backgroundColor:bgColor}]}>
+    <View style={[container,{backgroundColor:theme.backgroundColor}]}>
       <Gap height={15}/>
-      <Header name="report" button={true} navigation={navigation} color={color} bgColor={bgColor}/>
+      <Header name="report" button={true} navigation={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={20}/>
       <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
         <Text style={text1}>Make Your Report</Text>
@@ -77,15 +77,15 @@ const ReportPage = ({navigation})=>{
         <MapFinder getGeometrics={getGeometrics}/>
         <Gap height={28}/>
         <View>
-          <ReportInput color={color} label="Fullname *" defaultValue={fname} onChangeText={e=>{
+          <ReportInput color={theme.color} label="Fullname *" defaultValue={fname} onChangeText={e=>{
               setData({...data,fname:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput color={color} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
+          <ReportInput color={theme.color} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
               setData({...data,phone:e})
             }}/>
           <Gap height={28}/>
-          <ReportInput color={color} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
+          <ReportInput color={theme.color} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
               setData({...data,idCard:e})
             }}/>
           <Gap height={28}/>
@@ -94,8 +94,8 @@ const ReportPage = ({navigation})=>{
         <View style={{width:270}}>
           <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
           <View style={{alignItems:'center',flexDirection:'row'}}>
-            <Button name="Upload" color={bgColor} fam='Poppins-Medium' style={[button,{backgroundColor:color}]} onPress={()=>getImage()}/>
-            <Text style={{marginLeft:18,color}}>{photoName}</Text>
+            <Button name="Upload" color={theme.backgroundColor} fam='Poppins-Medium' style={[button,{backgroundColor:theme.color}]} onPress={()=>getImage()}/>
+            <Text style={{marginLeft:18,color:theme.color}}>{photoName}</Text>
           </View>
         </View>
         <View style={{alignItems:'center'}}>

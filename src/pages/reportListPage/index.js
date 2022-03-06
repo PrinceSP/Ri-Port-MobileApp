@@ -1,25 +1,25 @@
 import React, {useContext} from 'react'
 import {Text,ScrollView,View,StyleSheet} from 'react-native'
 import {Header,Gap,ReportList} from '../../components'
-import {ThemeContext} from '../../context/themeContext'
+import {useTheme} from '../../context/themeContext'
 
 const ReportListPage=({navigation})=>{
-  const {color, bgColor} = useContext(ThemeContext)
+  const {theme} = useTheme()
 
   return(
-    <View style={[container,{backgroundColor:bgColor}]}>
+    <View style={[container,{backgroundColor:theme.backgroundColor}]}>
       <Gap height={15}/>
-      <Header name="Your reports" button={true} navigation={navigation} color={color} bgColor={bgColor}/>
+      <Header name="Your reports" button={true} navigation={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={45}/>
       <ScrollView style={{paddingHorizontal:14}}>
 
-        <Text style={{color:`${color==='#fff'?'#afa':'#8891E0'}`}}>Status</Text>
+        <Text style={{color:`${theme.color==='#fff'?'#afa':'#8891E0'}`}}>Status</Text>
         <Gap height={25}/>
-        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={color}/>
+        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={theme.color}/>
         <Gap height={18}/>
-        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={color}/>
+        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={theme.color}/>
         <Gap height={18}/>
-        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={color}/>
+        <ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={theme.color}/>
 
       </ScrollView>
     </View>
