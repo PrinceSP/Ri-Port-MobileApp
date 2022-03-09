@@ -5,6 +5,7 @@ import Share from 'react-native-share'
 import {AvatarProfile,Help,Report,ShareIcon,SignOut} from '../../../assets'
 import {AuthContext} from '../../../context/authContext'
 import {useTheme} from '../../../context/themeContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DrawerContent = (props)=>{
   const {user} = useContext(AuthContext)
@@ -98,7 +99,7 @@ const DrawerContent = (props)=>{
               onPress={()=>{props.navigation.navigate('ReportListPage')}}/>
             <View style={darkModeStyle}>
               <Text style={[menu,{fontFamily:'Lato-Bold'}]}>Dark Mode</Text>
-              <Switch thumbColor={theme.color=="#fff"?theme.color:"#aaa"} trackColor={{false:'lightblue',true:'grey'}} value={mode} onValueChange={changeTheme}/>
+              <Switch thumbColor={theme.color=="#fff"?"#f5dd4b":"#aaa"} trackColor={{false:'#d4d3d4',true:'#81b0ff'}} value={mode} onValueChange={changeTheme}/>
             </View>
           </View>
           <View style={[{paddingTop:19}]}>
