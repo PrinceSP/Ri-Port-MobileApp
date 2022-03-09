@@ -2,22 +2,22 @@ import React from 'react'
 import {Text,View,StyleSheet,Image} from 'react-native'
 import {Button} from '../../atoms'
 
-const ReportPost = ({location,color,backgroundColor})=>{
+const ReportPost = ({location,color,backgroundColor,username,picture})=>{
 
   return(
     <View style={[container,{backgroundColor}]}>
       <View style={profileContainer}>
         <View style={{flexDirection:'row',alignItems:'center'}}>
-          {/*<Image source={} style={profpic}/>*/}
+          <Image source={{uri:`data:image/png;base64,${picture}`}} style={profpic}/>
           <View style={{marginLeft:10}}>
-            <Text style={{fontFamily:'Poppins-SemiBold',color,fontSize:17}}>Testing</Text>
-            <Text style={{color}}>{location?location:'Jakarta, Indonesia'}</Text>
+            <Text style={{fontFamily:'Poppins-SemiBold',color,fontSize:17}}>{username}</Text>
+            <Text style={{color}}>{location?location:'Indonesia'}</Text>
           </View>
         </View>
         <Button name='details' color={color==='#fff'?'#aff':'#00f'}/>
       </View>
       <View style={imageContainer}>
-        <View style={imageDummy}/>
+        {picture?<Image style={imageDummy} source={{uri:`data:image/png;base64,${picture}`}}/>:<View style={imageDummy}/>}
       </View>
     </View>
   )
