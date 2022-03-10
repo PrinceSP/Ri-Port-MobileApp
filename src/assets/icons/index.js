@@ -20,6 +20,7 @@ import FailedIcon from './failed_icon.svg'
 import EyeTrue from './eyeTrue.svg'
 import EyeFalse from './eyeFalse.svg'
 import ArrowR from './arrow_right'
+import CustomMarker from './marker.png'
 
-export {MainLogo,ArrowR,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
+export {MainLogo,CustomMarker,ArrowR,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
   Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Address,Phone,ID,SuccessIcon,FailedIcon}
