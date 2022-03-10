@@ -67,42 +67,43 @@ const ReportPage = ({navigation})=>{
   }
 
   return(
-    <View style={[container,{backgroundColor:theme.backgroundColor}]}>
-      <Gap height={15}/>
-      <Header name="report" button={true} navigation={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
-      <Gap height={20}/>
-      <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
-        <Text style={text1}>Make Your Report</Text>
-        <Gap height={33}/>
-        <MapFinder getGeometrics={getGeometrics}/>
-        <Gap height={28}/>
-        <View>
-          <ReportInput color={theme.color} label="Fullname *" defaultValue={fname} onChangeText={e=>{
-              setData({...data,fname:e})
-            }}/>
-          <Gap height={28}/>
-          <ReportInput color={theme.color} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
-              setData({...data,phone:e})
-            }}/>
-          <Gap height={28}/>
-          <ReportInput color={theme.color} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
-              setData({...data,idCard:e})
-            }}/>
-          <Gap height={28}/>
-        </View>
-        <Gap height={27}/>
-        <View style={{width:270}}>
-          <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
-          <View style={{alignItems:'center',flexDirection:'row'}}>
-            <Button name="Upload" color={theme.backgroundColor} fam='Poppins-Medium' style={[button,{backgroundColor:theme.color}]} onPress={()=>getImage()}/>
-            <Text style={{marginLeft:18,color:theme.color}}>{photoName}</Text>
-          </View>
-        </View>
-        <View style={{alignItems:'center'}}>
-          <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={buttonSubmit} onPress={()=>submit()}/>
-        </View>
-      </ScrollView>
-    </View>
+    // <View style={[container,{backgroundColor:theme.backgroundColor}]}>
+    //   <Gap height={15}/>
+    //   <Header name="report" button={true} navigation={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+    //   <Gap height={20}/>
+    //   <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={style.formContainer}>
+    //     <Text style={text1}>Make Your Report</Text>
+    //     <Gap height={33}/>
+    //     <MapFinder getGeometrics={getGeometrics}/>
+    //     <Gap height={28}/>
+    //     <View>
+    //       <ReportInput color={theme.color} label="Fullname *" defaultValue={fname} onChangeText={e=>{
+    //           setData({...data,fname:e})
+    //         }}/>
+    //       <Gap height={28}/>
+    //       <ReportInput color={theme.color} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
+    //           setData({...data,phone:e})
+    //         }}/>
+    //       <Gap height={28}/>
+    //       <ReportInput color={theme.color} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
+    //           setData({...data,idCard:e})
+    //         }}/>
+    //       <Gap height={28}/>
+    //     </View>
+    //     <Gap height={27}/>
+    //     <View style={{width:270}}>
+    //       <Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Upload Road Picture*</Text>
+    //       <View style={{alignItems:'center',flexDirection:'row'}}>
+    //         <Button name="Upload" color={theme.backgroundColor} fam='Poppins-Medium' style={[button,{backgroundColor:theme.color}]} onPress={()=>getImage()}/>
+    //         <Text style={{marginLeft:18,color:theme.color}}>{photoName}</Text>
+    //       </View>
+    //     </View>
+    //     <View style={{alignItems:'center'}}>
+    //       <Button name="Submit Report" color='#fff' fam='Poppins-Bold' size={24} style={buttonSubmit} onPress={()=>submit()}/>
+    //     </View>
+    //   </ScrollView>
+    // </View>
+    <MapFinder getGeometrics={getGeometrics}/>
   )
 }
 
