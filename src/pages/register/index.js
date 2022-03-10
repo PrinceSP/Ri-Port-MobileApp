@@ -4,7 +4,6 @@ import {Input,Gap,Button,Header,ImagePicker} from '../../components'
 import {EyeTrue,EyeFalse} from '../../assets'
 
 const Register =({navigation})=>{
-  const [show,setShow] = useState(false)
   const [userInfo,setUserInfo] = useState({
     username:'',
     email:'',
@@ -40,22 +39,23 @@ const Register =({navigation})=>{
     }
     setHide(true)
   }
-
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
+      <Gap height={15}/>
+      <Header name="Sign In" action='Cancel' nav={navigation}/>
       <Gap height={40}/>
       <Text style={style.headingText}>Create a New Account</Text>
       <Text style={style.desc}>{`Create an account so you can post your personal report or see others`}</Text>
       <View style={{alignItems:'center',justifyContent:'center',paddingBottom:35}}>
-        <Gap height={39}/>
-        <Input borderRadius={10} setLabel={true} label="Username" placeholder="goncalves210" defaultValue={username} onChangeText={(event)=>{
+        <Gap height={49}/>
+        <Input borderRadius={14} placeholder="goncalves210" defaultValue={username} onChangeText={(event)=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
-        <Input borderRadius={10} setLabel={true} label="Email" placeholder="raul@gmail.com" defaultValue={email} onChangeText={(event)=>{
+        <Input borderRadius={14} placeholder="raul@gmail.com" defaultValue={email} onChangeText={(event)=>{
             setUserInfo({...userInfo,email:event})}}/>
         <Gap height={30}/>
         <View>
-          <Input borderRadius={10} setLabel={true} label="Password" placeholder="character must be 8 or more" defaultValue={password} secureTextEntry={hide} onChangeText={(event)=>{
+          <Input borderRadius={14} placeholder="character must be 8 or more" defaultValue={password} secureTextEntry={hide} onChangeText={(event)=>{
               setUserInfo({...userInfo,password:event})}}/>
           {hide ? <EyeFalse height={20} onPress={()=>setHide(false)} style={style.passwordHideToggle}/> : <EyeTrue height={20} onPress={()=>setHide(true)} style={style.passwordHideToggle}/>}
         </View>
@@ -69,7 +69,6 @@ const Register =({navigation})=>{
         </View>
       </View>
     </View>
-
   )
 }
 
@@ -77,9 +76,9 @@ const style = StyleSheet.create({
   button:{
     marginBottom:15,
     backgroundColor:'#4444FF',
-    height:66,
+    height:60,
     width:329,
-    borderRadius:50,
+    borderRadius:14,
     alignItems:'center',
     justifyContent:'center',
     elevation:15,
@@ -107,7 +106,7 @@ const style = StyleSheet.create({
     marginLeft:30,
     fontSize:16
   },
-  passwordHideToggle:{position:'absolute',right:0,top:45}
+  passwordHideToggle:{position:'absolute',right:0,top:15}
 })
 
 export default Register
