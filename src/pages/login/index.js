@@ -46,11 +46,11 @@ const Login =({navigation})=>{
         <View style={{alignItems:'center',justifyContent:'center'}}>
           <MainLogo height={130}/>
           <Gap height={65}/>
-          <Input placeholder="Username" defaultValue={username} onChangeText={event=>setUsername(event)}/>
+          <Input placeholder="Username" borderRadius={14} defaultValue={username} onChangeText={event=>setUsername(event)}/>
           <Gap height={30}/>
           {isFetching&&<ActivityIndicator style={{zIndex:1,position:'absolute',top:200,backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
           <View>
-            <Input placeholder="Password" defaultValue={password} secureTextEntry={hide} onChangeText={event=>setPassword(event)}/>
+            <Input placeholder="Password" borderRadius={14} defaultValue={password} secureTextEntry={hide} onChangeText={event=>setPassword(event)}/>
             {hide ? <EyeFalse height={20} onPress={()=>setHide(false)} style={{position:'absolute',right:0,top:15}}/> : <EyeTrue height={20} onPress={()=>setHide(true)} style={{position:'absolute',right:0,top:15}}/>}
           </View>
           <Gap height={26}/>
@@ -75,9 +75,9 @@ const style = StyleSheet.create({
   button:{
     marginBottom:15,
     backgroundColor:'#ED6262',
-    height:66,
+    height:60,
     width:329,
-    borderRadius:50,
+    borderRadius:14,
     alignItems:'center',
     justifyContent:'center',
     ...Platform.select({
