@@ -1,7 +1,8 @@
 import React, {useState} from "react"
-import {StyleSheet, Text, View, Alert } from "react-native"
+import {StyleSheet, Text, View, Image, TextInput } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import MapView, { Callout, Circle, Marker } from "react-native-maps"
+import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE, animateToRegion } from "react-native-maps"
+import {CustomMarker} from '../../../assets'
 
 const MapFinder = ({getGeometrics})=>{
 
@@ -12,15 +13,20 @@ const MapFinder = ({getGeometrics})=>{
 		longitudeDelta: 0.0421,
 		detail:null
 	})
+	const [mapRef,setMapRef] = useState(null)
+
+	const locationChange=()=>{
+		mapRef.animateToRegion(region)
+	}
 
 	return (
-		<View>
-			<Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Location*</Text>
+		<View style={{flex:1}}>
+			{/**<Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Location*</Text>**/}
 			<View style={style.placesContainer}>
 				<GooglePlacesAutocomplete
-					placeholder="Search your location here...."
+					placeholder={region.detail?region.detail:"Search your location here...."}
 					returnKeyType={'search'}
-					autoFocus={false}
+					autoFocus={true}
 					listViewDisplayed='auto'
 					fetchDetails={true}
 					renderDescription={row=>row.description}
@@ -33,13 +39,10 @@ const MapFinder = ({getGeometrics})=>{
 					enablePoweredByContainer={false}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
-						console.log(data.description,details.geometry.location)
 						// update the region by its latitude and longitude
-						setRegion({
+						setRegion({...region,
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
-							latitudeDelta: 0.0922,
-							longitudeDelta: 0.0421,
 							detail:data.description
 						})
 						getGeometrics(region)
@@ -52,48 +55,52 @@ const MapFinder = ({getGeometrics})=>{
 						radius: 30000,
 						location: `${region.latitude}, ${region.longitude}`
 					}}
-					textInputProps={{ placeholderTextColor: '#899' }}
+					textInputProps={{
+						placeholderTextColor: '#899',
+						InputComp: TextInput,
+					}}
 					styles={{
-						listView:style.textInput,
-						textInput:{color:'#000'},
-						TextInputContainer:{width:'100%'},
+						listView:style.listView,
+						textInput:{color:'#000',borderRadius:25,height:50,elevation:10},
 						description:{
 							fontWeight:'bold',
-							zIndex:1,
-							color:'#000'
+							zIndex:2,
+							color:'#000',
+							borderRadius:50
 						}
 					}}
 				/>
 			</View>
 			<View style={style.mapContainer}>
 				<MapView
+					ref={(map)=>setMapRef(map)}
 					style={style.map}
-					initialRegion={{
-						latitude: 1.4730796311491023,
-						longitude: 124.85402639232787,
-						latitudeDelta: 0.0922,
-						longitudeDelta: 0.0421
-					}}
-					provider="google"
+					initialRegion={region}
+					showCompass={true}
+					showMyUserLocation={true}
+					showMyLocationButton={true}
+					provider={PROVIDER_GOOGLE}
+					onPress={locationChange}
 				>
-					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
+					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} image={CustomMarker} title="I'm Here"
+					description={region?.detail}/>
 					<Marker
 						coordinate={region}
-						pinColor={'#fff'}
 						draggable={true}
 						onDragEnd={(e) => {
+							console.log(e);
 							setRegion({
+								...region,
 								latitude: e.nativeEvent.coordinate.latitude,
-								longitude: e.nativeEvent.coordinate.longitude
+								longitude: e.nativeEvent.coordinate.longitude,
 							})
 							getGeometrics(region)
 						}}
-					>
-						<Callout>
-							<Text>I'm here</Text>
-						</Callout>
-					</Marker>
-					<Circle center={region} radius={1000} />
+						image={CustomMarker}
+						title="I'm Here"
+						description={region?.detail}
+					/>
+					{/**<Circle center={region} radius={1000} />**/}
 				</MapView>
 			</View>
 		</View>
@@ -101,12 +108,13 @@ const MapFinder = ({getGeometrics})=>{
 }
 
 const style = StyleSheet.create({
-	mapContainer:{minHeight:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'},
+	mapContainer:{flex:1},
+	// minHeight:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'
   map: {
     ...StyleSheet.absoluteFill
   },
-	placesContainer: {borderWidth:1,borderColor:'#8ACEEC',width: "100%", zIndex: 1,marginVertical:10},
-	textInput:{backgroundColor: "#eee",minHeight:50,marginVertical:5,color:'#000'}
+	placesContainer: {width: "85%", zIndex: 1,position:'absolute',top:20,left:"7%"},
+	listView:{minHeight:50,marginVertical:5,color:'#000'}
 })
 
 export default MapFinder
