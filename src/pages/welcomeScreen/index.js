@@ -18,16 +18,16 @@ const WelcomeScreen = ({navigation})=>{
   from joining RiPort`}</Text>
       <View style={{marginTop:65}}>
         <Button name="Log In"
-          style={[style.button,{backgroundColor:'#fff',borderWidth:1}]}
-          size={23}
-          weight={600}
-          color="#000"
-          onPress={()=>navigation.replace('Login')}/>
-        <Button name="Sign Up"
           style={style.button}
           size={23}
-          fam='Poppins-Medium'
+          weight={600}
           color="#fff"
+          onPress={()=>navigation.replace('Login')}/>
+        <Button name="Sign Up"
+          style={[style.button,{backgroundColor:'#fff',borderWidth:1}]}
+          size={23}
+          fam='Poppins-Medium'
+          color="#000"
           onPress = {()=>navigation.replace('Register')}/>
       </View>
     </View>
