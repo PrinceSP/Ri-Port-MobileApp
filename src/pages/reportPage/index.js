@@ -103,7 +103,7 @@ const ReportPage = ({navigation})=>{
     //     </View>
     //   </ScrollView>
     // </View>
-    <MapFinder getGeometrics={getGeometrics}/>
+      <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
   )
 }
 
