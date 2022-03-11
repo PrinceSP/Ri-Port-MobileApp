@@ -1,11 +1,10 @@
-import React, {useState} from "react"
-import {StyleSheet, Text, View, Image, TextInput } from "react-native"
+import React, {useState,useRef} from "react"
+import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE, animateToRegion } from "react-native-maps"
-import {CustomMarker} from '../../../assets'
+import {CustomMarker,Burger} from '../../../assets'
 
-const MapFinder = ({getGeometrics})=>{
-
+const MapFinder = ({getGeometrics,navigation})=>{
 	const [ region, setRegion ] = useState({
 		latitude: 1.4730796311491023,
 		longitude: 124.85402639232787,
@@ -13,17 +12,22 @@ const MapFinder = ({getGeometrics})=>{
 		longitudeDelta: 0.0421,
 		detail:null
 	})
-	const [mapRef,setMapRef] = useState(null)
+
+	let mapRef = useRef(region)
 
 	const locationChange=()=>{
-		mapRef.animateToRegion(region)
+		mapRef.current.animateToRegion(region,300)
+	}
+
+	const clearing=()=>{
+		mapRef.current?.clear()
 	}
 
 	return (
 		<View style={{flex:1}}>
-			{/**<Text style={{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}}>Location*</Text>**/}
 			<View style={style.placesContainer}>
 				<GooglePlacesAutocomplete
+					ref={mapRef}
 					placeholder={region.detail?region.detail:"Search your location here...."}
 					returnKeyType={'search'}
 					autoFocus={true}
@@ -61,24 +65,22 @@ const MapFinder = ({getGeometrics})=>{
 					}}
 					styles={{
 						listView:style.listView,
-						textInput:{color:'#000',borderRadius:25,height:50,elevation:10},
+						textInput:{color:'#000',borderRadius:15,height:50,elevation:10},
 						description:{
 							fontWeight:'bold',
 							zIndex:2,
 							color:'#000',
-							borderRadius:50
 						}
 					}}
+					renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
+					renderRightButton={() => <TouchableOpacity style={{height:20,width:20,alignItems:'center',justifyContent:'center',borderRadius:20,background:"#aaa",position:'absolute'}} onPress={()=>clearing()}><Text style={{color:'#000'}}>X</Text></TouchableOpacity>}
 				/>
 			</View>
 			<View style={style.mapContainer}>
 				<MapView
-					ref={(map)=>setMapRef(map)}
+					ref={(map)=>mapRef.current=map}
 					style={style.map}
 					initialRegion={region}
-					showCompass={true}
-					showMyUserLocation={true}
-					showMyLocationButton={true}
 					provider={PROVIDER_GOOGLE}
 					onPress={locationChange}
 				>
@@ -88,7 +90,6 @@ const MapFinder = ({getGeometrics})=>{
 						coordinate={region}
 						draggable={true}
 						onDragEnd={(e) => {
-							console.log(e);
 							setRegion({
 								...region,
 								latitude: e.nativeEvent.coordinate.latitude,
@@ -100,7 +101,6 @@ const MapFinder = ({getGeometrics})=>{
 						title="I'm Here"
 						description={region?.detail}
 					/>
-					{/**<Circle center={region} radius={1000} />**/}
 				</MapView>
 			</View>
 		</View>
@@ -109,12 +109,12 @@ const MapFinder = ({getGeometrics})=>{
 
 const style = StyleSheet.create({
 	mapContainer:{flex:1},
-	// minHeight:400,width:350,backgroundColor:'#fff',alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:'#8ACEEC'
   map: {
-    ...StyleSheet.absoluteFill
+    ...StyleSheet.absoluteFill,
+		marginBottom:0
   },
 	placesContainer: {width: "85%", zIndex: 1,position:'absolute',top:20,left:"7%"},
-	listView:{minHeight:50,marginVertical:5,color:'#000'}
+	listView:{minHeight:50,color:'#000'}
 })
 
 export default MapFinder
