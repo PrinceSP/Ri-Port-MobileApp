@@ -46,7 +46,7 @@ const Home = ({navigation})=>{
           onRefresh={fetchDatas}
           showsVerticalScrollIndicator={false}
           data={datas}
-          renderItem={({item,index})=><ReportPost username={item.fullname} location={item.address} color={theme.color} picture={currentUser.profilePicture} backgroundColor={theme.backgroundColor}/>}
+          renderItem={({item,index})=><ReportPost username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={currentUser?.profilePicture} backgroundColor={theme.backgroundColor}/>}
           ListHeaderComponent={
             <View style={{backgroundColor:'#fff'}}>
               <View style={{flexDirection:'row'}}>
@@ -68,7 +68,7 @@ const Home = ({navigation})=>{
 
 const style=StyleSheet.create({
   container:{ flex: 1},
-  scrollViewCont:{paddingHorizontal:20,marginBottom:100},
+  scrollViewCont:{paddingHorizontal:10,marginBottom:100},
   headingTitle:{fontSize:25,fontFamily:'PlayfairDisplay-Regular'},
   date:{fontSize:16,fontFamily:'Poppins-Light'}
 })
