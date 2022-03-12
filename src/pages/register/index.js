@@ -7,9 +7,10 @@ const Register =({navigation})=>{
   const [userInfo,setUserInfo] = useState({
     username:'',
     email:'',
-    password:''
+    password:'',
+    ktpId:''
   })
-  const {username,email,password} = userInfo
+  const {username,email,password,ktpId} = userInfo
   const [hide,setHide] = useState(true)
 
   //handle submit form button
@@ -21,7 +22,7 @@ const Register =({navigation})=>{
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username,email,phoneNumber:'0987654321',password})
+        body: JSON.stringify({username,email,phoneNumber:'98127389274',password, ktpId})
       }
       const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
       const results = await req.json()
@@ -33,7 +34,7 @@ const Register =({navigation})=>{
         console.log(results);
       }
       // reset the values of each keys after submit button has been pressed
-      setUserInfo({...userInfo,username:'',email:'',password:''})
+      setUserInfo({...userInfo,username:'',email:'',password:'',ktpId:''})
     } catch (e) {
       return e
     }
@@ -43,16 +44,19 @@ const Register =({navigation})=>{
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
       <Header name="Sign In" action='Cancel' nav={navigation}/>
-      <Gap height={40}/>
+      <Gap height={30}/>
       <Text style={style.headingText}>Create a New Account</Text>
       <Text style={style.desc}>{`Create an account so you can post your personal report or see others`}</Text>
       <View style={{alignItems:'center',justifyContent:'center',paddingBottom:35}}>
-        <Gap height={49}/>
+        <Gap height={40}/>
         <Input borderRadius={14} placeholder="goncalves210" defaultValue={username} onChangeText={(event)=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
         <Input borderRadius={14} placeholder="raul@gmail.com" defaultValue={email} onChangeText={(event)=>{
             setUserInfo({...userInfo,email:event})}}/>
+        <Gap height={30}/>
+        <Input borderRadius={14} placeholder="KTP ID : 7302188080xxx" defaultValue={ktpId} onChangeText={(event)=>{
+            setUserInfo({...userInfo,ktpId:event})}}/>
         <Gap height={30}/>
         <View>
           <Input borderRadius={14} placeholder="character must be 8 or more" defaultValue={password} secureTextEntry={hide} onChangeText={(event)=>{
@@ -74,14 +78,14 @@ const Register =({navigation})=>{
 
 const style = StyleSheet.create({
   button:{
-    marginBottom:15,
+    marginBottom:10,
     backgroundColor:'#4444FF',
-    height:60,
+    height:55,
     width:329,
     borderRadius:14,
     alignItems:'center',
     justifyContent:'center',
-    elevation:15,
+    elevation:20,
     ...Platform.select({
       ios: {
         shadowOffset: { width: 10, height: 10 },
