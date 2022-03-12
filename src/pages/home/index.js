@@ -48,7 +48,7 @@ const Home = ({navigation})=>{
           data={datas}
           renderItem={({item,index})=><ReportPost username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={currentUser?.profilePicture} backgroundColor={theme.backgroundColor}/>}
           ListHeaderComponent={
-            <View style={{backgroundColor:'#fff'}}>
+            <View style={{backgroundColor:theme.backgroundColor}}>
               <View style={{flexDirection:'row'}}>
                 <Text style={[headingTitle,{color:theme.color}]}>Hello,</Text>
                 <Text style={[headingTitle,{color:theme.color}]}> {currentUser?.username}!</Text>
