@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
 import {View,Text,Dimensions,StyleSheet} from 'react-native'
 import {Tab} from '../../atoms'
-
-//get the screen dimensions
-const {width} = Dimensions.get('screen')
+import {useTheme} from '../../../context/themeContext'
 
 const TabsContent = ({state,navigation})=>{
   const [selected,setSelected] = useState('Home')
+  const {theme} = useTheme()
   const {routes} = state
-  const current = (currentTab) => {return (currentTab===selected ? '#000':'none')}
+  const current = (currentTab) => {return (currentTab===selected ? theme.color:'none')}
 
   const handleChange = (active)=>{
     setSelected(active)
@@ -16,7 +15,7 @@ const TabsContent = ({state,navigation})=>{
   }
 
   return(
-      <View style={style.container}>
+      <View style={[style.container,{backgroundColor:theme.backgroundColor}]}>
         {
           routes.map(route=>{
             return(
@@ -40,11 +39,9 @@ const style = StyleSheet.create({
     right:0,
     borderTopLeftRadius:35,
     borderTopRightRadius:35,
-    // width,
     alignItems:'center',
     justifyContent:'space-around',
     flexDirection:'row',
-    backgroundColor:'#fff',
     shadowOffset: { width: 10, height: 10 },
     shadowOpacity: 1,
     shadowRadius:20,
