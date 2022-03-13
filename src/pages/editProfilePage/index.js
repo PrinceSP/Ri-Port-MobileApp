@@ -4,9 +4,11 @@ import {Input,Gap,Button,Header,ImagePicker} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {AuthContext} from '../../context/authContext'
+import {useTheme} from '../../context/themeContext'
 
  const EditProfilePage =({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
+  const {theme} = useTheme()
   const [userInfo,setUserInfo] = useState({
     fullname:currentUser.fullname,username:currentUser.username,ktpId:currentUser.ktpId
   })
@@ -28,20 +30,20 @@ import {AuthContext} from '../../context/authContext'
   }
 
   return(
-    <View style={{backgroundColor:'#fff',flex:1}}>
+    <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
-      <Header name="Edit Bio" action='Cancel' nav={navigation}/>
+      <Header name="Edit Bio" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={40}/>
       <Text style={style.heading}>Public Informations</Text>
       <ScrollView keyboardShouldPersistTap='always' contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
-        <Input borderRadius={14} placeholder="Fullname" defaultValue={userInfo.fullname} onChangeText={(event)=>{
+        <Input borderRadius={14} setLabel={true} label="Fullname" color={theme.color} placeholder="john bernard doe" defaultValue={userInfo.fullname} onChangeText={(event)=>{
             setUserInfo({...userInfo,fullname:event})}}/>
         <Gap height={30}/>
-        <Input borderRadius={14} placeholder="Username" defaultValue={userInfo.username}
+        <Input borderRadius={14} setLabel={true} label="Username" color={theme.color} placeholder="johndoe12" defaultValue={userInfo.username}
           onChangeText={event=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
-        <Input borderRadius={14} placeholder="KTP ID" defaultValue={userInfo.ktpId}
+        <Input borderRadius={14} setLabel={true} label="KTP ID" color={theme.color} placeholder="732180xxxxx" defaultValue={userInfo.ktpId}
           onChangeText={event=>{
             setUserInfo({...userInfo,ktpId:event})}}/>
         <Gap height={60}/>
@@ -59,7 +61,7 @@ const style = StyleSheet.create({
     backgroundColor:'#FFB830',
     height:50,
     width:329,
-    borderRadius:50,
+    borderRadius:14,
     alignItems:'center',
     justifyContent:'center'
   },
