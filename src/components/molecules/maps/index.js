@@ -1,7 +1,7 @@
 import React, {useState,useRef} from "react"
-import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native"
+import {StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE, animateToRegion } from "react-native-maps"
+import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import {CustomMarker,Burger} from '../../../assets'
 import {useTheme} from '../../../context/themeContext'
 
@@ -271,7 +271,6 @@ const MapFinder = ({getGeometrics,navigation})=>{
 
 	return (
 		<View style={{flex:1}}>
-
 			<View style={style.mapContainer}>
 				<MapView
 					ref={map=>mapRef.current=map}

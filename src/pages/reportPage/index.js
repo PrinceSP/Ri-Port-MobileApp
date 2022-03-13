@@ -1,9 +1,13 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {Text,View,StyleSheet,ScrollView,Alert} from 'react-native'
+import {Text,View,StyleSheet,Dimensions} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
+import {GestureDetector,Gesture} from 'react-native-gesture-handler'
+import Animated, {useSharedValue,useAnimatedStyle} from 'react-native-reanimated'
+
+const {height:screenHeight} = Dimensions.get('window')
 
 const ReportPage = ({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
@@ -48,6 +52,16 @@ const ReportPage = ({navigation})=>{
   }
 
   const {fname,address,idCard,phone} = data
+
+  const translateY = useSharedValue(0)
+  const gesture = Gesture.Pan().onUpdate(e=>{
+    translateY.value=e.translationY
+  })
+  const bottomSheetStyle = useAnimatedStyle(()=>{
+    return{
+      transform:[{translateY: translateY.value}]
+    }
+  })
 
   const getGeometrics = (datas)=>{
     setReportInfo(datas)
@@ -103,7 +117,14 @@ const ReportPage = ({navigation})=>{
     //     </View>
     //   </ScrollView>
     // </View>
-      <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
+      <>
+        <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
+        <GestureDetector>
+          <Animated.View style={[style.bottomSheet,bottomSheetStyle]}>
+            <View style={style.line}/>
+          </Animated.View>
+        </GestureDetector>
+      </>
   )
 }
 
@@ -128,9 +149,25 @@ const style=StyleSheet.create({
     alignItems:'center',
     justifyContent:'center'
   },
+  bottomSheet:{
+    height: screenHeight,
+    width:'100%',
+    position: 'absolute',
+    top: screenHeight / 1.5,
+    backgroundColor:'#fff',
+    borderRadius:25
+  },
+  line:{
+    width:70,
+    height:4,
+    backgroundColor:'#999',
+    alignSelf:'center',
+    marginVertical:15,
+    borderRadius:2
+  }
 })
 
-const {container,text1,mapContainer,formContainer,button,buttonSubmit} = style
+const {container,text1,mapContainer,formContainer,button,buttonSubmit,bottomSheet,line} = style
 
 
 export default ReportPage
