@@ -4,7 +4,7 @@ import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../componen
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
-import {GestureDetector,Gesture} from 'react-native-gesture-handler'
+import {Gesture,GestureDetector} from 'react-native-gesture-handler'
 import Animated, {useSharedValue,useAnimatedStyle} from 'react-native-reanimated'
 
 const {height:screenHeight} = Dimensions.get('window')
@@ -54,8 +54,8 @@ const ReportPage = ({navigation})=>{
   const {fname,address,idCard,phone} = data
 
   const translateY = useSharedValue(0)
-  const gesture = Gesture.Pan().onUpdate(e=>{
-    translateY.value=e.translationY
+  const gesture = Gesture.Pan().onUpdate((event)=>{
+    translateY.value=event.translationY
   })
   const bottomSheetStyle = useAnimatedStyle(()=>{
     return{
@@ -118,12 +118,12 @@ const ReportPage = ({navigation})=>{
     //   </ScrollView>
     // </View>
       <>
-        <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
-        <GestureDetector>
+        <GestureDetector gesture={gesture}>
           <Animated.View style={[style.bottomSheet,bottomSheetStyle]}>
             <View style={style.line}/>
           </Animated.View>
         </GestureDetector>
+        <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
       </>
   )
 }
