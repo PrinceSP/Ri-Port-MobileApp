@@ -34,7 +34,7 @@ const Profile = ({navigation})=>{
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({userId:user._id,profilePicture:res.assets[0].uri})
+          body: JSON.stringify({userId:user._id,profilePicture:res.assets[0].base64})
         }
         fetch(`https://riport-app.herokuapp.com/api/users/${user._id}`,option)
       }
@@ -47,7 +47,7 @@ const Profile = ({navigation})=>{
       <Header name='Profile' action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <View style={{flex:0.86,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:130,width:130,alignItems:'center',justifyContent:'center'}}>
-          {photo!==''?<Image source={{uri:photo}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>:user.profilePicture ? <Image source={{uri:user.profilePicture}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>
+          {photoBase64!==''?<Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>:user.profilePicture ? <Image source={{uri:`data:image/png;bas64,${user.profilePicture}`}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>
           : <View style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>}
         </View>
         <ImagePicker onPress={getImage}/>
