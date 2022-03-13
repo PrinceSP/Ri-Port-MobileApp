@@ -327,7 +327,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 						getGeometrics(region)
 					}}
           renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
-					renderRightButton={() => <TouchableOpacity style={{height:20,width:20,alignItems:'center',justifyContent:'center',borderRadius:20,background:"#aaa",position:'absolute'}} onPress={()=>clearing()}><Text style={{color:'#000'}}>X</Text></TouchableOpacity>}
+					renderRightButton={() => <TouchableOpacity style={{height:25,width:65,alignItems:'center',justifyContent:'center',borderRadius:5,backgroundColor:theme.backgroundColor==="000"?"#aaa":"#bbb"}} onPress={()=>clearing()}><Text style={{color:theme.color,fontSize:15}}>clear</Text></TouchableOpacity>}
 					query={{
 						key: "AIzaSyB-lpOPCdsdF7SluzBjETaOIfT-ZDgX2ZA",
 						language: "en",
@@ -342,7 +342,11 @@ const MapFinder = ({getGeometrics,navigation})=>{
 					}}
 					styles={{
 						listView:style.listView,
-						textInput:{color:'#000',borderRadius:15,height:50,elevation:10},
+            textInputContainer: {
+              alignItems:'center',
+              justifyContent:'space-between'
+            },
+						textInput:{color:'#000',borderRadius:15,height:50,elevation:10,marginHorizontal:10},
 						description:{
 							fontWeight:'bold',
 							zIndex:2,
@@ -361,7 +365,7 @@ const style = StyleSheet.create({
     ...StyleSheet.absoluteFill,
 		marginBottom:0
   },
-	placesContainer: {width: "85%", zIndex: 1,position:'absolute',top:20,left:"7%"},
+	placesContainer: {width: "95%", zIndex: 1,position:'absolute',top:20,left:"3%"},
 	listView:{minHeight:50,color:'#000'}
 })
 
