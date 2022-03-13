@@ -254,26 +254,56 @@ const MapFinder = ({getGeometrics,navigation})=>{
 		longitude: 124.85402639232787,
 		latitudeDelta: 0.0922,
 		longitudeDelta: 0.0421,
-		detail:null
 	})
+  const [descDetails,setDetails] = useState(null)
 	const {theme} = useTheme()
 
-	const mapRef = useRef(region)
+  const mapRef = useRef(region)
+	const queryRef = useRef(null)
 
-	const locationChange=()=>{
+	const goToCurrentRegion=()=>{
 		mapRef.current.animateToRegion(region,300)
 	}
 
-	const clearing=()=>{
-		mapRef.current?.clear()
-	}
+  const clearing=()=>{
+    queryRef.current?.clear()
+  }
 
 	return (
 		<View style={{flex:1}}>
-			<View style={style.placesContainer}>
+
+			<View style={style.mapContainer}>
+				<MapView
+					ref={map=>mapRef.current=map}
+					style={style.map}
+					customMapStyle={theme.themeMode==='default'?defaultStyle:dark}
+					initialRegion={region}
+					provider={PROVIDER_GOOGLE}
+					onPress={goToCurrentRegion}
+				>
+					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} image={CustomMarker} title="I'm Here"
+					description={descDetails}/>
+					<Marker
+						coordinate={region}
+						draggable={true}
+						onDragEnd={(e) => {
+							setRegion({
+								...region,
+								latitude: e.nativeEvent.coordinate.latitude,
+								longitude: e.nativeEvent.coordinate.longitude,
+							})
+							getGeometrics(region)
+						}}
+						image={CustomMarker}
+						title="I'm Here"
+						description={descDetails}
+					/>
+				</MapView>
+			</View>
+      <View style={style.placesContainer}>
 				<GooglePlacesAutocomplete
-					ref={mapRef}
-					placeholder={region.detail?region.detail:"Search your location here...."}
+          ref={queryRef}
+					placeholder={descDetails?descDetails:"Search your location here...."}
 					returnKeyType={'search'}
 					autoFocus={true}
 					listViewDisplayed='auto'
@@ -292,10 +322,12 @@ const MapFinder = ({getGeometrics,navigation})=>{
 						setRegion({...region,
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
-							detail:data.description
 						})
+            setDetails(data.description)
 						getGeometrics(region)
 					}}
+          renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
+					renderRightButton={() => <TouchableOpacity style={{height:20,width:20,alignItems:'center',justifyContent:'center',borderRadius:20,background:"#aaa",position:'absolute'}} onPress={()=>clearing()}><Text style={{color:'#000'}}>X</Text></TouchableOpacity>}
 					query={{
 						key: "AIzaSyB-lpOPCdsdF7SluzBjETaOIfT-ZDgX2ZA",
 						language: "en",
@@ -317,37 +349,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 							color:'#000',
 						}
 					}}
-					renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
-					renderRightButton={() => <TouchableOpacity style={{height:20,width:20,alignItems:'center',justifyContent:'center',borderRadius:20,background:"#aaa",position:'absolute'}} onPress={()=>clearing()}><Text style={{color:'#000'}}>X</Text></TouchableOpacity>}
 				/>
-			</View>
-			<View style={style.mapContainer}>
-				<MapView
-					ref={(map)=>mapRef.current=map}
-					style={style.map}
-					customMapStyle={theme.themeMode==='default'?defaultStyle:dark}
-					initialRegion={region}
-					provider={PROVIDER_GOOGLE}
-					onPress={locationChange}
-				>
-					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} image={CustomMarker} title="I'm Here"
-					description={region?.detail}/>
-					<Marker
-						coordinate={region}
-						draggable={true}
-						onDragEnd={(e) => {
-							setRegion({
-								...region,
-								latitude: e.nativeEvent.coordinate.latitude,
-								longitude: e.nativeEvent.coordinate.longitude,
-							})
-							getGeometrics(region)
-						}}
-						image={CustomMarker}
-						title="I'm Here"
-						description={region?.detail}
-					/>
-				</MapView>
 			</View>
 		</View>
 	)
