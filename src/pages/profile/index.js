@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import {View,Text,Image} from 'react-native'
+import {View,Text,Image,StyleSheet} from 'react-native'
 import {Button,BioHolder,Gap,Header,ImagePicker} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {DateIcon,Address,Phone,AvatarProfile,ID,MainLogo} from '../../assets'
@@ -47,8 +47,9 @@ const Profile = ({navigation})=>{
       <Header name='Profile' action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <View style={{flex:0.86,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:130,width:130,alignItems:'center',justifyContent:'center'}}>
-          {photoBase64!==''?<Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>:user.profilePicture ? <Image source={{uri:`data:image/png;bas64,${user.profilePicture}`}} style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>
-          : <View style={{height:115,width:115,backgroundColor:'#eee',borderRadius:65}}/>}
+          {photo ? <Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={styles.imageHolder}/>
+            : user?.profilePicture ? <Image source={{uri:`data:image/png;base64,${user.profilePicture}`}} style={styles.imageHolder}/>
+            : <View style={styles.imageHolder}/>}
         </View>
         <ImagePicker onPress={getImage}/>
         <Gap height={20}/>
@@ -78,10 +79,14 @@ const Profile = ({navigation})=>{
           labelInfo='ID Card Number'
           color={theme.color}
           backgroundColor="#009"
-          onPress={()=>alert('id card number')}/>
+          onPress={()=>alert('KTP ID')}/>
       </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  imageHolder:{height:115,width:115,backgroundColor:'#eee',borderRadius:65},
+})
 
 export default Profile
