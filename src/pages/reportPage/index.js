@@ -16,20 +16,19 @@ const ReportPage = ({navigation})=>{
     photoBase64:'',
     photo:''
   })
+  const [reportInfo,setReportInfo] = useState({})
   const [photoName,setPhotoName] = useState('no photo uploaded')
   const [data,setData] = useState({
-    fname:currentUser.username,
-    address:currentUser.address,
-    phone:currentUser.phoneNumber,
-    idCard:currentUser.ktpId,
+    title:'',
+    description:''
   })
-  const [reportInfo,setReportInfo] = useState({})
   const {theme} = useTheme()
 
   const getImage=()=>{
     const options={
-      maxHeight:160,maxWidth:160,
-      saveToPhotos: true
+      maxHeight:200,maxWidth:200,
+      saveToPhotos: true,
+      includeBase64:true,
     }
 
     launchImageLibrary(options,res=>{
@@ -39,35 +38,64 @@ const ReportPage = ({navigation})=>{
       if(res.didCancel){
         //reset the value to its default value
         setHasPhoto(false)
-        setPhotoInfos({photo:''});
-        // setPhotoInfos({photoBase64:''});
+        // setPhotoInfos({photo:''});
+        setPhotoInfos({...photoInfos,photoBase64:''});
         setPhotoName('no photo uploaded')
       }else{
-        setPhotoInfos({...photoInfos,photo:res.assets[0].fileName});
-        // setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
+        // setPhotoInfos({...photoInfos,photo:res.assets[0].fileName});
+        setPhotoInfos({...photoInfos,photoBase64:res.assets[0].base64});
         setHasPhoto(true);
         setPhotoName(fileName)
       }
     })
   }
 
-  const {fname,address,idCard,phone} = data
+  const {title,description} = data
 
-  const getGeometrics = (datas)=>{
-    setReportInfo(datas)
+  const getGeometrics = (...datas)=>{
+    setReportInfo(...datas)
   }
 
-  const submit = ()=>{
-    //merge all the datas from these states
-    //submit all the datas from form
-    const allDatas = {...data,...reportInfo,...photoInfos};
-    setData({...data,fname:'',address:'',phone:'',idCard:''})
-    setPhotoInfos({...photoInfos,photoBase64:'',photo:''})
+  const submit = async()=>{
+    try {
+      const options = {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId:currentUser._id,
+          fullname:currentUser.fullname,
+          title,
+          address:reportInfo.desc,
+          phoneNumber:currentUser.phoneNumber,
+          ktpId:currentUser.ktpId,
+          location:{
+            latitude:reportInfo.region.latitude,
+            longitude:reportInfo.region.longitude,
+          },
+          description,
+          roadPicture:photoInfos.photoBase64,
+          status:'Pending'
+        })
+      }
+      await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
+      setData({...data,title:'',description:''})
+      setPhotoInfos({...photoInfos,photoBase64:''})
+      setReportInfo({})
+      setPhotoName('no photo uploaded')
+    } catch (e) {
+      setData({...data,title:'',description:''})
+      setPhotoInfos({...photoInfos,photoBase64:''})
+      setReportInfo({})
+      setPhotoName('no photo uploaded')
+      return e
+    }
+    setData({...data,title:'',description:''})
+    setPhotoInfos({...photoInfos,photoBase64:''})
     setReportInfo({})
     setPhotoName('no photo uploaded')
-    console.log(allDatas);
-
-    return allDatas
   }
 
   const dimensions = useWindowDimensions()
@@ -113,16 +141,12 @@ const ReportPage = ({navigation})=>{
         <Animated.View style={[bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
           <View style={sheetLine}/>
           <View>
-            <ReportInput color={theme.bgColor} label="Fullname *" defaultValue={fname} onChangeText={e=>{
-                setData({...data,fname:e})
+            <ReportInput color={theme.color} label="Title *" defaultValue={title} onChangeText={e=>{
+                setData({...data,title:e})
               }}/>
             <Gap height={28}/>
-            <ReportInput color={theme.bgColor} label="Phone Number *" defaultValue={phone} onChangeText={e=>{
-                setData({...data,phone:e})
-              }}/>
-            <Gap height={28}/>
-            <ReportInput color={theme.bgColor} label="ID Card *" defaultValue={idCard} onChangeText={e=>{
-                setData({...data,idCard:e})
+            <ReportInput color={theme.color} label="Description *" defaultValue={description} onChangeText={e=>{
+                setData({...data,description:e})
               }}/>
             <Gap height={28}/>
           </View>
@@ -150,7 +174,7 @@ const style=StyleSheet.create({
   button:{
     marginTop:12,
     height:37,
-    width:88,
+    width:120,
     borderRadius:50,
     alignItems:'center',
     justifyContent:'center'
