@@ -4,6 +4,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import {CustomMarker,Burger} from '../../../assets'
 import {useTheme} from '../../../context/themeContext'
+import Geocoder from 'react-native-geocoding';
 
 const dark = [
   {
@@ -255,11 +256,22 @@ const MapFinder = ({getGeometrics,navigation})=>{
 		latitudeDelta: 0.0922,
 		longitudeDelta: 0.0421,
 	})
-  const [descDetails,setDetails] = useState(null)
+  const [desc,setDetails] = useState(null)
 	const {theme} = useTheme()
+
+  const datas = {region,desc}
 
   const mapRef = useRef(region)
 	const queryRef = useRef(null)
+
+  Geocoder.init("AIzaSyB-lpOPCdsdF7SluzBjETaOIfT-ZDgX2ZA",{language : "en"}); // use a valid API key
+  Geocoder.from(region)
+  		.then(res => {
+        const addressComponent = res.results[0].formatted_address;
+        const address = addressComponent.split(',').splice(1,5).join(',')
+  			setDetails(address);
+  		})
+  		.catch(error => console.warn(error));
 
 	const goToCurrentRegion=()=>{
 		mapRef.current.animateToRegion(region,300)
@@ -281,7 +293,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 					onPress={goToCurrentRegion}
 				>
 					<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} image={CustomMarker} title="I'm Here"
-					description={descDetails}/>
+					description={desc}/>
 					<Marker
 						coordinate={region}
 						draggable={true}
@@ -291,18 +303,18 @@ const MapFinder = ({getGeometrics,navigation})=>{
 								latitude: e.nativeEvent.coordinate.latitude,
 								longitude: e.nativeEvent.coordinate.longitude,
 							})
-							getGeometrics(region)
+							getGeometrics(datas)
 						}}
 						image={CustomMarker}
 						title="I'm Here"
-						description={descDetails}
+						description={desc}
 					/>
 				</MapView>
 			</View>
       <View style={style.placesContainer}>
 				<GooglePlacesAutocomplete
           ref={queryRef}
-					placeholder={descDetails?descDetails:"Search your location here...."}
+					placeholder={desc?desc:"Search your location here...."}
 					returnKeyType={'search'}
 					autoFocus={true}
 					listViewDisplayed='auto'
@@ -322,8 +334,8 @@ const MapFinder = ({getGeometrics,navigation})=>{
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
 						})
-            setDetails(data.description)
-						getGeometrics(region)
+            setDetails(data?.description)
+						getGeometrics(datas)
 					}}
           renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
 					renderRightButton={() => <TouchableOpacity style={{height:25,width:65,alignItems:'center',justifyContent:'center',borderRadius:5,backgroundColor:theme.backgroundColor==="000"?"#aaa":"#bbb"}} onPress={()=>clearing()}><Text style={{color:theme.color,fontSize:15}}>clear</Text></TouchableOpacity>}
