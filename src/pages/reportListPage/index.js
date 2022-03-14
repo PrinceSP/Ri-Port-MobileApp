@@ -1,7 +1,6 @@
 import React, {useContext,useEffect,useState} from 'react'
 import {Text,FlatList,View,StyleSheet,SafeAreaView} from 'react-native'
 import {Header,Gap,ReportList} from '../../components'
-import {getCurrentDate} from '../../config'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
 
@@ -31,7 +30,7 @@ const ReportListPage=({navigation})=>{
     }
     return ()=> mounted=false
   },[])
-  console.clear();
+
   return(
     <View style={[container,{backgroundColor:theme.backgroundColor}]}>
       <Gap height={15}/>
