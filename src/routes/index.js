@@ -46,7 +46,6 @@ const Root=()=>{
   )
 }
 
-
 const Routes = ()=>{
   const[viewedOnBoarding,setViewedOnBoarding] = React.useState(false)
   const checkOnBoarding = async()=>{
