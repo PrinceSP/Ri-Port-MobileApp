@@ -12,7 +12,7 @@ const ReportPost = ({location,color,backgroundColor,username,picture,desc})=>{
             <Image source={{uri:`data:image/png;base64,${picture}`}} style={profpic}/>
             <View style={{marginLeft:10}}>
               <Text style={[name,{color:color==="#000"?"#444":"#ddd"}]}>{username}</Text>
-              <Text style={{color:color==="#000"?"#777":"#fff"}}>{location?location:'Indonesia'}</Text>
+              <Text style={[locationStyle,{color:color==="#000"?"#777":"#fff"}]}>{location?location:'Indonesia'}</Text>
             </View>
           </View>
           <TouchableOpacity style={optionButton}>
@@ -42,9 +42,12 @@ const style=StyleSheet.create({
   },
   name:{fontFamily:'Poppins-SemiBold',fontSize:16},
   option:{width:4,height:4,borderRadius:4,backgroundColor:'#aaa'},
-  optionButton:{height:20,alignItems:'center',justifyContent:'space-between',flexDirection:'column'}
+  optionButton:{height:20,alignItems:'center',justifyContent:'space-between',flexDirection:'column'},
+  locationStyle:{
+    width:300
+  }
 })
 
-const {container,imageDummy,profpic,profileContainer,name,imageContainer,descStyle,option,optionButton} = style
+const {container,imageDummy,profpic,profileContainer,name,imageContainer,descStyle,option,optionButton,locationStyle} = style
 
 export default ReportPost
