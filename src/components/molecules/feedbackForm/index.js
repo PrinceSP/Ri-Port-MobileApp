@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {View,Text,StyleSheet,TextInput} from 'react-native'
 import {FeedbackIllustration} from '../../../assets'
 import {Gap} from '../../atoms'
@@ -51,5 +52,9 @@ const style = StyleSheet.create({
 })
 
 const {textArea,mainWrapper,innerWrapper,feedbackContainer,headingWrapper,headingText,comment,feedbackTextContainer,modalBg,modalContainer} = style
+
+FeedbackForm.PropTypes = {
+  desc:PropTypes.string.isRequired
+}
 
 export default FeedbackForm
