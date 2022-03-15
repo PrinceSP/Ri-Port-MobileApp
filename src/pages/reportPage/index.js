@@ -1,6 +1,7 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {Text,View,StyleSheet,ScrollView,Dimensions,useWindowDimensions} from 'react-native'
+import {Text,View,StyleSheet,Dimensions,useWindowDimensions} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
+import {ArrowUp} from '../../assets'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
@@ -130,12 +131,8 @@ const ReportPage = ({navigation})=>{
     }
   })
 
-
   return(
     <>
-      <Button name="Make Report" onPress={()=>{
-        top.value = withSpring(dimensions.height/25,springConfig)
-      }}/>
       <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
@@ -163,6 +160,9 @@ const ReportPage = ({navigation})=>{
           </View>
         </Animated.View>
       </PanGestureHandler>
+      <Button name={<ArrowUp fill="#fff" stroke="#fff"/>} style={[toggleBottomSheet,{backgroundColor:'#44f'}]} onPress={()=>{
+        top.value = withSpring(dimensions.height / 25,springConfig)
+      }}/>
     </>
   )
 }
@@ -210,10 +210,15 @@ const style=StyleSheet.create({
     alignSelf:'center',
     marginVertical:15
   },
-  upload:{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17}
+  upload:{color:'#8ACEEC',fontFamily:'Poppins-Medium',fontSize:17},
+  toggleBottomSheet:{position:'absolute',bottom:130,right:20,
+    width:55,height:55,borderRadius:50,alignItems:'center',justifyContent:'center',
+    elevation:9,
+    shadowColor:"#fff"
+  }
 })
 
-const {container,text1,mapContainer,formContainer,button,buttonSubmit,bottomSheet,sheetLine,upload} = style
+const {container,text1,mapContainer,formContainer,button,buttonSubmit,bottomSheet,sheetLine,upload,toggleBottomSheet} = style
 
 
 export default ReportPage
