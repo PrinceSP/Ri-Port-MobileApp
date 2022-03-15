@@ -11,24 +11,29 @@ const Feedback=({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
   const [desc,setDesc] = useState('')
 
-  const submit = async()=>{
-    try {
-      const options={
-        method:'post',
-        headers:{
-          'Accept':'application/json, text/plain, */*',
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({userId:currentUser._id,desc})
-      }
-      await fetch('https://riport-app.herokuapp.com/api/feedback/',options)
-      setDesc('')
-      setVisible(true)
-    } catch (e) {
-      setDesc('')
-      return e
+  const submit = ()=>{
+    const options={
+      method:'post',
+      headers:{
+        'Accept':'application/json, text/plain, */*',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({userId:currentUser._id,desc})
     }
-    setDesc('')
+    fetch('https://riport-app.herokuapp.com/api/feedback/',options)
+    .then(res=>{
+      if (res.status===500) {
+        setDesc('')
+        setVisible(false)
+      } else{
+        setVisible(true)
+        setDesc('')
+      }
+    }).catch(e=>{
+      setVisible(false)
+      setDesc('')
+    })
+
   }
   return(
     <View style={{flex:1,backgroundColor:theme.backgroundColor}}>

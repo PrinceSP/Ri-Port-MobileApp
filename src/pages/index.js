@@ -10,6 +10,7 @@ import NotificationsPage from './notificationPage'
 import EditProfilePage from './editProfilePage'
 import Feedback from './feedbackPage'
 import ReportListPage from './reportListPage'
+import EditBornDate from './editBorn'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditProfilePage,Feedback,
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditProfilePage,EditBornDate,Feedback,
     Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}

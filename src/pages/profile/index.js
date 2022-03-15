@@ -67,7 +67,7 @@ const Profile = ({navigation})=>{
           labelInfo='Date of Birth'
           color={theme.color}
           backgroundColor="#f44"
-          onPress={()=>alert('date of birth')}/>
+          onPress={()=>navigation.navigate('EditBornDate')}/>
         <BioHolder icon={<Phone height={20}/>}
           labelInfo="Phone Number"
           userInfo={user.phoneNumber}
