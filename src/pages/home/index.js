@@ -13,7 +13,6 @@ const Home = ({navigation})=>{
   const [refreshing,setRefreshing] = useState(false)
 
   const fetchDatas = async()=>{
-
     try {
       const res = await fetch('https://riport-app.herokuapp.com/api/posts/')
       const allReport = await res.json()
@@ -46,7 +45,7 @@ const Home = ({navigation})=>{
           onRefresh={fetchDatas}
           showsVerticalScrollIndicator={false}
           data={datas}
-          renderItem={({item,index})=><ReportPost username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={currentUser?.profilePicture} backgroundColor={theme.backgroundColor}/>}
+          renderItem={({item,index})=><ReportPost username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={item.roadPicture} backgroundColor={theme.backgroundColor}/>}
           ListHeaderComponent={
             <View style={{backgroundColor:theme.backgroundColor}}>
               <View style={{flexDirection:'row'}}>
