@@ -1,14 +1,39 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect,useState,useContext} from 'react'
 import {View,Text,StyleSheet,Image,TextInput,ScrollView,Modal} from 'react-native'
 import {FeedbackIllustration,ModalSuccessIcon} from '../../assets'
 import {Header,Gap,Button,ModalSuccess,FeedbackForm} from '../../components'
+import {useTheme} from '../../context/themeContext'
+import {AuthContext} from '../../context/authContext'
 
 const Feedback=({navigation})=>{
   const [visible,setVisible] = useState(false)
+  const {theme} = useTheme()
+  const {user:currentUser} = useContext(AuthContext)
+  const [desc,setDesc] = useState('')
+
+  const submit = async()=>{
+    try {
+      const options={
+        method:'post',
+        headers:{
+          'Accept':'application/json, text/plain, */*',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({userId:currentUser._id,desc})
+      }
+      await fetch('https://riport-app.herokuapp.com/api/feedback/',options)
+      setDesc('')
+      setVisible(true)
+    } catch (e) {
+      setDesc('')
+      return e
+    }
+    setDesc('')
+  }
   return(
-    <View style={mainWrapper}>
+    <View style={{flex:1,backgroundColor:theme.backgroundColor}}>
       <Gap height={15}/>
-      <Header name='App Feedback' action='< back' nav={navigation}/>
+      <Header name='App Feedback' action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={45}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ModalSuccess visible={visible}>
@@ -28,12 +53,12 @@ const Feedback=({navigation})=>{
         </ModalSuccess>
         <View style={innerWrapper}>
           <FeedbackIllustration height={117}/>
-          <FeedbackForm/>
+          <FeedbackForm desc={desc} onChangeText={(e)=>setDesc(e)}/>
           <Gap height={26}/>
           <Button style={button} name="Send Feedback"
             color="#fff"
             fam='Poppins-Medium' size={24}
-            onPress={()=>setVisible(true)}/>
+            onPress={submit}/>
         </View>
       </ScrollView>
     </View>
@@ -50,7 +75,6 @@ const style = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center'
   },
-  mainWrapper:{flex:1,backgroundColor:'#fff'},
   innerWrapper:{alignItems:'center'},
   headingWrapper:{flexDirection:'row'},
   headingText:{fontSize:16,fontFamily:'Poppins-SemiBold'},
@@ -71,6 +95,6 @@ const style = StyleSheet.create({
   }
 })
 
-const {button,mainWrapper,innerWrapper,headingWrapper,headingText,comment,feedbackTextContainer,modalBg,modalContainer} = style
+const {button,innerWrapper,headingWrapper,headingText,comment,feedbackTextContainer,modalBg,modalContainer} = style
 
 export default Feedback

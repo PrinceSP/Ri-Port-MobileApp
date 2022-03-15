@@ -3,7 +3,7 @@ import {View,Text,StyleSheet,TextInput} from 'react-native'
 import {FeedbackIllustration} from '../../../assets'
 import {Gap} from '../../atoms'
 
-const FeedbackForm =()=>{
+const FeedbackForm =({desc,onChangeText})=>{
   return(
     <View style={feedbackContainer}>
       <View style={headingWrapper}>
@@ -11,14 +11,16 @@ const FeedbackForm =()=>{
         <Text style={[{color:'#0085FF',marginLeft:4},headingText]}>Feedback!</Text>
       </View>
       <Text style={comment}>Tell me how was your experience and leave me a comment</Text>
-      <Gap height={77}/>
+      <Gap height={37}/>
       <View style={feedbackTextContainer}>
         <TextInput style={textArea}
           underlineColorAndroid="transparent"
           placeholderTextColor="#C0A8C2"
           numberOfLines={10}
           multiline={true}
-          placeholder={`leave me any suggestions, doubts or claims to improve:)`}/>
+          defaultValue={desc}
+          placeholder={`leave me any suggestions, doubts or claims to improve:)`}
+          onChangeText={onChangeText}/>
       </View>
     </View>
   )
@@ -39,7 +41,7 @@ const style = StyleSheet.create({
   headingWrapper:{flexDirection:'row'},
   headingText:{fontSize:16,fontFamily:'Poppins-SemiBold'},
   comment:{textAlign:'center',width:230,marginTop:5,color:'#999'},
-  feedbackTextContainer:{height:140,marginBottom:20,width:300,borderRadius:6,backgroundColor:'#FBEFEF'},
+  feedbackTextContainer:{height:170,marginBottom:20,width:300,borderRadius:6,backgroundColor:'#FBEFEF'},
   textArea: {
     textAlignVertical: 'top',
     fontSize:18,
