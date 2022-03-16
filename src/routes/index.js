@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Feedback,ReportListPage,
-  Register,Home,Profile,ReportPage,EditBornDate,NotificationsPage,EditProfilePage} from '../pages'
+  Register,Home,EditIDCard,Profile,ReportPage,EditBornDate,NotificationsPage,EditProfilePage} from '../pages'
 import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -63,7 +63,6 @@ const Routes = ()=>{
   React.useEffect(()=>{
     checkOnBoarding()
   },[])
-  // <Screen name="OnBoardingPage" component={viewedOnBoarding==false?OnBoardingPage:WelcomeScreen} options={{headerShown:false}}/>
 
   return(
     <Navigator>
@@ -74,6 +73,7 @@ const Routes = ()=>{
       <Screen name="Register" component={Register} options={{headerShown:false}}/>
       <Screen name="EditProfile" component={EditProfilePage} options={{headerShown:false}}/>
       <Screen name="EditBornDate" component={EditBornDate} options={{headerShown:false}}/>
+      <Screen name="EditIDCard" component={EditIDCard} options={{headerShown:false}}/>
       <Screen name="Root" component={Root} options={{headerShown:false}}/>
     </Navigator>
   )
