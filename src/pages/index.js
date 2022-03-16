@@ -11,6 +11,7 @@ import EditProfilePage from './editProfilePage'
 import Feedback from './feedbackPage'
 import ReportListPage from './reportListPage'
 import EditBornDate from './editBorn'
+import EditIDCard from './editIDCard'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditProfilePage,EditBornDate,Feedback,
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditIDCard,EditProfilePage,EditBornDate,Feedback,
     Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}
