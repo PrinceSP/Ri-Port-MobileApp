@@ -79,7 +79,7 @@ const Profile = ({navigation})=>{
           labelInfo='ID Card Number'
           color={theme.color}
           backgroundColor="#009"
-          onPress={()=>alert('KTP ID')}/>
+          onPress={()=>navigation.navigate('EditIDCard')}/>
       </View>
     </View>
   )
