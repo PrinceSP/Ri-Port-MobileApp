@@ -63,7 +63,7 @@ const EditBornDate = ({navigation}) => {
         />
       }
       <Gap height={65}/>
-      <Button style={styles.button} name="SAVE" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,dateOfBirth:bornDate})}/>
+      <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,dateOfBirth:bornDate})}/>
     </View>
   )
 }
