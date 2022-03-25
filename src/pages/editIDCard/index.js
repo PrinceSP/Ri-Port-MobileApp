@@ -27,7 +27,7 @@ const EditIDCard = ({navigation}) => {
       <Header name="Edit ID Card" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={40}/>
       <View style={styles.inputContainer}>
-        <ReportInput color={theme.color} label="Your ID Card" defaultValue={ktpId} onChangeText={(e)=>setKtpId(e)}/>
+        <ReportInput keyboardType='numeric' color={theme.color} label="Your ID Card" defaultValue={ktpId} onChangeText={(e)=>setKtpId(e)}/>
       </View>
       <Gap height={65}/>
       <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,ktpId})}/>
