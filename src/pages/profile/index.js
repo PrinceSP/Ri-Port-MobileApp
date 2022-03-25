@@ -73,7 +73,7 @@ const Profile = ({navigation})=>{
           userInfo={user.phoneNumber}
           color={theme.color}
           backgroundColor="#ffa500"
-          onPress={()=>alert('phone')}/>
+          onPress={()=>navigation.navigate('EditPhone')}/>
         <BioHolder icon={<ID height={18}/>}
           userInfo={user.ktpId}
           labelInfo='ID Card Number'

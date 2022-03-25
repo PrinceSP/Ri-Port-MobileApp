@@ -12,6 +12,7 @@ import Feedback from './feedbackPage'
 import ReportListPage from './reportListPage'
 import EditBornDate from './editBorn'
 import EditIDCard from './editIDCard'
+import EditPhone from './editPhone'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditIDCard,EditProfilePage,EditBornDate,Feedback,
-    Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditIDCard,EditProfilePage,EditPhone,
+  EditBornDate,Feedback,Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}
