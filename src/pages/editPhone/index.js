@@ -1,6 +1,7 @@
 import React, {useState,useContext} from 'react'
-import {Text,View,StyleSheet,TextInput,TouchableOpacity} from 'react-native'
+import {Text,View,StyleSheet,TextInput,TouchableOpacity,TouchableWithoutFeedback,Modal,SafeAreaView,FlatList} from 'react-native'
 import {Gap,Header,Button} from '../../components'
+import {Countries} from '../../config/countries'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
@@ -31,7 +32,7 @@ const EditPhone = ({navigation}) => {
       <Text style={[styles.desc,{color:theme.color==="#fff"?"#afafaf":"#7C7C7C"}]}>You’ll receive a 4 digit code to verify next.</Text>
       <View style={[styles.inputContainer,{backgroundColor:theme.backgroundColor,borderBottomColor:"#244db7"}]}>
         <View style={styles.openDialogView}>
-          <Text style={{color:theme.color}}>+32 | </Text>
+          <Text style={{color:theme.color}}>+62 | </Text>
         </View>
         <TextInput style={[styles.textInput,{color:theme.color}]}
           placeholder="9999-999-999" placeholderTextColor={theme.color==="#fff"?"#888":"#aaa"}
@@ -40,8 +41,8 @@ const EditPhone = ({navigation}) => {
           <Text style={{color:theme.color}}>X</Text>
         </TouchableOpacity>
       </View>
-      <Gap height={85}/>
-      <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,phoneNumber})}/>
+      <Gap height={100}/>
+      <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,phoneNumber:`0${phoneNumber}`})}/>
     </View>
   )
 }
