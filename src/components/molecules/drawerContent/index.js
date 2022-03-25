@@ -1,4 +1,4 @@
-import React, {useContext,useState} from 'react'
+import React, {useContext} from 'react'
 import {Text,View,StyleSheet,ScrollView,Switch,Image,Platform} from 'react-native'
 import {DrawerContentScrollView,DrawerItem} from '@react-navigation/drawer'
 import Share from 'react-native-share'
@@ -68,14 +68,12 @@ const DrawerContent = (props)=>{
    const signOut=async()=> {
      try {
        props.navigation.navigate('Login')
-       await AsyncStorage.removeItem("@viewed")
+       await AsyncStorage.clear()
      } catch (e) {
        console.log(e);
      }
    }
-
    const changeTheme = ()=>updateTheme(theme.themeMode)
-
   return(
     <View style={container}>
       <DrawerContentScrollView {...props}>
