@@ -22,6 +22,7 @@ import EyeFalse from './eyeFalse.svg'
 import ArrowR from './arrow_right'
 import CustomMarker from './marker.png'
 import ArrowUp from './arrowUp.svg'
+import Verify from './verifyIllustration.svg'
 
-export {MainLogo,CustomMarker,ArrowR,ArrowUp,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
+export {MainLogo,Verify,CustomMarker,ArrowR,ArrowUp,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
   Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Address,Phone,ID,SuccessIcon,FailedIcon}
