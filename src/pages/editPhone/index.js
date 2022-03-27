@@ -32,14 +32,14 @@ const EditPhone = ({navigation}) => {
       <Text style={[styles.desc,{color:theme.color==="#fff"?"#afafaf":"#7C7C7C"}]}>You’ll receive a 4 digit code to verify next.</Text>
       <View style={[styles.inputContainer,{backgroundColor:theme.backgroundColor,borderBottomColor:"#244db7"}]}>
         <View style={styles.openDialogView}>
-          <Text style={{color:theme.color}}>+62 | </Text>
+          <Text style={[styles.dialCode,{color:theme.color}]}>+62 | </Text>
         </View>
         <TextInput style={[styles.textInput,{color:theme.color}]}
           placeholder="9999-999-999" placeholderTextColor={theme.color==="#fff"?"#888":"#aaa"}
           keyboardType='numeric' defaultValue={phoneNumber} onChangeText={(e)=>setPhone(e)}/>
-        <TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
+        {phoneNumber!==''&&<TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
           <Text style={{color:theme.color}}>X</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
       <Gap height={100}/>
       <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,phoneNumber:`0${phoneNumber}`})}/>
@@ -80,7 +80,8 @@ const styles=StyleSheet.create({
   textInput:{
     marginLeft:5,
     flex:1,
-    height:50
+    height:50,
+    fontSize:18
   },
   clear:{
     backgroundColor:"#8a8a8a",
@@ -98,7 +99,8 @@ const styles=StyleSheet.create({
     marginBottom:59,
     fontSize:16,
     fontFamily:'Poppins-Regular'
-  }
+  },
+  dialCode:{fontSize:18}
 })
 
 export default EditPhone
