@@ -1,7 +1,6 @@
 import React, {useState,useContext} from 'react'
-import {Text,View,StyleSheet,TextInput,TouchableOpacity,TouchableWithoutFeedback,Modal,SafeAreaView,FlatList} from 'react-native'
-import {Gap,Header,Button} from '../../components'
-import {Countries} from '../../config/countries'
+import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal} from 'react-native'
+import {Gap,Header,Button,OtpScreen} from '../../components'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
@@ -10,17 +9,21 @@ const EditPhone = ({navigation}) => {
   const {theme} = useTheme()
   const {user:currentUser} = useContext(AuthContext)
   const [phoneNumber,setPhone] = useState(currentUser.phoneNumber)
+  const [toggle,setToggle] = useState(false)
 
-  const submit=(data)=>{
-    const options = {
-      method:'put',
-      headers:{
-        'Accept':'application/json, text/plain, */*',
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(data)
-    }
-    fetch(`https://riport-app.herokuapp.com/api/users/${currentUser._id}`,options)
+  const submit=()=>{
+    // const options = {
+    //   method:'put',
+    //   headers:{
+    //     'Accept':'application/json, text/plain, */*',
+    //     'Content-Type':'application/json'
+    //   },
+    //   body:JSON.stringify(data)
+    // }
+    // fetch(`https://riport-app.herokuapp.com/api/auth/verify-phoneNumber`,options)
+    // navigation.navigate("OtpScreen")
+    // {phoneNumber:`+62${phoneNumber}`}
+    setToggle(true)
   }
 
   return (
@@ -37,12 +40,12 @@ const EditPhone = ({navigation}) => {
         <TextInput style={[styles.textInput,{color:theme.color}]}
           placeholder="9999-999-999" placeholderTextColor={theme.color==="#fff"?"#888":"#aaa"}
           keyboardType='numeric' defaultValue={phoneNumber} onChangeText={(e)=>setPhone(e)}/>
-        {phoneNumber!==''&&<TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
+        {phoneNumber!=='' && <TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
           <Text style={{color:theme.color}}>X</Text>
         </TouchableOpacity>}
       </View>
       <Gap height={100}/>
-      <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,phoneNumber:`0${phoneNumber}`})}/>
+      <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit()}/>
     </View>
   )
 }
