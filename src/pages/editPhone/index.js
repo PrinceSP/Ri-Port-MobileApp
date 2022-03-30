@@ -1,6 +1,6 @@
-import React, {useState,useContext} from 'react'
-import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal} from 'react-native'
-import {Gap,Header,Button,OtpScreen} from '../../components'
+import React, {useState,useContext,useRef} from 'react'
+import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal,KeyboardAvoidingView} from 'react-native'
+import {Gap,Header,Button} from '../../components'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
@@ -11,19 +11,57 @@ const EditPhone = ({navigation}) => {
   const [phoneNumber,setPhone] = useState(currentUser.phoneNumber)
   const [toggle,setToggle] = useState(false)
 
+  const OtpScreen = ({navigation,phoneNumber})=>{
+    const {theme} = useTheme()
+    const [otpValue,setOtpValue] = useState("")
+    let inputRef = useRef(null)
+
+    const submit=()=>{
+      setToggle(false)
+    }
+
+    return(
+      <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
+       <Gap height={15}/>
+       <Text style={{color:theme.color,fontSize:20,alignSelf:'center',fontFamily:'Poppins-Regular'}}>Verify Phone</Text>
+       <Gap height={40}/>
+       <Text style={[styles.otpDesc,{color:theme.color==="#fff"?"#afafaf":"#7C7C7C"}]}>Code is sent to {phoneNumber}</Text>
+       <KeyboardAvoidingView keyboardVerticalOffset={50} behavior={'padding'} style={{flex:.4,alignItems:'center',padding:10}}>
+         <View>
+          <TextInput
+            ref={(input) =>  inputRef = input}
+            onChangeText={(val)=>setOtpValue(val)}
+            defaultValue={otpValue}
+            style={{width:0,height:0}}
+            maxLength={4}
+            returnKeyType="done"
+            keyboardType="numeric"
+            />
+          <View style={styles.containerInput}>
+            {
+              Array(4).fill().map((item,index)=>(
+                <View style={styles.cellView} key={index}>
+                  <Text style={styles.textView} onPress={()=>inputRef.focus()}>
+                    {otpValue && otpValue > 0 ? otpValue[index] : " "}
+                  </Text>
+                </View>
+              ))
+            }
+          </View>
+         </View>
+       </KeyboardAvoidingView>
+       <View style={styles.changeBtn}>
+         <Button name="Change number" color="#000" weight={500} size={15} onPress={()=>submit()}/>
+         <Button name="Send again" color="#000" weight={500} size={15}/>
+       </View>
+      </View>
+    )
+  }
+
   const submit=()=>{
-    // const options = {
-    //   method:'put',
-    //   headers:{
-    //     'Accept':'application/json, text/plain, */*',
-    //     'Content-Type':'application/json'
-    //   },
-    //   body:JSON.stringify(data)
-    // }
-    // fetch(`https://riport-app.herokuapp.com/api/auth/verify-phoneNumber`,options)
-    // navigation.navigate("OtpScreen")
-    // {phoneNumber:`+62${phoneNumber}`}
-    setToggle(true)
+    if (phoneNumber!==(null||"")) {
+      setToggle(true)
+    }
   }
 
   return (
@@ -40,12 +78,15 @@ const EditPhone = ({navigation}) => {
         <TextInput style={[styles.textInput,{color:theme.color}]}
           placeholder="9999-999-999" placeholderTextColor={theme.color==="#fff"?"#888":"#aaa"}
           keyboardType='numeric' defaultValue={phoneNumber} onChangeText={(e)=>setPhone(e)}/>
-        {phoneNumber!=='' && <TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
-          <Text style={{color:theme.color}}>X</Text>
+        {phoneNumber !=='' && <TouchableOpacity style={styles.clear} onPress={()=>setPhone('')}>
+          <Text style={{color:"#fff"}}>X</Text>
         </TouchableOpacity>}
       </View>
       <Gap height={100}/>
       <Button style={styles.button} name="Continue" color="#FFF" weight={500} size={22} onPress={()=>submit()}/>
+      {toggle&&<Modal animationType="slide" transparent={true} visible={toggle}>
+        <OtpScreen phoneNumber={phoneNumber}/>
+      </Modal>}
     </View>
   )
 }
@@ -103,7 +144,32 @@ const styles=StyleSheet.create({
     fontSize:16,
     fontFamily:'Poppins-Regular'
   },
-  dialCode:{fontSize:18}
+  dialCode:{fontSize:18},
+  otpDesc:{
+    alignSelf:'center',
+    height:49,
+    marginBottom:29,
+    fontSize:18,
+    fontFamily:'Poppins-Regular'
+  },
+  containerInput:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  cellView:{
+    height:60,
+    width:60,
+    marginHorizontal:14,
+    justifyContent:'center',
+    alignItems:'center',
+    borderWidth:1.5,
+    borderStyle:'solid',
+    borderColor:"#4EAAFF",
+    backgroundColor:'#F8F8F8'
+  },
+  textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13},
+  changeBtn:{paddingHorizontal:35,flexDirection:'row',alignItems:'center',justifyContent:'space-between'}
 })
 
 export default EditPhone
