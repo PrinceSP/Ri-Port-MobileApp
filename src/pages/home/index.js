@@ -50,7 +50,7 @@ const Home = ({navigation})=>{
             <View style={{backgroundColor:theme.backgroundColor}}>
               <View style={{flexDirection:'row'}}>
                 <Text style={[headingTitle,{color:theme.color}]}>Hello,</Text>
-                <Text style={[headingTitle,{color:theme.color}]}> {currentUser?.username}!</Text>
+                <Text style={[headingTitle,{color:theme.color}]}> {currentUser[0].username}!</Text>
               </View>
               <Text style={[date,{color:theme.color}]}>{getCurrentDate()}</Text>
             </View>

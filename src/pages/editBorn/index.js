@@ -42,7 +42,7 @@ const EditBornDate = ({navigation}) => {
       },
       body:JSON.stringify(data)
     }
-    fetch(`https://riport-app.herokuapp.com/api/users/${currentUser._id}`,options)
+    fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
   }
   return (
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
@@ -63,7 +63,7 @@ const EditBornDate = ({navigation}) => {
         />
       }
       <Gap height={65}/>
-      <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,dateOfBirth:bornDate})}/>
+      <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser[0]._id,dateOfBirth:bornDate})}/>
     </View>
   )
 }

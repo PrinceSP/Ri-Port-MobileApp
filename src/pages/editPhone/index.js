@@ -8,7 +8,7 @@ import {AuthContext} from '../../context/authContext'
 const EditPhone = ({navigation}) => {
   const {theme} = useTheme()
   const {user:currentUser} = useContext(AuthContext)
-  const [phoneNumber,setPhone] = useState(currentUser.phoneNumber)
+  const [phoneNumber,setPhone] = useState(currentUser[0].phoneNumber.number)
   const [toggle,setToggle] = useState(false)
 
   const OtpScreen = ({navigation,phoneNumber})=>{

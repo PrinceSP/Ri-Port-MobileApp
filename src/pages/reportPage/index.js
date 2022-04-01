@@ -1,7 +1,6 @@
 import React, {useState,useEffect,useContext} from 'react'
 import {Text,View,StyleSheet,Dimensions,useWindowDimensions} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
-import {ArrowUp} from '../../assets'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
@@ -66,12 +65,12 @@ const ReportPage = ({navigation})=>{
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          userId:currentUser._id,
-          fullname:currentUser.fullname,
+          userId:currentUser[0]._id,
+          fullname:currentUser[0]?.fullname,
           title,
           address:reportInfo.desc,
-          phoneNumber:currentUser.phoneNumber,
-          ktpId:currentUser.ktpId,
+          phoneNumber:currentUser[0].phoneNumber.number,
+          ktpId:currentUser[0].ktpId,
           location:{
             latitude:reportInfo.region.latitude,
             longitude:reportInfo.region.longitude,
@@ -160,7 +159,7 @@ const ReportPage = ({navigation})=>{
           </View>
         </Animated.View>
       </PanGestureHandler>
-      <Button name={<ArrowUp fill="#fff" stroke="#fff"/>} style={[toggleBottomSheet,{backgroundColor:'#44f'}]} onPress={()=>{
+      <Button name="+" style={[toggleBottomSheet,{backgroundColor:'#44f'}]} color="#fff" size={40} onPress={()=>{
         top.value = withSpring(dimensions.height / 25,springConfig)
       }}/>
     </>

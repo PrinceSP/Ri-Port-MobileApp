@@ -18,7 +18,7 @@ const Feedback=({navigation})=>{
         'Accept':'application/json, text/plain, */*',
         'Content-Type':'application/json'
       },
-      body:JSON.stringify({userId:currentUser._id,desc})
+      body:JSON.stringify({userId:currentUser[0]._id,desc})
     }
     fetch('https://riport-app.herokuapp.com/api/feedback/',options)
     .then(res=>{
@@ -47,7 +47,7 @@ const Feedback=({navigation})=>{
             <ModalSuccessIcon height={120} width={120}/>
             <View style={[headingWrapper,{marginTop:21}]}>
               <Text style={[{color:'#823589'},headingText]}>Thank you so much,</Text>
-              <Text style={[{color:'#718496',marginLeft:4},headingText]}>Prince!</Text>
+              <Text style={[{color:'#718496',marginLeft:4},headingText]}>{currentUser[0].username}!</Text>
             </View>
             <Text style={comment}>Your feedback will help us improve our app</Text>
             <View style={[headingWrapper,{marginTop:50}]}>

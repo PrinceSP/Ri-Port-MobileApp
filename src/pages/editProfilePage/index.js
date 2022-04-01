@@ -10,7 +10,7 @@ import {useTheme} from '../../context/themeContext'
   const {user:currentUser} = useContext(AuthContext)
   const {theme} = useTheme()
   const [userInfo,setUserInfo] = useState({
-    fullname:currentUser.fullname,username:currentUser.username,ktpId:currentUser.ktpId
+    fullname:currentUser[0].fullname,username:currentUser[0].username,ktpId:currentUser[0].ktpId
   })
 
   const submit = async(dataToSubmit)=>{
@@ -23,7 +23,7 @@ import {useTheme} from '../../context/themeContext'
         },
         body: JSON.stringify(dataToSubmit)
       }
-      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser._id}`,options)
+      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
     } catch (e) {
       return e
     }
@@ -47,7 +47,7 @@ import {useTheme} from '../../context/themeContext'
           onChangeText={event=>{
             setUserInfo({...userInfo,ktpId:event})}}/>
         <Gap height={60}/>
-        <Button style={style.button} name="SAVE" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,fullname:userInfo.fullname,username:userInfo.username,ktpId:userInfo.ktpId})}/>
+        <Button style={style.button} name="SAVE" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser[0]._id,fullname:userInfo.fullname,username:userInfo.username,ktpId:userInfo.ktpId})}/>
         <Gap height={28}/>
       </ScrollView>
     </View>

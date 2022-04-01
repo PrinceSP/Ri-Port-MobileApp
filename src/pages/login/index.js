@@ -25,7 +25,7 @@ const Login =({navigation})=>{
       const response = await fetch(url,options)
       const results = await response.json()
       if (response.status == 200) {
-        dispatch({ type: "LOGIN_SUCCESS", payload: results.datas });
+        dispatch({ type: "LOGIN_SUCCESS", payload: [results.datas] });
         navigation.navigate('Root',{screen:'BottomTabs'})
       }else{
         isFetching=false

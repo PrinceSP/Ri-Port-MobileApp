@@ -1,7 +1,6 @@
 import React, {useState,useContext,useRef,useEffect} from 'react'
 import {Text,View,StyleSheet,TextInput,TouchableOpacity,KeyboardAvoidingView} from 'react-native'
 import {Gap,Header,Button} from '../../components'
-import {Countries} from '../../config/countries'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
 

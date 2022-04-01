@@ -12,9 +12,10 @@ const ReportListPage=({navigation})=>{
 
   const fetchDatas = async()=>{
     try {
-      const res = await fetch(`https://riport-app.herokuapp.com/api/posts/postsList/${currentUser._id}`)
+      const res = await fetch(`https://riport-app.herokuapp.com/api/posts/postsList/${currentUser[0]._id}`)
       const allReport = await res.json()
       setDatas(allReport)
+      console.log(allReport);
       setRefreshing(true)
     } catch (e) {
       setDatas([])

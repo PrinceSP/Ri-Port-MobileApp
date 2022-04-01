@@ -79,11 +79,11 @@ const DrawerContent = (props)=>{
       <DrawerContentScrollView {...props}>
         <View style={container}>
           <View style={section}>
-            {user.profilePicture ?<Image style={image} source={{uri:`data:image/png;base64,${user.profilePicture}`}}/>
+            {user[0].profilePicture ?<Image style={image} source={{uri:`data:image/png;base64,${user[0].profilePicture}`}}/>
              :<View style={[image,{backgroundColor:'#e8e8e8',alignItems:'center',justifyContent:'center'}]}><AvatarProfile height={40} width={40}/></View>}
             <View>
-              <Text style={title}>{user?.username}</Text>
-              <Text style={desc}>{user?.email}</Text>
+              <Text style={title}>{user[0]?.username}</Text>
+              <Text style={desc}>{user[0]?.email.mail}</Text>
             </View>
           </View>
           <View style={drawerItemsContainer}>
