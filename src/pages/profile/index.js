@@ -70,7 +70,7 @@ const Profile = ({navigation})=>{
           userInfo={emails}
           color={theme.color}
           backgroundColor="#fc99ad"
-          onPress={()=>navigation.navigate('EditProfile')}/>
+          onPress={()=>navigation.navigate('EditEmail')}/>
         <BioHolder icon={<DateIcon height={22}/>}
           userInfo={user[0].dateOfBirth}
           labelInfo='Date of Birth'
