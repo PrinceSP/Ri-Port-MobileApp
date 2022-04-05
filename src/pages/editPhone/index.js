@@ -1,4 +1,4 @@
-import React, {useState,useContext,useRef} from 'react'
+import React, {useState,useContext,useRef,useEffect} from 'react'
 import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal,KeyboardAvoidingView} from 'react-native'
 import {Gap,Header,Button} from '../../components'
 import {Verify} from '../../assets'
@@ -11,13 +11,32 @@ const EditPhone = ({navigation}) => {
   const [phoneNumber,setPhone] = useState(currentUser[0].phoneNumber.number)
   const [toggle,setToggle] = useState(false)
 
-  const OtpScreen = ({navigation,phoneNumber})=>{
+  const OtpScreen = ({navigation})=>{
     const {theme} = useTheme()
     const [otpValue,setOtpValue] = useState("")
     let inputRef = useRef(null)
 
-    const submit=()=>{
+    const changeNumber=()=>{
       setToggle(false)
+    }
+
+    const sendOTP = async()=>{
+      try {
+        const options = {
+          method:'post',
+          headers:{
+            'Accept':'application/json, text/plain, */*',
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({userId:currentUser[0]._id,otp:otpValue})
+        }
+        await fetch(`https://riport-app.herokuapp.com/api/auth/verifyPhoneNumber`,options)
+        setToggle(false)
+      } catch (e) {
+        return e
+      } finally {
+
+      }
     }
 
     return(
@@ -51,16 +70,38 @@ const EditPhone = ({navigation}) => {
          </View>
        </KeyboardAvoidingView>
        <View style={styles.changeBtn}>
-         <Button name="Change number" color="#000" weight={500} size={15} onPress={()=>submit()}/>
-         <Button name="Send again" color="#000" weight={500} size={15}/>
+         <Button name="Change number" color={theme.color} weight={500} size={15} onPress={()=>changeNumber()}/>
+         <Button name="Send OTP" color={theme.color} weight={500} size={15} onPress={()=>sendOTP()}/>
        </View>
       </View>
     )
   }
 
-  const submit=()=>{
-    if (phoneNumber!==(null||"")) {
-      setToggle(true)
+  const submit=async()=>{
+    try {
+      const options = {
+        method:'post',
+        headers:{
+          'Accept':'application/json, text/plain, */*',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:`+62${phoneNumber}`})
+      }
+      const updateNumber = {
+        method:'put',
+        headers:{
+          'Accept':'application/json, text/plain, */*',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber}})
+      }
+      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
+      await fetch(`https://riport-app.herokuapp.com/api/auth/smsOtpToPhone`,options)
+      if (phoneNumber!==(null||"")) {
+        setToggle(true)
+      }
+    } catch (e) {
+      return e
     }
   }
 
