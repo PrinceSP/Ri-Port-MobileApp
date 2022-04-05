@@ -12,7 +12,6 @@ const EditPhone = ({navigation}) => {
   const [toggle,setToggle] = useState(false)
 
   const OtpScreen = ({navigation})=>{
-    const {theme} = useTheme()
     const [otpValue,setOtpValue] = useState("")
     let inputRef = useRef(null)
 
@@ -34,8 +33,6 @@ const EditPhone = ({navigation}) => {
         setToggle(false)
       } catch (e) {
         return e
-      } finally {
-
       }
     }
 
