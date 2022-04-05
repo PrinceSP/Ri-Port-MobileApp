@@ -37,6 +37,13 @@ const Login =({navigation})=>{
     }
     setHide(true)
   }
+
+  const signUp = ()=>{
+    navigation.navigate('Register')
+    setPassword('')
+    setUsername('')
+  }
+  
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
@@ -60,7 +67,7 @@ const Login =({navigation})=>{
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
             <Text style={style.poppinsMed}>Not a user yet?</Text>
-            <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Register')}/>
+            <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>signUp()}/>
           </View>
         </View>
       </KeyboardAvoidingView>
