@@ -22,7 +22,7 @@ const ReportPost = ({location,color,backgroundColor,username,picture,desc})=>{
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={[descStyle,{color}]}>{desc}</Text>
+      {desc&&<Text style={[descStyle,{color}]}>{desc}</Text>}
       <View style={imageContainer}>
         {picture?<Image style={[imageDummy,{width}]} source={{uri:`data:image/png;base64,${picture}`}}/>:<View style={imageDummy}/>}
       </View>
