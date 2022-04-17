@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import {View,Text,Image,StyleSheet} from 'react-native'
+import {View,Text,Image,StyleSheet,Dimensions} from 'react-native'
 import {Button,BioHolder,Gap,Header,ImagePicker} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {DateIcon,Address,Phone,AvatarProfile,ID,MainLogo,Mail} from '../../assets'
@@ -49,7 +49,7 @@ const Profile = ({navigation})=>{
       <Gap height={15}/>
       <Header name='Profile' action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <View style={{flex:0.96,alignItems:'center',justifyContent:'flex-end'}}>
-        <View style={{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:130,width:130,alignItems:'center',justifyContent:'center'}}>
+        <View style={styles.imageContainer}>
           {photo ? <Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={styles.imageHolder}/>
         : user[0]?.profilePicture ? <Image source={{uri:`data:image/png;base64,${user[0].profilePicture}`}} style={styles.imageHolder}/>
             : <View style={styles.imageHolder}/>}
@@ -95,7 +95,8 @@ const Profile = ({navigation})=>{
 }
 
 const styles = StyleSheet.create({
-  imageHolder:{height:115,width:115,backgroundColor:'#eee',borderRadius:65},
+  imageContainer:{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:Dimensions.get('window').height/5.7,width:Dimensions.get('window').width/3,alignItems:'center',justifyContent:'center'},
+  imageHolder:{height:Dimensions.get('window').height/6.65,width:Dimensions.get('window').width/3.6,backgroundColor:'#eee',borderRadius:50,resizeMode: 'cover'},
 })
 
 export default Profile
