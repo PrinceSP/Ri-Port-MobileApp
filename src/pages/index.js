@@ -13,8 +13,7 @@ import ReportListPage from './reportListPage'
 import EditBornDate from './editBorn'
 import EditIDCard from './editIDCard'
 import EditPhone from './editPhone'
-import OtpScreen from './otpScreen'
 import EditEmail from './editEmail'
 
-export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,OtpScreen,EditIDCard,EditProfilePage,EditPhone,EditEmail,
+export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditIDCard,EditProfilePage,EditPhone,EditEmail,
   EditBornDate,Feedback,Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}
