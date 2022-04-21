@@ -281,6 +281,8 @@ const MapFinder = ({getGeometrics,navigation})=>{
     queryRef.current?.clear()
   }
 
+  console.log(desc);
+
 	return (
 		<View style={{flex:1}}>
 			<View style={style.mapContainer}>
@@ -288,6 +290,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 					ref={map=>mapRef.current=map}
 					style={style.map}
 					customMapStyle={theme.themeMode==='default'?defaultStyle:dark}
+          region={region}
 					initialRegion={region}
 					provider={PROVIDER_GOOGLE}
 					onPress={goToCurrentRegion}
@@ -297,14 +300,14 @@ const MapFinder = ({getGeometrics,navigation})=>{
 					<Marker
 						coordinate={region}
 						draggable={true}
-						onDragEnd={(e) => {
-							setRegion({
-								...region,
-								latitude: e.nativeEvent.coordinate.latitude,
-								longitude: e.nativeEvent.coordinate.longitude,
-							})
-							getGeometrics(datas)
-						}}
+            onDragEnd={(e) => {
+              setRegion({
+                ...region,
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              })
+              getGeometrics(datas)
+            }}
 						image={CustomMarker}
 						title="I'm Here"
 						description={desc}
