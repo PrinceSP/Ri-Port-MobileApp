@@ -45,12 +45,12 @@ const Home = ({navigation})=>{
           onRefresh={fetchDatas}
           showsVerticalScrollIndicator={false}
           data={datas}
-          renderItem={({item,index})=><ReportPost username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={item.roadPicture} backgroundColor={theme.backgroundColor}/>}
+          renderItem={({item,index})=><ReportPost userPicture={item?.userPicture} username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={item.roadPicture} backgroundColor={theme.backgroundColor}/>}
           ListHeaderComponent={
             <View style={{backgroundColor:theme.backgroundColor}}>
               <View style={{flexDirection:'row'}}>
-                <Text style={[headingTitle,{color:theme.color}]}>Hello,</Text>
-                <Text style={[headingTitle,{color:theme.color}]}> {currentUser[0].username}!</Text>
+                <Text style={[headingTitle,{color:theme.color}]}>Hello, </Text>
+                <Text style={[headingTitle,{color:theme.color}]}>{currentUser[0].username}!</Text>
               </View>
               <Text style={[date,{color:theme.color}]}>{getCurrentDate()}</Text>
             </View>
