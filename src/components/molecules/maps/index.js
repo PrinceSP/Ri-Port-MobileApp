@@ -1,4 +1,4 @@
-import React, {useState,useRef} from "react"
+import React, {useState,useRef,useEffect} from "react"
 import {StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps"
@@ -270,6 +270,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
         const addressComponent = res.results[0].formatted_address;
         const address = addressComponent.split(',').splice(1,5).join(',')
   			setDetails(address);
+        // console.log('data from address: '+address);
   		})
   		.catch(error => console.warn(error));
 
@@ -281,7 +282,11 @@ const MapFinder = ({getGeometrics,navigation})=>{
     queryRef.current?.clear()
   }
 
-  console.log(desc);
+  useEffect(()=>{
+    getGeometrics(datas)
+  },[desc])
+
+  // console.log('data form desc: '+desc);
 
 	return (
 		<View style={{flex:1}}>
@@ -290,8 +295,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 					ref={map=>mapRef.current=map}
 					style={style.map}
 					customMapStyle={theme.themeMode==='default'?defaultStyle:dark}
-          region={region}
-					initialRegion={region}
+          initialRegion={region}
 					provider={PROVIDER_GOOGLE}
 					onPress={goToCurrentRegion}
 				>
@@ -339,6 +343,7 @@ const MapFinder = ({getGeometrics,navigation})=>{
 						})
             setDetails(data?.description)
 						getGeometrics(datas)
+            // console.log('data from query: '+data?.description);
 					}}
           renderLeftButton={()=><Burger stroke={"#fff"} strokeWidth="4" strokeLinecap="round" onPress={()=>navigation.openDrawer()}/>}
 					renderRightButton={() => <TouchableOpacity style={{height:25,width:65,alignItems:'center',justifyContent:'center',borderRadius:5,backgroundColor:theme.backgroundColor==="000"?"#aaa":"#bbb"}} onPress={()=>clearing()}><Text style={{color:theme.color,fontSize:15}}>clear</Text></TouchableOpacity>}
