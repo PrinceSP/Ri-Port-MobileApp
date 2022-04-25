@@ -1,6 +1,7 @@
 import React, {useContext,useEffect,useState} from 'react'
 import {Text,FlatList,View,StyleSheet,SafeAreaView} from 'react-native'
 import {Header,Gap,ReportList} from '../../components'
+import {localizeDateStr} from '../../config'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
 
@@ -15,7 +16,6 @@ const ReportListPage=({navigation})=>{
       const res = await fetch(`https://riport-app.herokuapp.com/api/posts/postsList/${currentUser[0]._id}`)
       const allReport = await res.json()
       setDatas(allReport)
-      console.log(allReport);
       setRefreshing(true)
     } catch (e) {
       setDatas([])
@@ -44,7 +44,7 @@ const ReportListPage=({navigation})=>{
           onRefresh={fetchDatas}
           showsVerticalScrollIndicator={false}
           data={datas}
-          renderItem={({item,index})=><ReportList status='Pending' title='Laporan jalan rusak' date='28 augustus 2001' color={theme.color}/>}
+          renderItem={({item,index})=><ReportList status={item.status} title={item.title} date={localizeDateStr(item.createdAt)} color={theme.color}/>}
           ListHeaderComponent={
             <Text style={{color:`${theme.color==='#fff'?'#afa':'#8891E0'}`}}>Status</Text>
           }
