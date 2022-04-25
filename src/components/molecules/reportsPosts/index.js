@@ -2,14 +2,14 @@ import React from 'react'
 import {Text,View,StyleSheet,Image, Dimensions, TouchableOpacity} from 'react-native'
 import {Button} from '../../atoms'
 
-const ReportPost = ({location,color,backgroundColor,username,picture,desc})=>{
+const ReportPost = ({location,color,backgroundColor,username,picture,desc,userPicture})=>{
   const {width} = Dimensions.get('window')
   return(
     <View style={[container,{backgroundColor}]}>
       <View style={profileContainer}>
         <View style={{width:'98%',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
           <View style={{flexDirection:'row',alignItems:'center'}}>
-            <Image source={{uri:`data:image/png;base64,${picture}`}} style={profpic}/>
+            <Image source={{uri:`data:image/png;base64,${userPicture}`}} style={profpic}/>
             <View style={{marginLeft:10}}>
               <Text style={[name,{color:color==="#000"?"#444":"#ddd"}]}>{username}</Text>
               <Text style={[locationStyle,{color:color==="#000"?"#777":"#fff"}]}>{location?location:'Indonesia'}</Text>
