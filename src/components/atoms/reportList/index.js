@@ -1,6 +1,8 @@
 import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import {View,Text,StyleSheet,Dimensions} from 'react-native'
 import Button from '../button'
+
+const {width} = Dimensions.get('screen')
 
 const ReportList =({status,title,date,color="#000"})=>{
   return(
@@ -18,16 +20,15 @@ const ReportList =({status,title,date,color="#000"})=>{
 const styles = StyleSheet.create({
   container:{
     flexDirection:'row',justifyContent:'space-between',alignItems:'center',
-    width:365,borderBottomWidth:1,borderColor:'#F1DADA',paddingBottom:7.73,
+    width:width/1.085,borderBottomWidth:1,borderColor:'#F1DADA',paddingBottom:7.73,
     marginBottom:15
   },
-    status:{
-      fontFamily:'Poppins-Regular',fontSize:12,
-    },
-    title:{fontFamily:'Poppins-Regular',fontSize:16,},
-    dataWrapper:{width:216,minHeight:42},
-    date:{fontFamily:'Poppins-Regular',fontSize:14,}
-
+  status:{
+    fontFamily:'Poppins-Regular',fontSize:12,
+  },
+  title:{fontFamily:'Poppins-Regular',fontSize:16,},
+  dataWrapper:{width:216,minHeight:42},
+  date:{fontFamily:'Poppins-Regular',fontSize:14}
 })
 
 export default ReportList
