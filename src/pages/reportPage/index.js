@@ -1,11 +1,12 @@
 import React, {useState,useEffect,useContext} from 'react'
 import {Text,View,StyleSheet,Dimensions,useWindowDimensions} from 'react-native'
-import {Header,Gap,ReportForm,MapFinder,Button,ReportInput} from '../../components'
+import {Header,Gap,ReportForm,MapFinder,Button,ReportInput,toastConfig} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
 import {PanGestureHandler} from 'react-native-gesture-handler'
 import Animated,{useAnimatedGestureHandler,useAnimatedStyle,useSharedValue,withSpring} from 'react-native-reanimated'
+import Toast from 'react-native-toast-message';
 
 const {width,height} = Dimensions.get('window')
 
@@ -67,6 +68,7 @@ const ReportPage = ({navigation})=>{
         body: JSON.stringify({
           userId:currentUser[0]._id,
           fullname:currentUser[0]?.fullname,
+          userPicture:currentUser[0]?.profilePicture,
           title,
           address:reportInfo.desc,
           phoneNumber:currentUser[0].phoneNumber.number,
@@ -80,12 +82,22 @@ const ReportPage = ({navigation})=>{
           status:'Pending'
         })
       }
-      await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
+      currentUser[0].phoneNumber.verified===true && await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
+      Toast.show({
+        type:'success',
+        text1:'Success',
+        text2:'Your report has been post'
+      })
       setData({...data,title:'',description:''})
       setPhotoInfos({...photoInfos,photoBase64:''})
       setReportInfo({})
       setPhotoName('no photo uploaded')
     } catch (e) {
+      Toast.show({
+        type:'error',
+        text1:'Failed',
+        text2:'Complete your biodatas first before make report'
+      })
       setData({...data,title:'',description:''})
       setPhotoInfos({...photoInfos,photoBase64:''})
       setReportInfo({})
@@ -129,6 +141,8 @@ const ReportPage = ({navigation})=>{
       }
     }
   })
+
+  console.log('data from maps:'+JSON.stringify(reportInfo));
 
   return(
     <>
