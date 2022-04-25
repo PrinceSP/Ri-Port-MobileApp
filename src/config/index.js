@@ -1,2 +1,4 @@
 import getCurrentDate from './getCurrentDate'
-export {getCurrentDate}
+import localizeDateStr from './localiseDate'
+
+export {getCurrentDate,localizeDateStr}
