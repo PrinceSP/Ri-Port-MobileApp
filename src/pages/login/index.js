@@ -1,8 +1,9 @@
 import React, {useState,useContext} from 'react'
 import {Text,View,Image,StyleSheet,KeyboardAvoidingView,ActivityIndicator,Platform} from 'react-native'
 import {MainLogo,EyeTrue,EyeFalse} from '../../assets'
-import {Input,Gap,Button,Header} from '../../components'
+import {Input,Gap,Button,Header,toastConfig} from '../../components'
 import {AuthContext} from '../../context/authContext'
+import Toast from 'react-native-toast-message';
 
 const Login =({navigation})=>{
   const [username,setUsername] = useState('')
@@ -26,14 +27,31 @@ const Login =({navigation})=>{
       const results = await response.json()
       if (response.status == 200) {
         dispatch({ type: "LOGIN_SUCCESS", payload: [results.datas] });
-        navigation.navigate('Root',{screen:'BottomTabs'})
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Successfuly login'
+        })
+        setTimeout(()=>{
+          navigation.navigate('Root',{screen:'BottomTabs'})
+        },1000)
       }else{
         isFetching=false
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:'username or password is wrong!'
+        })
       }
       setPassword('')
       setUsername('')
     } catch (e) {
       dispatch({ type: "LOGIN_FAILURE", payload: e });
+      Toast.show({
+        type:'error',
+        text1:'Error',
+        text2:'username or password is wrong!'
+      })
     }
     setHide(true)
   }
@@ -43,7 +61,7 @@ const Login =({navigation})=>{
     setPassword('')
     setUsername('')
   }
-  
+
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
@@ -71,6 +89,7 @@ const Login =({navigation})=>{
           </View>
         </View>
       </KeyboardAvoidingView>
+      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={2000}/>
     </View>
   )
 }
