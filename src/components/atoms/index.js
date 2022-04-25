@@ -5,6 +5,6 @@ import Tab from './tab'
 import BioHolder from './bioHolder'
 import ReportList from './reportList'
 import ReportInput from './inputReport'
-import NotificationToast from './inAppToast'
+import toastConfig from './toast'
 
-export {Button,Input,Tab,Gap,BioHolder,ReportList,ReportInput,NotificationToast}
+export {Button,Input,Tab,Gap,BioHolder,ReportList,ReportInput,toastConfig}
