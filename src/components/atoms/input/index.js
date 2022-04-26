@@ -15,7 +15,7 @@ const Input = ({setLabel=false,borderRadius=50,label,color,...rest})=>{
   return(
     <View>
       {setLabel && <Text style={{fontSize:20,color,marginBottom:4}}>{label}</Text>}
-      <TextInput placeholderTextColor="#999" style={style.container} {...rest}/>
+      <TextInput placeholderTextColor="#999" style={style.container} autoCapitalize="none" {...rest}/>
     </View>
   )
 }
