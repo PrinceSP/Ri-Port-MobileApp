@@ -286,6 +286,10 @@ const MapFinder = ({getGeometrics,navigation})=>{
     getGeometrics(datas)
   },[desc])
 
+  useEffect(()=>{
+    return ()=> console.log('clean up');
+  },[])
+
   // console.log('data form desc: '+desc);
 
 	return (
