@@ -68,7 +68,7 @@ const DrawerContent = (props)=>{
    const signOut=async()=> {
      try {
        props.navigation.navigate('Login')
-       await AsyncStorage.clear()
+       await AsyncStorage.removeItem("themeMode")
      } catch (e) {
        console.log(e);
      }
