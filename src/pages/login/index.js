@@ -8,9 +8,45 @@ import Toast from 'react-native-toast-message';
 const Login =({navigation})=>{
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
+  const [formError,setFormError] = useState('')
   const [hide,setHide] = useState(true)
   const {isFetching,dispatch} = useContext(AuthContext)
   const url = 'https://riport-app.herokuapp.com/api/auth/login'
+
+  // const updateError = (error,stateUpdate)=>{
+  //   stateUpdate(error)
+  //   setTimeout(()=>{
+  //     stateUpdate('')
+  //   },2500)
+  // }
+
+  // const validationForm = ()=>{
+  //   // accept only if all text input have value
+  //   if(!username.trim() || username.length < 8 ){
+  //     Toast.show({
+  //       type:'error',
+  //       text1:'Error',
+  //       text2:'Username is not valid'
+  //     })
+  //   }
+  //     // return updateError('Username is invalid!',setFormError)
+  //   // password must contain 8 or more characters
+  //   if (!password.trim() || password.length < 6 ){
+  //     Toast.show({
+  //       type:'error',
+  //       text1:'Error',
+  //       text2:'Password is incorrect!'
+  //     })
+  //   }
+  //     // return updateError('Password is invalid!',setFormError)
+  //
+  //   return true
+  // }
+  //
+  // const isValidEmail = (value)=>{
+  //   const regEx = /^[a-z0-9]((\.|\+)?[a-z0-9]){5,}@g(oogle)?mail\.com$/;
+  //   return regEx.test(value)
+  // }
 
   const handleLogin = async()=>{
     dispatch({type:"LOGIN_START"})
@@ -25,7 +61,7 @@ const Login =({navigation})=>{
       }
       const response = await fetch(url,options)
       const results = await response.json()
-      if (response.status == 200) {
+      if (results.status === 200) {
         dispatch({ type: "LOGIN_SUCCESS", payload: [results.datas] });
         Toast.show({
           type:'success',
@@ -40,7 +76,7 @@ const Login =({navigation})=>{
         Toast.show({
           type:'error',
           text1:'Error',
-          text2:'username or password is wrong!'
+          text2:'Username or Password is invalid!'
         })
       }
       setPassword('')
@@ -50,7 +86,7 @@ const Login =({navigation})=>{
       Toast.show({
         type:'error',
         text1:'Error',
-        text2:'username or password is wrong!'
+        text2:'Username or Password is invalid!'
       })
     }
     setHide(true)
