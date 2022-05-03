@@ -24,6 +24,7 @@ import CustomMarker from './marker.png'
 import ArrowUp from './arrowUp.svg'
 import Verify from './verifyIllustration.svg'
 import Mail from './mail.svg'
+import NoData from './no_data.svg'
 
-export {MainLogo,Mail,Verify,CustomMarker,ArrowR,ArrowUp,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
+export {MainLogo,NoData,Mail,Verify,CustomMarker,ArrowR,ArrowUp,EyeTrue,EyeFalse,AvatarProfile,Help,Report,ShareIcon,SignOut,Single,Edit,ModalSuccessIcon,
   Burger,HomeIcon,ReportIcon,NotifIcon,DateIcon,Address,Phone,ID,SuccessIcon,FailedIcon}
