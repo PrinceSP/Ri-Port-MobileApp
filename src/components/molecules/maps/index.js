@@ -388,7 +388,7 @@ const style = StyleSheet.create({
     ...StyleSheet.absoluteFill,
 		marginBottom:0
   },
-	placesContainer: {width: "95%", zIndex: 1,position:'absolute',top:20,left:"3%"},
+	placesContainer: {width: "95%",position:'absolute',top:20,left:"3%"},
 	listView:{minHeight:50,color:'#000'}
 })
 
