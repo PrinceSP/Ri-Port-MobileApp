@@ -1,8 +1,9 @@
 import React, {useState,useContext,useRef} from 'react'
 import {View,StyleSheet,Modal,Text,KeyboardAvoidingView,TextInput} from 'react-native'
-import {ReportInput,Gap,Header,Button} from '../../components'
+import {ReportInput,Gap,Header,Button,toastConfig} from '../../components'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
+import Toast from 'react-native-toast-message';
 
 const EditEmail = ({navigation}) => {
   const {theme} = useTheme()
@@ -29,8 +30,26 @@ const EditEmail = ({navigation}) => {
           body:JSON.stringify({userId:currentUser[0]._id,otp:otpValue})
         }
         await fetch(`https://riport-app.herokuapp.com/api/auth/verify-email`,options)
+        .then(res=>{
+          Toast.show({
+            type:'success',
+            text1:'Success',
+            text2:'Your email has been verified!'
+          })
+        }).catch(e=>{
+          Toast.show({
+            type:'error',
+            text1:'Error',
+            text2:"Can't verified your email!"
+          })
+        })
         setToggle(false)
       } catch (e) {
+        Toast.show({
+          type:'error',
+          text1:'Cannot update your account!',
+          text2:'Check again your internet connection'
+        })
         return e
       }
     }
@@ -73,39 +92,44 @@ const EditEmail = ({navigation}) => {
     )
   }
 
-  const submit=()=>{
-    // try {
-    //   const options = {
-    //     method:'post',
-    //     headers:{
-    //       'Accept':'application/json, text/plain, */*',
-    //       'Content-Type':'application/json'
-    //     },
-    //     body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:`+62${phoneNumber}`})
-    //   }
-    //   const updateNumber = {
-    //     method:'put',
-    //     headers:{
-    //       'Accept':'application/json, text/plain, */*',
-    //       'Content-Type':'application/json'
-    //     },
-    //     body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber}})
-    //   }
-    //   await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
-    //   await fetch(`https://riport-app.herokuapp.com/api/auth/smsOtpToPhone`,options)
-    //   if (phoneNumber!==(null||"")) {
-    //     setToggle(true)
-    //   }
-    // } catch (e) {
-    //   return e
-    // }
-    setToggle(true)
+  const submit=async()=>{
+    try {
+      const options = {
+        method:'put',
+        headers:{
+          'Accept':'application/json, text/plain, */*',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({userId:currentUser[0]._id,email:{mail:email,verified:false}})
+      }
+      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
+      .then(res=>{
+        Toast.show({
+          type:'success',
+          text1:'OTP has been sent',
+          text2:'Check your email for OTP!'
+        })
+      }).catch(e=>{
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:'Cannot send OTP to email!'
+        })
+      })
+      if (!email.trim() || email.length >= 8) {
+        setToggle(true)
+      }
+    } catch (e) {
+      return e
+    }
+    // setToggle(true)
   }
 
   return (
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
       <Header name="Edit Email" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <Gap height={15}/>
       <View style={styles.inputContainer}>
         <ReportInput color={theme.color} label="Your Email" defaultValue={email} onChangeText={(e)=>setEmail(e)}/>
