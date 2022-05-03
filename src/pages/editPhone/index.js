@@ -1,9 +1,10 @@
 import React, {useState,useContext,useRef,useEffect} from 'react'
 import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal,KeyboardAvoidingView} from 'react-native'
-import {Gap,Header,Button} from '../../components'
+import {Gap,Header,Button,toastConfig} from '../../components'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
+import Toast from 'react-native-toast-message';
 
 const EditPhone = ({navigation}) => {
   const {theme} = useTheme()
@@ -30,6 +31,19 @@ const EditPhone = ({navigation}) => {
           body:JSON.stringify({userId:currentUser[0]._id,otp:otpValue})
         }
         await fetch(`https://riport-app.herokuapp.com/api/auth/verifyPhoneNumber`,options)
+        .then(res=>{
+          Toast.show({
+            type:'success',
+            text1:'Success',
+            text2:'Your phone number has been verified!'
+          })
+        }).catch(e=>{
+          Toast.show({
+            type:'error',
+            text1:'Error',
+            text2:"Can't verified your number!"
+          })
+        })
         setToggle(false)
       } catch (e) {
         return e
@@ -94,6 +108,19 @@ const EditPhone = ({navigation}) => {
       }
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
       await fetch(`https://riport-app.herokuapp.com/api/auth/smsOtpToPhone`,options)
+      .then(res=>{
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Code has been sent to your phone'
+        })
+      }).catch(e=>{
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:"Cannot sent the code!"
+        })
+      })
       if (phoneNumber!==(null||"")) {
         setToggle(true)
       }
@@ -106,6 +133,7 @@ const EditPhone = ({navigation}) => {
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
       <Header name="Edit Phone" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <Gap height={40}/>
       <Verify style={styles.illustration}/>
       <Text style={[styles.desc,{color:theme.color==="#fff"?"#afafaf":"#7C7C7C"}]}>You’ll receive a 4 digit code to verify next.</Text>

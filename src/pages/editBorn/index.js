@@ -1,9 +1,10 @@
 import React, {useState,useContext} from 'react'
 import {Text,View,StyleSheet,Platform} from 'react-native'
-import {ReportInput,Gap,Header,Button} from '../../components'
+import {ReportInput,Gap,Header,Button,toastConfig} from '../../components'
 import {useTheme} from '../../context/themeContext'
 import {AuthContext} from '../../context/authContext'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Toast from 'react-native-toast-message';
 
 const EditBornDate = ({navigation}) => {
   const [date,setDate] = useState(new Date())
@@ -33,21 +34,44 @@ const EditBornDate = ({navigation}) => {
     }
   }
 
-  const submit=(data)=>{
-    const options = {
-      method:'put',
-      headers:{
-        'Accept':'application/json, text/plain, */*',
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(data)
+  const submit=async(data)=>{
+    try{
+      const options = {
+        method:'put',
+        headers:{
+          'Accept':'application/json, text/plain, */*',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+      }
+      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
+      .then(res=>{
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Successfuly updated your birth date'
+        })
+      }).catch(e=>{
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:"Cannot update your birth date!"
+        })
+      })
+    }catch(e){
+      Toast.show({
+        type:'error',
+        text1:'Error',
+        text2:"Check your internet connnection!"
+      })
+      return e
     }
-    fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
   }
   return (
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
       <Header name="Edit Born Date" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <Gap height={40}/>
       <View style={styles.dateContainer}>
         <Button style={styles.toggleDate} onPress={()=>setShow(true)}/>
