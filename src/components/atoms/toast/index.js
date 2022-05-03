@@ -4,7 +4,7 @@ import {SuccessIcon,FailedIcon} from '../../../assets'
 
 const toastConfig = {
   success:({text1,text2})=>(
-    <View style={style.container} contentContainerStyle={{zIndex:1000}}>
+    <View style={style.container} contentContainerStyle={{zIndex:2000}}>
       <View style={style.icon}>
         <SuccessIcon/>
       </View>
