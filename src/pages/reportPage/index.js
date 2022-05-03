@@ -142,11 +142,12 @@ const ReportPage = ({navigation})=>{
     }
   })
 
-  console.log('data from maps:'+JSON.stringify(reportInfo));
+  // console.log('data from maps:'+JSON.stringify(reportInfo));
 
   return(
     <>
       <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
+      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={2000}/>
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
           <View style={sheetLine}/>
