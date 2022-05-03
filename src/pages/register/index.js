@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
 import {Text,View,StyleSheet,TouchableOpacity,Platform} from 'react-native'
-import {Input,Gap,Button,Header,ImagePicker} from '../../components'
+import {Input,Gap,Button,Header,ImagePicker,toastConfig} from '../../components'
+import {isValidObjField,updateError,isValidEmail} from '../../config/validator'
 import {EyeTrue,EyeFalse} from '../../assets'
+import Toast from 'react-native-toast-message';
 
 const Register =({navigation})=>{
   const [userInfo,setUserInfo] = useState({
@@ -10,45 +12,80 @@ const Register =({navigation})=>{
     password:'',
     ktpId:''
   })
-  const {username,email,password,ktpId} = userInfo
+  const [message,setMessage] = useState("")
   const [hide,setHide] = useState(true)
+  const {username,email,password,ktpId} = userInfo
 
+  const validation = ()=>{
+    if(!isValidObjField(userInfo))
+      return updateError("Fields can't be empty",setMessage)
+    if (!username.trim() || username.length < 6)
+      return updateError("Username must have min 6 characters",setMessage)
+    if(!isValidEmail(email))
+      return updateError("Email address must contains '@'",setMessage)
+    if(email.lentgh < 8)
+      return updateError("Email length must be 8 or more characters")
+    if(!ktpId.trim() || ktpId.length < 16)
+      return updateError("KTP ID's length must have 16 characters or more",setMessage)
+    if(!password.trim() || password.length < 8 )
+      return updateError("Password must have min 8 characters",setMessage)
+
+    return true
+  }
   //handle submit form button
   const submit = async ()=>{
     try {
-      const options = {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username,email:{mail:email},phoneNumber:{number:'-'},password, ktpId,role:'reporter'})
+      if (validation()) {
+        const options = {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({username,email:{mail:email},phoneNumber:{number:'-'},password, ktpId,role:'reporter'})
+        }
+        const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
+        const results = await req.json()
+        if (req.status === 200) {
+          Toast.show({
+            type:'success',
+            text1:'Success',
+            text2:'Your new account has been saved!'
+          })
+          setTimeout(()=>{
+            navigation.navigate('Login')
+          },1000)
+        } else{
+          Toast.show({
+            type:'error',
+            text1:'Error',
+            text2:'An error occured'
+          })
+        }
+        // reset the values of each keys after submit button has been pressed
+        setUserInfo({...userInfo,username:'',email:'',password:'',ktpId:''})
       }
-      const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
-      const results = await req.json()
-      if (req.status === 200) {
-        setTimeout(()=>{
-          navigation.navigate('Login')
-        },1000)
-      } else{
-        console.log(results);
-      }
-      // reset the values of each keys after submit button has been pressed
-      setUserInfo({...userInfo,username:'',email:'',password:'',ktpId:''})
     } catch (e) {
+      Toast.show({
+        type:'error',
+        text1:'Error',
+        text2:'An error occured'
+      })
       return e
     }
     setHide(true)
   }
+
   return(
     <View style={{backgroundColor:'#fff',flex:1}}>
       <Gap height={15}/>
-      <Header name="Sign In" action='Cancel' nav={navigation}/>
+      <Header name="Sign Up" action='Cancel' nav={navigation}/>
       <Gap height={30}/>
       <Text style={style.headingText}>Create a New Account</Text>
       <Text style={style.desc}>{`Create an account so you can post your personal report or see others`}</Text>
       <View style={{alignItems:'center',justifyContent:'center',paddingBottom:35}}>
         <Gap height={40}/>
+        {message ? <Text style={{color:'#000'}}>{message}</Text> : null}
         <Input borderRadius={14} placeholder="goncalves210" defaultValue={username} onChangeText={(event)=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
@@ -69,9 +106,10 @@ const Register =({navigation})=>{
         <Gap height={28}/>
         <View style={{flexDirection:'row'}}>
           <Text style={style.poppinsMed}>Have an account?</Text>
-          <Button name='Login' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Login')}/>
+          <Button name='Sign In' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>navigation.navigate('Login')}/>
         </View>
       </View>
+      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={2000}/>
     </View>
   )
 }
@@ -110,7 +148,14 @@ const style = StyleSheet.create({
     marginLeft:30,
     fontSize:16
   },
-  passwordHideToggle:{position:'absolute',right:0,top:15}
+  passwordHideToggle:{position:'absolute',right:0,top:15},
+  errorToggle:{
+    fontFamily:'Poppins-Regular',
+    color:'#000',
+    textAlign:'left',
+    marginBottom:10,
+    fontSize:16
+  }
 })
 
 export default Register
