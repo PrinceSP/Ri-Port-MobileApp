@@ -1,10 +1,11 @@
 import React,{useState,useContext} from 'react'
 import {Text,View,StyleSheet,ScrollView} from 'react-native'
-import {Input,Gap,Button,Header,ImagePicker} from '../../components'
+import {Input,Gap,Button,Header,ImagePicker,toastConfig} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
+import Toast from 'react-native-toast-message';
 
  const EditProfilePage =({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
@@ -24,7 +25,25 @@ import {useTheme} from '../../context/themeContext'
         body: JSON.stringify(dataToSubmit)
       }
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
+      .then(res=>{
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Your bio has been updated!'
+        })
+      }).catch(e=>{
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:'Internal server error!'
+        })
+      })
     } catch (e) {
+      Toast.show({
+        type:'error',
+        text1:'Cannot update your account!',
+        text2:'Check again your internet connection'
+      })
       return e
     }
   }
@@ -33,6 +52,7 @@ import {useTheme} from '../../context/themeContext'
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
       <Header name="Edit Bio" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2200}/>
       <Gap height={40}/>
       <Text style={style.heading}>Public Informations</Text>
       <ScrollView keyboardShouldPersistTap='always' contentContainerStyle={{alignItems:'center',justifyContent:'center',paddingBottom:35}} showsVerticalScrollIndicator={false}>
