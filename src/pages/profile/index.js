@@ -1,10 +1,11 @@
 import React, {useState,useContext} from 'react'
 import {View,Text,Image,StyleSheet,Dimensions} from 'react-native'
-import {Button,BioHolder,Gap,Header,ImagePicker} from '../../components'
+import {Button,BioHolder,Gap,Header,ImagePicker,toastConfig} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {DateIcon,Address,Phone,AvatarProfile,ID,MainLogo,Mail} from '../../assets'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
+import Toast from 'react-native-toast-message';
 
 const Profile = ({navigation})=>{
   const {user} = useContext(AuthContext)
@@ -37,17 +38,31 @@ const Profile = ({navigation})=>{
           body: JSON.stringify({userId:user[0]._id,profilePicture:res.assets[0].base64})
         }
         fetch(`https://riport-app.herokuapp.com/api/users/${user[0]._id}`,option)
+        .then(res=>{
+          Toast.show({
+            type:'success',
+            text1:'Success',
+            text2:'Profile picture has been updated!'
+          })
+        }).catch(e=>{
+          Toast.show({
+            type:'error',
+            text1:'Error',
+            text2:"Cannot update profile picture!"
+          })
+        })
       }
     })
   }
-  // const max_length = 15
-  let emails = user[0].email.mail>15 ?  user[0].email.mail : user[0].email.mail.substring(0,15)
-  // emails = emails.substring(0, last)
+
+  let emails = user[0].email.mail > 15 ?  user[0].email.mail : user[0].email.mail.substring(0,15)
   emails = emails + `...`
+
   return(
     <View style={{flex:1,backgroundColor:theme.backgroundColor}}>
       <Gap height={15}/>
       <Header name='Profile' action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <View style={{flex:0.96,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={styles.imageContainer}>
           {photo ? <Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={styles.imageHolder}/>
