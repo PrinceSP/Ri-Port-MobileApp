@@ -46,6 +46,11 @@ const EditPhone = ({navigation}) => {
         })
         setToggle(false)
       } catch (e) {
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:"Check your internet connection!"
+        })
         return e
       }
     }
@@ -60,6 +65,7 @@ const EditPhone = ({navigation}) => {
          <View>
           <TextInput
             ref={(input) =>  inputRef = input}
+            placeholder="0"
             onChangeText={(val)=>setOtpValue(val)}
             defaultValue={otpValue}
             style={{width:0,height:0}}
@@ -107,7 +113,6 @@ const EditPhone = ({navigation}) => {
         body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber}})
       }
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
-      await fetch(`https://riport-app.herokuapp.com/api/auth/smsOtpToPhone`,options)
       .then(res=>{
         Toast.show({
           type:'success',
@@ -121,10 +126,16 @@ const EditPhone = ({navigation}) => {
           text2:"Cannot sent the code!"
         })
       })
+      await fetch(`https://riport-app.herokuapp.com/api/auth/smsOtpToPhone`,options)
       if (phoneNumber!==(null||"")) {
         setToggle(true)
       }
     } catch (e) {
+      Toast.show({
+        type:'error',
+        text1:'Error',
+        text2:"Check your internet connection!"
+      })
       return e
     }
   }
