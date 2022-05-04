@@ -81,7 +81,7 @@ const Login =({navigation})=>{
             {hide ? <EyeFalse height={20} onPress={()=>setHide(false)} style={{position:'absolute',right:0,top:15}}/> : <EyeTrue height={20} onPress={()=>setHide(true)} style={{position:'absolute',right:0,top:15}}/>}
           </View>
           <Gap height={26}/>
-          <Text style={style.poppinsMed}>forgot password?</Text>
+          <Button name='forgot password?' style={style.poppinsMed} onPress={()=>navigation.navigate('ForgotPassword')}/>
           <Gap height={29}/>
           <Button style={style.button} name={isFetching?"LOADING...":"SIGN IN"} color="#FFF" weight={500} size={24} onPress={()=>handleLogin()}/>
           <Gap height={25}/>
