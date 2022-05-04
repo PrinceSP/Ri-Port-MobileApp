@@ -14,6 +14,7 @@ import EditBornDate from './editBorn'
 import EditIDCard from './editIDCard'
 import EditPhone from './editPhone'
 import EditEmail from './editEmail'
+import ForgotPassword from './forgotPassword'
 
 export {OnBoardingPage,WelcomeScreen,Login,SplashScreen,EditIDCard,EditProfilePage,EditPhone,EditEmail,
-  EditBornDate,Feedback,Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage}
+  EditBornDate,Feedback,Register,Home,Profile,ReportPage,NotificationsPage,ReportListPage,ForgotPassword}
