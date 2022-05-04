@@ -1,11 +1,11 @@
 import React from 'react'
 import {View,Text,TextInput,StyleSheet} from 'react-native'
 
-const Input = ({setLabel=false,borderRadius=50,label,color,...rest})=>{
+const Input = ({setLabel=false,width=329,borderRadius=50,label,color,...rest})=>{
   const style=StyleSheet.create({
     container:{
       height:50,
-      width:329,
+      width,
       borderWidth:1.5,borderColor:'#B5DCFF',
       borderRadius,color:'#000',
       paddingHorizontal:28.77,fontSize:19,backgroundColor:'#fff',
