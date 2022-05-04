@@ -15,7 +15,7 @@ const toastConfig = {
     </View>
   ),
   error:({text1,text2})=>(
-    <View style={style.container} contentContainerStyle={{zIndex:1000}}>
+    <View style={style.container} contentContainerStyle={{zIndex:2000}}>
       <View style={style.icon}>
         <FailedIcon/>
       </View>
@@ -28,7 +28,7 @@ const toastConfig = {
 }
 
 const style = StyleSheet.create({
-  container:{backgroundColor:'#000',width:Dimensions.get('window').width,height:80,flexDirection:'row',alignItems:'center',zIndex:1000},
+  container:{backgroundColor:'#000',width:Dimensions.get('window').width,height:80,flexDirection:'row',alignItems:'center',zIndex:100},
   icon:{marginRight:22,marginLeft:15},
   secondMessage:{fontSize:15,fontFamily:'Poppins-Regular',color:'#8CC4F8'},
   textCont:{flexDirection:'column',justifyContent:'center',height:35}
