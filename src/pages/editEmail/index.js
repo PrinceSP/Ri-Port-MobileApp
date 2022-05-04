@@ -64,6 +64,7 @@ const EditEmail = ({navigation}) => {
          <View>
           <TextInput
             ref={(input) =>  inputRef = input}
+            placeholder="0"
             onChangeText={(val)=>setOtpValue(val)}
             defaultValue={otpValue}
             style={{width:0,height:0}}
