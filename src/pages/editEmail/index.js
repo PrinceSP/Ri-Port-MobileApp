@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     borderColor:"#4EAAFF",
     backgroundColor:'#F8F8F8'
   },
-  textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13},
+  textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13,color:"#000"},
   changeBtn:{paddingHorizontal:35,flexDirection:'row',alignItems:'center',justifyContent:'space-between'}
 })
 
