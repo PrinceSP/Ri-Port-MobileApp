@@ -77,17 +77,19 @@ const ReportPage = ({navigation})=>{
             latitude:reportInfo.region.latitude,
             longitude:reportInfo.region.longitude,
           },
-          description,
+          desc:description,
           roadPicture:photoInfos.photoBase64,
           status:'Pending'
         })
       }
-      currentUser[0].phoneNumber.verified===true && await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
-      Toast.show({
-        type:'success',
-        text1:'Success',
-        text2:'Your report has been post'
-      })
+      const res = currentUser[0].phoneNumber.verified===true && await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
+      if(res.status === 201){
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Your report has been post'
+        })
+      }
       setData({...data,title:'',description:''})
       setPhotoInfos({...photoInfos,photoBase64:''})
       setReportInfo({})
@@ -96,7 +98,7 @@ const ReportPage = ({navigation})=>{
       Toast.show({
         type:'error',
         text1:'Failed',
-        text2:'Complete your biodatas first before make report'
+        text2:'Fill all the form first!'
       })
       setData({...data,title:'',description:''})
       setPhotoInfos({...photoInfos,photoBase64:''})
@@ -147,7 +149,7 @@ const ReportPage = ({navigation})=>{
   return(
     <>
       <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
-      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={2000}/>
+      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={3000} autoHide={true}/>
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
           <View style={sheetLine}/>
