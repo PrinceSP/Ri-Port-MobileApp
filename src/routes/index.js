@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {WelcomeScreen,OnBoardingPage,SplashScreen,Login,Feedback,ReportListPage,EditEmail,ForgotPassword,
-  Register,Home,EditIDCard,EditPhone,Profile,ReportPage,EditBornDate,NotificationsPage,EditProfilePage} from '../pages'
+  Register,Home,EditPassword,EditPhone,Profile,ReportPage,EditBornDate,NotificationsPage,EditProfilePage} from '../pages'
 import {DrawerContent,TabsContent} from '../components'
 const {Navigator, Screen} = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -74,7 +74,7 @@ const Routes = ()=>{
       <Screen name="Register" component={Register} options={{headerShown:false}}/>
       <Screen name="EditProfile" component={EditProfilePage} options={{headerShown:false}}/>
       <Screen name="EditBornDate" component={EditBornDate} options={{headerShown:false}}/>
-      <Screen name="EditIDCard" component={EditIDCard} options={{headerShown:false}}/>
+      <Screen name="EditPassword" component={EditPassword} options={{headerShown:false}}/>
       <Screen name="EditPhone" component={EditPhone} options={{headerShown:false}}/>
       <Screen name="EditEmail" component={EditEmail} options={{headerShown:false}}/>
       <Screen name="Root" component={Root} options={{headerShown:false}}/>
