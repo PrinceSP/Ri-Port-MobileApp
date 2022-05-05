@@ -12,7 +12,7 @@ const ForgotPassword = ({navigation}) => {
   const {width} = Dimensions.get('screen')
   const [toggle,setToggle] = useState(false)
 
-  const CheckMail = ({navigation})=>{
+  const CheckMail = ()=>{
 
     const changeNumber=()=>{
       setToggle(false)
