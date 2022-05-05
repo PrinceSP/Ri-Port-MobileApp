@@ -80,9 +80,11 @@ const Login =({navigation})=>{
             <Input placeholder="Password" borderRadius={14} defaultValue={password} secureTextEntry={hide} onChangeText={event=>setPassword(event)}/>
             {hide ? <EyeFalse height={20} onPress={()=>setHide(false)} style={{position:'absolute',right:0,top:15}}/> : <EyeTrue height={20} onPress={()=>setHide(true)} style={{position:'absolute',right:0,top:15}}/>}
           </View>
-          <Gap height={26}/>
-          <Button name='forgot password?' style={style.poppinsMed} onPress={()=>navigation.navigate('ForgotPassword')}/>
-          <Gap height={29}/>
+          <Gap height={18}/>
+          <View style={{flexDirection:'row',alignItems:'flex-end',justifyContent:'flex-end',width:"80%"}}>
+            <Button name='forgot password?' style={style.poppinsMed} color="#000" onPress={()=>navigation.navigate('ForgotPassword')}/>
+          </View>
+          <Gap height={36}/>
           <Button style={style.button} name={isFetching?"LOADING...":"SIGN IN"} color="#FFF" weight={500} size={24} onPress={()=>handleLogin()}/>
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
