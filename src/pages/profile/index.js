@@ -94,16 +94,16 @@ const Profile = ({navigation})=>{
           onPress={()=>navigation.navigate('EditBornDate')}/>
         <BioHolder icon={<Phone height={20}/>}
           labelInfo="Phone Number"
-          userInfo={currentUser[0]?.phoneNumber.number}
+          userInfo={`+62${currentUser[0].phoneNumber.number}`}
           color={theme.color}
           backgroundColor="#ffa500"
           onPress={()=>navigation.navigate('EditPhone')}/>
         <BioHolder icon={<ID height={18}/>}
-          userInfo={currentUser[0]?.ktpId}
-          labelInfo='ID Card Number'
+          userInfo="provide strong password"
+          labelInfo='Change password'
           color={theme.color}
           backgroundColor="#009"
-          onPress={()=>navigation.navigate('EditIDCard')}/>
+          onPress={()=>navigation.navigate('EditPassword')}/>
       </View>
     </View>
   )
