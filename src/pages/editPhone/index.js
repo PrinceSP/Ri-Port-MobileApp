@@ -110,7 +110,7 @@ const EditPhone = ({navigation}) => {
           'Accept':'application/json, text/plain, */*',
           'Content-Type':'application/json'
         },
-        body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber}})
+        body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber,verified:false}})
       }
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
       .then(res=>{
@@ -245,7 +245,7 @@ const styles=StyleSheet.create({
     borderColor:"#4EAAFF",
     backgroundColor:'#F8F8F8'
   },
-  textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13},
+  textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13,color:"#000"},
   changeBtn:{paddingHorizontal:35,flexDirection:'row',alignItems:'center',justifyContent:'space-between'}
 })
 
