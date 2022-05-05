@@ -44,7 +44,7 @@ const ReportListPage=({navigation})=>{
           onRefresh={fetchDatas}
           showsVerticalScrollIndicator={false}
           data={datas}
-          renderItem={({item,index})=><ReportList status={item.status} title={item.title} date={localizeDateStr(item.createdAt)} color={theme.color}/>}
+          renderItem={({item,index})=><ReportList status={item.status} roadPicture={item.roadPicture} title={item.title} date={localizeDateStr(item.createdAt)} color={theme.color} desc={item.desc}/>}
           ListHeaderComponent={
             <Text style={{color:`${theme.color==='#fff'?'#afa':'#8891E0'}`}}>Status</Text>
           }
