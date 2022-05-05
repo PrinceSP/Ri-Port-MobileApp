@@ -8,7 +8,7 @@ import {useTheme} from '../../context/themeContext'
 import Toast from 'react-native-toast-message';
 
 const Profile = ({navigation})=>{
-  const {user} = useContext(AuthContext)
+  const {user:currentUser} = useContext(AuthContext)
   const {theme} = useTheme()
   const [photo,setPhoto] = useState('')
   const [hasPhoto, setHasPhoto] = useState(false)
@@ -35,9 +35,9 @@ const Profile = ({navigation})=>{
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({userId:user[0]._id,profilePicture:res.assets[0].base64})
+          body: JSON.stringify({userId:currentUser[0]._id,profilePicture:res.assets[0].base64})
         }
-        fetch(`https://riport-app.herokuapp.com/api/users/${user[0]._id}`,option)
+        fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,option)
         .then(res=>{
           Toast.show({
             type:'success',
@@ -55,7 +55,7 @@ const Profile = ({navigation})=>{
     })
   }
 
-  let emails = user[0].email.mail > 15 ?  user[0].email.mail : user[0].email.mail.substring(0,15)
+  let emails = currentUser[0].email.mail > 15 ?  currentUser[0].email.mail : currentUser[0].email.mail.substring(0,15)
   emails = emails + `...`
 
   return(
@@ -66,13 +66,13 @@ const Profile = ({navigation})=>{
       <View style={{flex:0.96,alignItems:'center',justifyContent:'flex-end'}}>
         <View style={styles.imageContainer}>
           {photo ? <Image source={{uri:`data:image/png;base64,${photoBase64}`}} style={styles.imageHolder}/>
-        : user[0]?.profilePicture ? <Image source={{uri:`data:image/png;base64,${user[0].profilePicture}`}} style={styles.imageHolder}/>
+        : currentUser[0]?.profilePicture ? <Image source={{uri:`data:image/png;base64,${currentUser[0].profilePicture}`}} style={styles.imageHolder}/>
             : <View style={styles.imageHolder}/>}
         </View>
         <ImagePicker onPress={getImage}/>
         <Gap height={20}/>
-        <Text style={{color:theme.color,backgroundColor:theme.backgroundColor,fontSize:28,fontFamily:'Poppins-Bold'}}>{user[0].username}</Text>
-        <Text style={{color:"#999",backgroundColor:theme.backgroundColor,fontSize:16,fontFamily:'Poppins-Regular'}}>{user[0].email.mail}</Text>
+        <Text style={{color:theme.color,backgroundColor:theme.backgroundColor,fontSize:28,fontFamily:'Poppins-Bold'}}>{currentUser[0].username}</Text>
+        <Text style={{color:"#999",backgroundColor:theme.backgroundColor,fontSize:16,fontFamily:'Poppins-Regular'}}>{currentUser[0].email.mail}</Text>
         <Gap height={20}/>
         <BioHolder icon={<Address height={22}/>}
           labelInfo='Personal Informations'
@@ -87,19 +87,19 @@ const Profile = ({navigation})=>{
           backgroundColor="#fc99ad"
           onPress={()=>navigation.navigate('EditEmail')}/>
         <BioHolder icon={<DateIcon height={22}/>}
-          userInfo={user[0].dateOfBirth}
+          userInfo={currentUser[0].dateOfBirth}
           labelInfo='Date of Birth'
           color={theme.color}
           backgroundColor="#f44"
           onPress={()=>navigation.navigate('EditBornDate')}/>
         <BioHolder icon={<Phone height={20}/>}
           labelInfo="Phone Number"
-          userInfo={user[0]?.phoneNumber.number}
+          userInfo={currentUser[0]?.phoneNumber.number}
           color={theme.color}
           backgroundColor="#ffa500"
           onPress={()=>navigation.navigate('EditPhone')}/>
         <BioHolder icon={<ID height={18}/>}
-          userInfo={user[0].ktpId}
+          userInfo={currentUser[0]?.ktpId}
           labelInfo='ID Card Number'
           color={theme.color}
           backgroundColor="#009"
