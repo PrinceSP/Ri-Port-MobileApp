@@ -7,9 +7,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Toast from 'react-native-toast-message';
 
 const EditIDCard = ({navigation}) => {
-  const [ktpId,setKtpId] = useState('')
   const {theme} = useTheme()
   const {user:currentUser} = useContext(AuthContext)
+  const [ktpId,setKtpId] = useState(currentUser[0].ktpId)
 
   const submit= async (data)=>{
     try {
@@ -21,7 +21,7 @@ const EditIDCard = ({navigation}) => {
         },
         body:JSON.stringify(data)
       }
-      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser._id}`,options)
+      await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
       .then(res=>{
         Toast.show({
           type:'success',
@@ -48,12 +48,13 @@ const EditIDCard = ({navigation}) => {
     <View style={{backgroundColor:theme.backgroundColor,flex:1}}>
       <Gap height={15}/>
       <Header name="Edit ID Card" action='Cancel' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
+      <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <Gap height={40}/>
       <View style={styles.inputContainer}>
         <ReportInput keyboardType='numeric' color={theme.color} label="Your ID Card" defaultValue={ktpId} onChangeText={(e)=>setKtpId(e)}/>
       </View>
       <Gap height={65}/>
-      <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser._id,ktpId})}/>
+      <Button style={styles.button} name="Update" color="#FFF" weight={500} size={22} onPress={()=>submit({userId:currentUser[0]._id,ktpId})}/>
     </View>
   )
 }
