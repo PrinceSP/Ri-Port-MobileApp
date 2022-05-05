@@ -63,7 +63,7 @@ import Toast from 'react-native-toast-message';
           onChangeText={event=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
-        <Input borderRadius={14} setLabel={true} label="KTP ID" color={theme.color} placeholder="732180xxxxx" defaultValue={userInfo.ktpId}
+        <Input borderRadius={14} setLabel={true} keyboardType='numeric' label="KTP ID" color={theme.color} placeholder="732180xxxxx" defaultValue={userInfo.ktpId}
           onChangeText={event=>{
             setUserInfo({...userInfo,ktpId:event})}}/>
         <Gap height={60}/>
