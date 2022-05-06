@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message'
 
 const ForgotPassword = ({navigation}) => {
   const {theme} = useTheme()
-  const [email,setEmail] = useState('')
+  const [username,setUsername] = useState('')
   const {width} = Dimensions.get('screen')
   const [toggle,setToggle] = useState(false)
 
@@ -41,6 +41,45 @@ const ForgotPassword = ({navigation}) => {
     )
   }
 
+  const handleForgot = async()=>{
+    try {
+      const options = {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username})
+      }
+      const response = await fetch('https://riport-app.herokuapp.com/api/users/forgot-password',options)
+      const results = await response.json()
+
+      if (response.status === 201) {
+        Toast.show({
+          type:'success',
+          text1:'Success',
+          text2:'Successfuly login'
+        })
+        setToggle(true)
+      }else{
+        Toast.show({
+          type:'error',
+          text1:'Error',
+          text2:results
+        })
+        console.log(results);
+      }
+      setUsername('')
+    } catch (e) {
+      Toast.show({
+        type:'error',
+        text1:'Error',
+        text2:'errors'
+      })
+      setUsername('')
+    }
+  }
+
   return (
     <View style={[style.container,{backgroundColor:theme.backgroundColor}]}>
       <Gap height={15}/>
@@ -49,15 +88,15 @@ const ForgotPassword = ({navigation}) => {
       <Gap height={45}/>
       <View style={style.content}>
         <Text style={[style.headingTitle,{color:theme.color}]}>Forgot your password?</Text>
-        <Text style={style.secondaryHeading}>Enter the email associated with your account</Text>
+        <Text style={style.secondaryHeading}>Enter the username associated with your account</Text>
         <Text style={style.secondaryHeading}>and we'll send an email with link to</Text>
         <Text style={style.secondaryHeading}>reset your password</Text>
         <Gap height={60}/>
-        <Input borderRadius={8} width={width/1.1} setLabel={true} label="Email" color={theme.backgroundColor==="#fff"?"#777":theme.color} placeholder="prince@gmail.com" defaultValue={email} onChangeText={event=>setEmail(event)}/>
+        <Input borderRadius={8} width={width/1.1} setLabel={true} label="Username" color={theme.backgroundColor==="#fff"?"#777":theme.color} placeholder="princesiachin98" defaultValue={username} onChangeText={event=>setUsername(event)}/>
         <Gap height={40}/>
         <View style={style.sendContainer}>
           <Text style={[style.send,{color:theme.color}]}>Send Link</Text>
-          <Button name={<ArrowRTwo/>} color='#fff' style={[style.buttonSend,{backgroundColor:theme.backgroundColor==="#fff"?"#ED6262":"#000"}]} fam='Poppins-Bold' onPress={()=>setToggle(true)}/>
+          <Button name={<ArrowRTwo/>} color='#fff' style={[style.buttonSend,{backgroundColor:theme.backgroundColor==="#fff"?"#ED6262":"#000"}]} fam='Poppins-Bold' onPress={handleForgot}/>
         </View>
       </View>
       {toggle&&<Modal animationType="slide" transparent={true} visible={toggle}>
