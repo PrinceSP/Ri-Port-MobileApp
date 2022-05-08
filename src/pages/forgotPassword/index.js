@@ -58,7 +58,7 @@ const ForgotPassword = ({navigation}) => {
         Toast.show({
           type:'success',
           text1:'Success',
-          text2:'Successfuly login'
+          text2:'Successfuly send link to email!'
         })
         setToggle(true)
       }else{
