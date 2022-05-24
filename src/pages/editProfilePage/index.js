@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react'
-import {Text,View,StyleSheet,ScrollView} from 'react-native'
+import {Text,View,StyleSheet,ScrollView,ActivityIndicator} from 'react-native'
 import {Input,Gap,Button,Header,ImagePicker,toastConfig} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message';
 
  const EditProfilePage =({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
+  const [isFetching,setIsFetching] = useState(false)
   const {theme} = useTheme()
   const [userInfo,setUserInfo] = useState({
     fullname:currentUser[0].fullname,username:currentUser[0].username,ktpId:currentUser[0].ktpId
@@ -24,14 +25,17 @@ import Toast from 'react-native-toast-message';
         },
         body: JSON.stringify(dataToSubmit)
       }
+      setIsFetching(true)
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,options)
       .then(res=>{
+        setIsFetching(false)
         Toast.show({
           type:'success',
           text1:'Success',
           text2:'Your bio has been updated!'
         })
       }).catch(e=>{
+        setIsFetching(false)
         Toast.show({
           type:'error',
           text1:'Error',
@@ -63,6 +67,7 @@ import Toast from 'react-native-toast-message';
           onChangeText={event=>{
             setUserInfo({...userInfo,username:event})}}/>
         <Gap height={30}/>
+        {isFetching===true&&<ActivityIndicator style={{zIndex:1,position:'absolute',top:200,backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
         <Input borderRadius={14} setLabel={true} keyboardType='numeric' label="KTP ID" color={theme.color} placeholder="732180xxxxx" defaultValue={userInfo.ktpId}
           onChangeText={event=>{
             setUserInfo({...userInfo,ktpId:event})}}/>
