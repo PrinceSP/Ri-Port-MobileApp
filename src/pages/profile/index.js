@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react'
-import {View,Text,Image,StyleSheet,Dimensions,useWindowDimensions,PermissionsAndroid} from 'react-native'
+import {View,Text,Image,StyleSheet,Dimensions,useWindowDimensions,PermissionsAndroid,ActivityIndicator} from 'react-native'
 import {Button,BioHolder,Gap,Header,ImagePicker,toastConfig} from '../../components'
 import {launchImageLibrary,launchCamera} from 'react-native-image-picker'
 import {DateIcon,Address,Phone,AvatarProfile,ID,MainLogo,Mail} from '../../assets'
@@ -15,6 +15,7 @@ const Profile = ({navigation})=>{
   const [photo,setPhoto] = useState('')
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoBase64,setPhotoBase64] = useState('')
+  const [isFetching,setIsFetching] = useState(false)
 
   const imageGallery = ()=>{
     const options={
@@ -100,8 +101,10 @@ const Profile = ({navigation})=>{
               },
               body: JSON.stringify({userId:currentUser[0]._id,profilePicture:res.assets[0].base64})
             }
+            setIsFetching(true)
             fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,option)
             .then(res=>{
+              setIsFetching(false)
               Toast.show({
                 type:'success',
                 text1:'Success',
@@ -113,6 +116,10 @@ const Profile = ({navigation})=>{
                 text1:'Error',
                 text2:"Cannot update profile picture!"
               })
+              setIsFetching(false)
+            })
+            .finally(()=>{
+              setIsFetching(false)
             })
           }
         });
@@ -211,6 +218,7 @@ const Profile = ({navigation})=>{
           color={theme.color}
           backgroundColor="#009"
           onPress={()=>navigation.navigate('EditPassword')}/>
+        {isFetching===true&&<ActivityIndicator style={{zIndex:1,position:'absolute',top:200,backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
       </View>
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[styles.bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
@@ -246,21 +254,13 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
     alignItems:'center'
   },
-  panelTitle:{
-    fontFamily:"Poppins-SemiBold",
-    fontSize:25
-  },
-  panelSubtitle:{
-    fontFamily:"Poppins-Regular"
-  },
+  panelTitle:{fontFamily:"Poppins-SemiBold",fontSize:25},
+  panelSubtitle:{fontFamily:"Poppins-Regular"},
   button:{
     marginBottom:15,
     // backgroundColor:'#f73b3b',
     // backgroundColor:'#ED6262',
-    height:60,
-    width:329,
-    borderRadius:14,
-    alignItems:'center',
+    height:60,width:329,borderRadius:14,alignItems:'center',
     justifyContent:'center',
     ...Platform.select({
       ios: {
