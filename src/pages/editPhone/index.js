@@ -1,5 +1,5 @@
 import React, {useState,useContext,useRef,useEffect} from 'react'
-import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal,KeyboardAvoidingView} from 'react-native'
+import {Text,View,StyleSheet,TextInput,TouchableOpacity,Modal,KeyboardAvoidingView,ActivityIndicator} from 'react-native'
 import {Gap,Header,Button,toastConfig} from '../../components'
 import {Verify} from '../../assets'
 import {useTheme} from '../../context/themeContext'
@@ -11,6 +11,7 @@ const EditPhone = ({navigation}) => {
   const {user:currentUser} = useContext(AuthContext)
   const [phoneNumber,setPhone] = useState(currentUser[0].phoneNumber.number)
   const [toggle,setToggle] = useState(false)
+  const [isFetching,setIsFetching] = useState(false)
 
   const OtpScreen = ({navigation})=>{
     const [otpValue,setOtpValue] = useState("")
@@ -112,14 +113,17 @@ const EditPhone = ({navigation}) => {
         },
         body:JSON.stringify({userId:currentUser[0]._id,phoneNumber:{number:phoneNumber,verified:false}})
       }
+      setIsFetching(true)
       await fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,updateNumber)
       .then(res=>{
+        setIsFetching(false)
         Toast.show({
           type:'success',
           text1:'Success',
           text2:'Code has been sent to your phone'
         })
       }).catch(e=>{
+        setIsFetching(false)
         Toast.show({
           type:'error',
           text1:'Error',
@@ -131,6 +135,7 @@ const EditPhone = ({navigation}) => {
         setToggle(true)
       }
     } catch (e) {
+      setIsFetching(false)
       Toast.show({
         type:'error',
         text1:'Error',
@@ -149,6 +154,7 @@ const EditPhone = ({navigation}) => {
       <Verify style={styles.illustration}/>
       <Text style={[styles.desc,{color:theme.color==="#fff"?"#afafaf":"#7C7C7C"}]}>You’ll receive a 4 digit code to verify next.</Text>
       <View style={[styles.inputContainer,{backgroundColor:theme.backgroundColor,borderBottomColor:"#244db7"}]}>
+        {isFetching===true&&<ActivityIndicator style={{zIndex:1,position:'absolute',top:200,backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
         <View style={styles.openDialogView}>
           <Text style={[styles.dialCode,{color:theme.color}]}>+62 | </Text>
         </View>
