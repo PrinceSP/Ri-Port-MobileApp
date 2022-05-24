@@ -1,11 +1,13 @@
 import React, {useState,useContext} from 'react'
-import {View,Text,Image,StyleSheet,Dimensions} from 'react-native'
+import {View,Text,Image,StyleSheet,Dimensions,useWindowDimensions,PermissionsAndroid} from 'react-native'
 import {Button,BioHolder,Gap,Header,ImagePicker,toastConfig} from '../../components'
-import {launchImageLibrary} from 'react-native-image-picker'
+import {launchImageLibrary,launchCamera} from 'react-native-image-picker'
 import {DateIcon,Address,Phone,AvatarProfile,ID,MainLogo,Mail} from '../../assets'
 import {AuthContext} from '../../context/authContext'
 import {useTheme} from '../../context/themeContext'
 import Toast from 'react-native-toast-message';
+import {PanGestureHandler} from 'react-native-gesture-handler'
+import Animated,{useAnimatedGestureHandler,useAnimatedStyle,useSharedValue,withSpring} from 'react-native-reanimated'
 
 const Profile = ({navigation})=>{
   const {user:currentUser} = useContext(AuthContext)
@@ -14,7 +16,7 @@ const Profile = ({navigation})=>{
   const [hasPhoto, setHasPhoto] = useState(false)
   const [photoBase64,setPhotoBase64] = useState('')
 
-  const getImage = ()=>{
+  const imageGallery = ()=>{
     const options={
       maxHeight:160,
       maxWidth:160,
@@ -55,6 +57,85 @@ const Profile = ({navigation})=>{
     })
   }
 
+  const fromCamera = async() => {
+    const options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: "Cool Photo App Camera Permission",
+          message:
+            "Cool Photo App needs access to your camera " +
+            "so you can take awesome pictures.",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the camera");
+        launchCamera(options, (response) => {
+          console.log('Response = ', response);
+
+          if (response.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else {
+            const source = { uri: response.uri };
+            console.log('response', JSON.stringify(response));
+            console.log(response,response.data,response.uri);
+          }
+        });
+      } else {
+        console.log("Camera permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  const dimensions = useWindowDimensions()
+  const springConfig ={
+    damping:80,
+    overshootClamping:true,
+    restDisplacementThreshold:0.1,
+    stiffness:500
+  }
+
+  const top = useSharedValue(dimensions.height)
+
+  const bottomSheetStyle = useAnimatedStyle(()=>{
+    return{
+      top:withSpring(top.value,springConfig)
+    }
+  })
+
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart(_, context){
+      context.startTop = top.value
+    },
+    onActive(event,context){
+      top.value = context.startTop + event.translationY
+    },
+    onEnd(){
+      if (top.value > dimensions.height / 2 + 200) {
+        top.value = dimensions.height
+      } else{
+        top.value = dimensions.height
+      }
+    }
+  })
+
+  const closeBottomSheet = ()=>{
+    top.value = withSpring(dimensions.height/1,springConfig)
+  }
+
   let emails = currentUser[0].email.mail > 15 ?  currentUser[0].email.mail : currentUser[0].email.mail.substring(0,15)
   emails = emails + `...`
 
@@ -69,7 +150,9 @@ const Profile = ({navigation})=>{
         : currentUser[0]?.profilePicture ? <Image source={{uri:`data:image/png;base64,${currentUser[0].profilePicture}`}} style={styles.imageHolder}/>
             : <View style={styles.imageHolder}/>}
         </View>
-        <ImagePicker onPress={getImage}/>
+        <ImagePicker onPress={()=>{
+          top.value = withSpring(dimensions.height / 2,springConfig)
+        }}/>
         <Gap height={20}/>
         <Text style={{color:theme.color,backgroundColor:theme.backgroundColor,fontSize:28,fontFamily:'Poppins-Bold'}}>{currentUser[0].username}</Text>
         <Text style={{color:"#999",backgroundColor:theme.backgroundColor,fontSize:16,fontFamily:'Poppins-Regular'}}>{currentUser[0].email.mail}</Text>
@@ -105,6 +188,17 @@ const Profile = ({navigation})=>{
           backgroundColor="#009"
           onPress={()=>navigation.navigate('EditPassword')}/>
       </View>
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View style={[styles.bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
+          <View style={styles.sheetLine}/>
+          <Text style={[styles.panelTitle,{color:theme.color}]}>Upload Photo</Text>
+          <Text style={[styles.panelSubtitle,{color:theme.color==="#000"?"#888":"#aaa"}]}>Choose Your Profile Photo</Text>
+          <Gap height={20}/>
+          <Button name="Take a photo" color={theme.color==="#000"?"#fff":"#fff"} size={18} fam='Poppins-SemiBold' onPress={()=>fromCamera()} style={[styles.button,{backgroundColor:theme.backgroundColor==='#000'?'#ED6262':'#f73b3b'}]}/>
+          <Button name="Choose from gallery" color={theme.color==="#000"?"#fff":"#fff"} size={18} fam='Poppins-SemiBold' onPress={()=>imageGallery()} style={[styles.button,{backgroundColor:theme.backgroundColor==='#000'?'#ED6262':'#f73b3b'}]}/>
+          <Button name="Cancel" color={theme.color==="#000"?"#fff":"#fff"} size={18} fam='Poppins-SemiBold' style={[styles.button,{backgroundColor:theme.backgroundColor==='#000'?'#ED6262':'#f73b3b'}]} onPress={closeBottomSheet}/>
+        </Animated.View>
+      </PanGestureHandler>
     </View>
   )
 }
@@ -112,6 +206,50 @@ const Profile = ({navigation})=>{
 const styles = StyleSheet.create({
   imageContainer:{borderStyle:'dashed',borderWidth:2,borderColor:'#8CC4F8',borderRadius:75,height:Dimensions.get('window').height/5.7,width:Dimensions.get('window').width/3,alignItems:'center',justifyContent:'center'},
   imageHolder:{height:Dimensions.get('window').height/6.65,width:Dimensions.get('window').width/3.6,backgroundColor:'#eee',borderRadius:50,resizeMode: 'cover'},
+  sheetLine:{width:70,borderTopWidth:4,borderTopColor:"#777",borderRadius:2,alignSelf:'center',marginVertical:15},
+  bottomSheet:{
+    position:'absolute',
+    bottom:0,
+    right:0,
+    left:0,
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+    zIndex:99,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.9,
+    shadowRadius:3.84,
+    elevation:10,
+    paddingHorizontal:10,
+    alignItems:'center'
+  },
+  panelTitle:{
+    fontFamily:"Poppins-SemiBold",
+    fontSize:25
+  },
+  panelSubtitle:{
+    fontFamily:"Poppins-Regular"
+  },
+  button:{
+    marginBottom:15,
+    // backgroundColor:'#f73b3b',
+    // backgroundColor:'#ED6262',
+    height:60,
+    width:329,
+    borderRadius:14,
+    alignItems:'center',
+    justifyContent:'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: "#88aaff",
+        shadowOpacity: 1,
+        shadowRadius:5,
+      },
+      android:{
+        elevation: 4,
+      },
+    })
+  },
 })
 
 export default Profile
