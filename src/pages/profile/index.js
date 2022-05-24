@@ -18,8 +18,8 @@ const Profile = ({navigation})=>{
 
   const imageGallery = ()=>{
     const options={
-      maxHeight:160,
-      maxWidth:160,
+      maxHeight:400,
+      maxWidth:400,
       includeBase64:true,
     }
     launchImageLibrary(options,res=>{
@@ -59,6 +59,7 @@ const Profile = ({navigation})=>{
 
   const fromCamera = async() => {
     const options = {
+      includeBase64:true,
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -68,9 +69,9 @@ const Profile = ({navigation})=>{
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
         {
-          title: "Cool Photo App Camera Permission",
+          title: "RiPort App Camera Permission",
           message:
-            "Cool Photo App needs access to your camera " +
+            "RiPort App needs access to your camera " +
             "so you can take awesome pictures.",
           buttonNeutral: "Ask Me Later",
           buttonNegative: "Cancel",
@@ -79,17 +80,40 @@ const Profile = ({navigation})=>{
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("You can use the camera");
-        launchCamera(options, (response) => {
-          console.log('Response = ', response);
-
-          if (response.didCancel) {
+        launchCamera(options, (res) => {
+          if (res.didCancel) {
+            setHasPhoto(false)
+            setPhoto('');
+            setPhotoBase64('');
             console.log('User cancelled image picker');
-          } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
+          } else if (res.error) {
+            console.log('ImagePicker Error: ', res.error);
           } else {
-            const source = { uri: response.uri };
-            console.log('response', JSON.stringify(response));
-            console.log(response,response.data,response.uri);
+            setPhoto(res.assets[0].uri);
+            setPhotoBase64(res.assets[0].base64);
+            setHasPhoto(true);
+            const option = {
+              method: 'put',
+              headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({userId:currentUser[0]._id,profilePicture:res.assets[0].base64})
+            }
+            fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,option)
+            .then(res=>{
+              Toast.show({
+                type:'success',
+                text1:'Success',
+                text2:'Profile picture has been updated!'
+              })
+            }).catch(e=>{
+              Toast.show({
+                type:'error',
+                text1:'Error',
+                text2:"Cannot update profile picture!"
+              })
+            })
           }
         });
       } else {
