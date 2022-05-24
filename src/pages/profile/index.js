@@ -104,6 +104,7 @@ const Profile = ({navigation})=>{
             setIsFetching(true)
             fetch(`https://riport-app.herokuapp.com/api/users/${currentUser[0]._id}`,option)
             .then(res=>{
+              top.value = withSpring(dimensions.height / 1,springConfig)
               setIsFetching(false)
               Toast.show({
                 type:'success',
@@ -111,6 +112,7 @@ const Profile = ({navigation})=>{
                 text2:'Profile picture has been updated!'
               })
             }).catch(e=>{
+              top.value = withSpring(dimensions.height / 1,springConfig)
               Toast.show({
                 type:'error',
                 text1:'Error',
@@ -121,6 +123,7 @@ const Profile = ({navigation})=>{
             .finally(()=>{
               setIsFetching(false)
             })
+            top.value = withSpring(dimensions.height / 1,springConfig)
           }
         });
       } else {
