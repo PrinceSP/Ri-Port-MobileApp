@@ -89,7 +89,7 @@ const Login =({navigation})=>{
           <Gap height={25}/>
           <View style={{flexDirection:'row'}}>
             <Text style={style.poppinsMed}>Not a user yet?</Text>
-            <Button name='Sign Up' color='#FF1D1D' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>signUp()}/>
+            <Button name='Sign Up' color='#f73b3b' fam='Poppins-Bold' style={{marginLeft:4}} onPress={()=>signUp()}/>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -104,7 +104,7 @@ const style = StyleSheet.create({
   },
   button:{
     marginBottom:15,
-    backgroundColor:'#ED6262',
+    backgroundColor:'#f73b3b',
     height:60,
     width:329,
     borderRadius:14,
