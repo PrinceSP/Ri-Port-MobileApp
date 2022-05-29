@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderWidth:1.5,
     borderStyle:'solid',
-    borderColor:"#4EAAFF",
+    borderColor:"#9EAAFF",
+    borderRadius:10,
     backgroundColor:'#F8F8F8'
   },
   textView:{textAlign:'center',fontSize:20,paddingHorizontal:20,paddingVertical:13,color:"#000"},
