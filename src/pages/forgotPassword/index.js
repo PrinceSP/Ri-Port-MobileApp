@@ -3,11 +3,9 @@ import {View,Text,StyleSheet,Dimensions,Modal,Linking} from 'react-native'
 import {Header,toastConfig,Gap,Input,Button} from '../../components'
 import {CheckedEmail} from '../../assets'
 import {ArrowRTwo} from "../../assets"
-import {useTheme} from '../../context/themeContext'
 import Toast from 'react-native-toast-message'
 
 const ForgotPassword = ({navigation}) => {
-  const {theme} = useTheme()
   const [username,setUsername] = useState('')
   const {width} = Dimensions.get('screen')
   const [toggle,setToggle] = useState(false)
@@ -19,13 +17,13 @@ const ForgotPassword = ({navigation}) => {
     }
 
     return(
-      <View style={{backgroundColor:theme.backgroundColor,flex:1,alignItems:'center'}}>
+      <View style={{backgroundColor:"#fff",flex:1,alignItems:'center'}}>
         <Gap height={120}/>
         <View style={{backgroundColor:"#85F4FD",height:100,width:100,borderRadius:20,alignItems:'center',justifyContent:'center'}}>
           <CheckedEmail height={60}/>
         </View>
         <Gap height={30}/>
-        <Text style={[style.headingTitle,{color:theme.color}]}>Check your mail</Text>
+        <Text style={[style.headingTitle,{color:"#000"}]}>Check your mail</Text>
         <Gap height={10}/>
         <Text style={style.secondaryHeading}>We have sent a password recover</Text>
         <Text style={style.secondaryHeading}>link to your email.</Text>
@@ -81,22 +79,22 @@ const ForgotPassword = ({navigation}) => {
   }
 
   return (
-    <View style={[style.container,{backgroundColor:theme.backgroundColor}]}>
+    <View style={[style.container,{backgroundColor:"#fff"}]}>
       <Gap height={15}/>
       <Header name="" action='Cancel' nav={navigation}/>
       <Toast config={toastConfig} position="top" topOffset={0} visibilityTime={2000}/>
       <Gap height={45}/>
       <View style={style.content}>
-        <Text style={[style.headingTitle,{color:theme.color}]}>Forgot your password?</Text>
+        <Text style={style.headingTitle}>Forgot your password?</Text>
         <Text style={style.secondaryHeading}>Enter the username associated with your account</Text>
         <Text style={style.secondaryHeading}>and we'll send an email with link to</Text>
         <Text style={style.secondaryHeading}>reset your password</Text>
         <Gap height={60}/>
-        <Input borderRadius={8} width={width/1.1} setLabel={true} label="Username" color={theme.backgroundColor==="#fff"?"#777":theme.color} placeholder="princesiachin98" defaultValue={username} onChangeText={event=>setUsername(event)}/>
+        <Input borderRadius={8} width={width/1.1} setLabel={true} label="Username" color="#666" placeholder="princesiachin98" defaultValue={username} onChangeText={event=>setUsername(event)}/>
         <Gap height={40}/>
         <View style={style.sendContainer}>
-          <Text style={[style.send,{color:theme.color}]}>Send Link</Text>
-          <Button name={<ArrowRTwo/>} color='#fff' style={[style.buttonSend,{backgroundColor:theme.backgroundColor==="#fff"?"#ED6262":"#000"}]} fam='Poppins-Bold' onPress={handleForgot}/>
+          <Text style={style.send}>Send Link</Text>
+          <Button name={<ArrowRTwo/>} color='#fff' style={[style.buttonSend,{backgroundColor:"#ED6262"}]} fam='Poppins-Bold' onPress={handleForgot}/>
         </View>
       </View>
       {toggle&&<Modal animationType="slide" transparent={true} visible={toggle}>
@@ -111,7 +109,8 @@ const style = StyleSheet.create({
   },
   headingTitle:{
     fontSize:26,
-    fontFamily:"Poppins-Bold"
+    fontFamily:"Poppins-Bold",
+    color:"#222"
   },
   content:{
     paddingHorizontal:17
@@ -127,7 +126,8 @@ const style = StyleSheet.create({
   },
   send:{
     fontSize:20,
-    fontFamily:'Poppins-Bold'
+    fontFamily:'Poppins-Bold',
+    color:"#000"
   },
   buttonSend:{
     width:90,
