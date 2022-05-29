@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Text,View,StyleSheet,TouchableOpacity,Platform} from 'react-native'
+import {Text,View,StyleSheet,TouchableOpacity,Platform,ActivityIndicator} from 'react-native'
 import {Input,Gap,Button,Header,ImagePicker,toastConfig} from '../../components'
 import {isValidObjField,updateError,isValidEmail} from '../../config/validator'
 import {EyeTrue,EyeFalse} from '../../assets'
@@ -15,6 +15,7 @@ const Register =({navigation})=>{
   const [message,setMessage] = useState("")
   const [hide,setHide] = useState(true)
   const {username,email,password,ktpId} = userInfo
+  const [isFetching,setIsFetching] = useState(false)
 
   const validation = ()=>{
     if(!isValidObjField(userInfo))
@@ -44,9 +45,11 @@ const Register =({navigation})=>{
           },
           body: JSON.stringify({username,email:{mail:email},phoneNumber:{number:'-'},password, ktpId,role:'reporter'})
         }
+        setIsFetching(true)
         const req = await fetch('https://riport-app.herokuapp.com/api/auth/register',options)
         const results = await req.json()
         if (req.status === 200) {
+          setIsFetching(false)
           Toast.show({
             type:'success',
             text1:'Success',
@@ -56,6 +59,7 @@ const Register =({navigation})=>{
             navigation.navigate('Login')
           },1000)
         } else{
+          setIsFetching(false)
           Toast.show({
             type:'error',
             text1:'Error',
@@ -66,6 +70,7 @@ const Register =({navigation})=>{
         setUserInfo({...userInfo,username:'',email:'',password:'',ktpId:''})
       }
     } catch (e) {
+      setIsFetching(false)
       Toast.show({
         type:'error',
         text1:'Error',
@@ -84,6 +89,7 @@ const Register =({navigation})=>{
       <Text style={style.headingText}>Create a New Account</Text>
       <Text style={style.desc}>{`Create an account so you can post your personal report or see others`}</Text>
       <View style={{alignItems:'center',justifyContent:'center',paddingBottom:35}}>
+        {isFetching===true&&<ActivityIndicator style={{zIndex:1,position:'absolute',top:200,backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
         <Gap height={40}/>
         {message ? <Text style={{color:'#000'}}>{message}</Text> : null}
         <Input borderRadius={14} placeholder="goncalves210" defaultValue={username} onChangeText={(event)=>{
