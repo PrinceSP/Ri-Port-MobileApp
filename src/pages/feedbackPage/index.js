@@ -91,7 +91,7 @@ const style = StyleSheet.create({
     justifyContent:'center'
   },
   modalContainer:{
-    backgroundColor:'#fff',
+    backgroundColor:"#fff",
     minHeight:405,
     minWidth:329,
     borderRadius:20,
