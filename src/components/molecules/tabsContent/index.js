@@ -15,7 +15,7 @@ const TabsContent = ({state,navigation})=>{
   }
 
   return(
-      <View style={[style.container,{backgroundColor:theme.backgroundColor}]}>
+      <View style={[style.container,{backgroundColor:theme.backgroundColor==="#fff"?"#fff":"#333333"}]}>
         {
           routes.map(route=>{
             return(
