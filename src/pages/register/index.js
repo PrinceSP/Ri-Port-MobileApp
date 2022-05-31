@@ -24,7 +24,7 @@ const Register =({navigation})=>{
       return updateError("Username must have min 6 characters",setMessage)
     if(!isValidEmail(email))
       return updateError("Email address must contains '@'",setMessage)
-    if(email.lentgh < 8)
+    if(email.length < 8)
       return updateError("Email length must be 8 or more characters")
     if(!ktpId.trim() || ktpId.length < 16)
       return updateError("KTP ID's length must have 16 characters or more",setMessage)
