@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {Text,View,StyleSheet,Dimensions,useWindowDimensions} from 'react-native'
+import {Text,View,StyleSheet,Dimensions,useWindowDimensions,ActivityIndicator} from 'react-native'
 import {Header,Gap,ReportForm,MapFinder,Button,ReportInput,toastConfig} from '../../components'
 import {launchImageLibrary} from 'react-native-image-picker'
 import {AuthContext} from '../../context/authContext'
@@ -24,6 +24,7 @@ const ReportPage = ({navigation})=>{
     description:''
   })
   const {theme} = useTheme()
+  const [isFetching,setIsFetching] = useState(false)
 
   const getImage=()=>{
     const options={
@@ -58,6 +59,7 @@ const ReportPage = ({navigation})=>{
   }
 
   const submit = async()=>{
+    top.value = withSpring(dimensions.height / 1,springConfig)
     try {
       const options = {
         method: 'post',
@@ -82,8 +84,10 @@ const ReportPage = ({navigation})=>{
           status:'Pending'
         })
       }
-      const res = currentUser[0].phoneNumber.verified===true && await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
+      setIsFetching(true)
+      const res = currentUser[0].email.verified===true && await fetch(`https://riport-app.herokuapp.com/api/posts/`,options)
       if(res.status === 201){
+        setIsFetching(false)
         Toast.show({
           type:'success',
           text1:'Success',
@@ -95,6 +99,7 @@ const ReportPage = ({navigation})=>{
       setReportInfo({})
       setPhotoName('no photo uploaded')
     } catch (e) {
+      setIsFetching(false)
       Toast.show({
         type:'error',
         text1:'Failed',
@@ -149,7 +154,7 @@ const ReportPage = ({navigation})=>{
   return(
     <>
       <MapFinder getGeometrics={getGeometrics} navigation={navigation}/>
-      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={3000} autoHide={true}/>
+      {isFetching===true && <ActivityIndicator style={{zIndex:1,position:'absolute',top:200,left:"43%",backgroundColor:'#bcbcbc',padding:10,borderRadius:50}} size="large" color="#fff"/>}
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[bottomSheet,bottomSheetStyle,{backgroundColor:theme.backgroundColor,shadowColor:theme.color}]}>
           <View style={sheetLine}/>
@@ -179,6 +184,7 @@ const ReportPage = ({navigation})=>{
       <Button name="+" style={[toggleBottomSheet,{backgroundColor:'#44f'}]} color="#fff" size={40} onPress={()=>{
         top.value = withSpring(dimensions.height / 25,springConfig)
       }}/>
+      <Toast config={toastConfig} position='top' topOffset={0} visibilityTime={3000} autoHide={true}/>
     </>
   )
 }
