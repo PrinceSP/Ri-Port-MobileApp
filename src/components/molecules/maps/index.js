@@ -372,7 +372,6 @@ const MapFinder = ({getGeometrics,navigation})=>{
 						textInput:{color:'#000',borderRadius:15,height:50,elevation:10,marginHorizontal:10},
 						description:{
 							fontWeight:'bold',
-							// zIndex:2,
 							color:'#000',
 						}
 					}}
