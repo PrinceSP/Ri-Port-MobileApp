@@ -48,7 +48,7 @@ const Home = ({navigation})=>{
             onRefresh={fetchDatas}
             showsVerticalScrollIndicator={false}
             data={datas}
-            renderItem={({item,index})=><ReportPost userPicture={item?.userPicture} username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={item.roadPicture} backgroundColor={theme.backgroundColor}/>}
+            renderItem={({item,index})=>item.status==='Approved' && <ReportPost userPicture={item?.userPicture} username={item.fullname} desc={item.desc} location={item.address} color={theme.color} picture={item.roadPicture} backgroundColor={theme.backgroundColor}/>}
             ListHeaderComponent={
               <View style={{backgroundColor:theme.backgroundColor}}>
                 <View style={{flexDirection:'row'}}>
