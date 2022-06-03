@@ -11,6 +11,7 @@ import ReportPost from './reportsPosts'
 import ThemeWrapper from './themeWrapper'
 import Empty from './empty'
 import Skeleton from './skeleton'
+import SkeletonTwo from './skeleton2'
 
-export {OnBoarding,Header,DrawerContent,TabsContent,ThemeWrapper,Empty,Skeleton,
+export {OnBoarding,Header,DrawerContent,TabsContent,ThemeWrapper,Empty,Skeleton,SkeletonTwo,
   MapFinder,ImagePicker,ModalSuccess,FeedbackForm,ReportForm,ReportPost}
