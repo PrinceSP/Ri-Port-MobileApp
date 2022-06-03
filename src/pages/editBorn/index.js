@@ -93,7 +93,7 @@ const EditBornDate = ({navigation}) => {
 }
 const styles=StyleSheet.create({
   button:{
-    backgroundColor:'#FFB830',
+    backgroundColor:'#4444FF',
     height:50,
     width:279,
     borderRadius:14,

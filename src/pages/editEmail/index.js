@@ -150,8 +150,8 @@ const EditEmail = ({navigation}) => {
       </View>
       <Gap height={65}/>
       <View style={{alignItems:'center'}}>
-        <Button style={[styles.button,{backgroundColor:'#FFB830'}]} name="Verify current email" color="#FFF" weight={500} size={22} onPress={()=>setToggle(true)}/>
-        <Text style={{marginVertical:20,color:theme.color}}>OR</Text>
+        {currentUser[0].email.verified === true ? null : <Button style={[styles.button,{backgroundColor:"#FFB830"}]} name="Verify current email" color="#FFF" weight={500} size={22} onPress={()=>setToggle(true)}/>}
+        {currentUser[0].email.verified === true ? null : <Text style={{marginVertical:20,color:theme.color}}>OR</Text>}
         <Button style={[styles.button,{backgroundColor:"#4444FF"}]} name="Update email" color="#FFF" weight={500} size={22} onPress={()=>submit()}/>
       </View>
       {toggle&&<Modal animationType="slide" transparent={true} visible={toggle}>

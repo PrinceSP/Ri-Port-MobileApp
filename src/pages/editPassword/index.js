@@ -101,7 +101,7 @@ const EditPassword = ({navigation}) => {
 }
 const styles=StyleSheet.create({
   button:{
-    backgroundColor:'#7777FF',
+    backgroundColor:'#4444FF',
     height:55,
     width:width/1.115,
     borderRadius:10,

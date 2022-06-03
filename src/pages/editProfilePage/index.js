@@ -83,7 +83,7 @@ import Toast from 'react-native-toast-message';
 const style = StyleSheet.create({
   button:{
     marginBottom:15,
-    backgroundColor:'#FFB830',
+    backgroundColor:'#4444FF',
     height:50,
     width:329,
     borderRadius:14,
