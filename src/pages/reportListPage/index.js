@@ -41,7 +41,8 @@ const ReportListPage=({navigation})=>{
       <Header name="Your reports" action='< back' nav={navigation} color={theme.color} bgColor={theme.backgroundColor}/>
       <Gap height={35}/>
       <SafeAreaView style={{paddingHorizontal:14}}>
-        {isLoading === true ? <FlatList
+        {isLoading === true ?
+          <FlatList
             keyExtractor={item => item._id}
             refreshing={refreshing}
             onRefresh={fetchDatas}
