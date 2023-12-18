@@ -28,7 +28,7 @@ const ForgotPassword = ({navigation}) => {
         <Text style={style.secondaryHeading}>We have sent a password recover</Text>
         <Text style={style.secondaryHeading}>link to your email.</Text>
         <Gap height={40}/>
-        <Button name="Open email app" color='#fff' style={style.buttonOpen} fam='Poppins-SemiBold' size={18} onPress={()=>Linking.openURL("mailto:princedinda1228@gmail.com")}/>
+        <Button name="Open email app" color='#fff' style={style.buttonOpen} fam='Poppins-SemiBold' size={18} onPress={()=>Linking.openURL("mailto:princepasombaran@gmail.com")}/>
         <Gap height={24}/>
         <Button name="Skip, I'll confirm later" color='#777' fam='Poppins-SemiBold' size={18} onPress={()=>setToggle(false)}/>
         <View style={{alignItems:'center',justifyContent:'center',position:'absolute',bottom:"5%"}}>
